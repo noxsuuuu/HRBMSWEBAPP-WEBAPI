@@ -27,7 +27,7 @@ namespace HRBMSWEBAPP.Models
         public bool Status { get; set; }
 
         [NotMapped]
-        public string DisplayStatus => Status ? "Available" : "Fully Booked";
+        public string DisplayStatus => Status ? "Available" : "Booked";
 
         [DisplayName("User ID")]
         public int UserId { get; set; }

@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.AspNetCore.Identity;
 
 namespace HRBMSWEBAPP.Models
 {
-    public class Role
+    public class Role : IdentityUser
     {
         [DisplayName("Role ID")]
         [Key]
@@ -14,7 +15,7 @@ namespace HRBMSWEBAPP.Models
         [Required]
         public string Role_Name { get; set; }
 
-        [ValidateNever]
-        public ICollection<User> Users { get; set; }
+        //[ValidateNever]
+        //public ICollection<User> Users { get; set; }
     }
 }

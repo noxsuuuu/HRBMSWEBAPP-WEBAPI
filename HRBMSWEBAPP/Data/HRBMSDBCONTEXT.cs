@@ -18,7 +18,8 @@ namespace HRBMSWEBAPP.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-                modelBuilder.InvokeUserSeed();
+            modelBuilder.InvokeUserSeed();
+            modelBuilder.InvokeRoleSeed();
 
             base.OnModelCreating(modelBuilder);
         }
