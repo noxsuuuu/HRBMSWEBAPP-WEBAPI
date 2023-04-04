@@ -12,45 +12,54 @@ namespace HRBMSWEBAPP.Repository.Database
             _context = context;
         }
 
-        public Task AddRoomCategories(RoomCategories category)
+        public RoomCategories AddRoomCategories(RoomCategories category)
         {
-            this._context.Add(category);
-            return this._context.SaveChangesAsync();
-        }
-
-        public Task DeleteRoomCategories(int category_id)
-        {
-            var category = this._context.Categories.FindAsync(category_id);
-            if (category.Result != null)
-            {
-                this._context.Categories.Remove(category.Result);
-            }
-
-            return this._context.SaveChangesAsync();
-        }
-
-        public Task<List<RoomCategories>> GetAllRoomCategories()
-        {
-            return this._context.Categories.ToListAsync();
-        }
-
-        public Task<RoomCategories> GetRoomCategoriesById(int category_id)
-        {
-            var category = this._context.Categories
-                    .FirstOrDefaultAsync(m => m.Id == category_id);
-
-            if (category == null)
-            {
-                return null;
-            }
+            _context.Add(category);
+            _context.SaveChanges();
 
             return category;
         }
 
-        public Task UpdateRoomCategories(int category_id, RoomCategories category)
+        public RoomCategories DeleteRoomCategories(int category_id)
         {
-            this._context.Update(category);
-            return this._context.SaveChangesAsync();
+            var category = _context.Categories.Find(category_id);
+            if (category != null)
+            {
+                _context.Categories.Remove(category);
+            }
+
+             _context.SaveChanges();
+
+            return category;
+
+        }
+        
+        public List<RoomCategories> GetAllRoomCategories()
+        {
+             return _context.Categories.AsNoTracking().ToList();
+
+
+        }
+
+        public RoomCategories GetRoomCategoriesById(int category_id)
+        {
+            var category = _context.Categories
+                    .FirstOrDefault(m => m.Id == category_id);
+
+            if (category == null)
+            {
+                 return null;
+            }
+
+             return category;
+        }
+
+        public RoomCategories UpdateRoomCategories(int category_id, RoomCategories category)
+        {
+            _context.Update(category);
+             _context.SaveChanges();
+
+            return category;
         }
     }
 }

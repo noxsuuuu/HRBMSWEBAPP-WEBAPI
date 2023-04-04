@@ -1,4 +1,4 @@
-﻿using HRBMSWEBAPP.Models;
+﻿using HRBMSWEBAPP.ViewModel;
 using Microsoft.EntityFrameworkCore;
 
 namespace HRBMSWEBAPP.Data.Seed
@@ -8,23 +8,16 @@ namespace HRBMSWEBAPP.Data.Seed
         public static void InvokeRoleSeed(this ModelBuilder modelBuilder)
         {
             modelBuilder
-                .Entity<Role>()
+                .Entity<RoleViewModel>()
                 .HasData(
-                    new Role
+                    new RoleViewModel
                     {
-                        Id = 1,
-                        Role_Name = "Admin",
+                        Name = "Admin",
                     },
-                     new Role
+                     new RoleViewModel
                      {
-                         Id = 2,
-                         Role_Name = "Staff",
-                     },
-                      new Role
-                      {
-                          Id = 3,
-                          Role_Name = "Guest",
-                      }
+                         Name = "Staff",
+                     }
                 );
         }
     }

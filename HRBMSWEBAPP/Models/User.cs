@@ -36,11 +36,11 @@ namespace HRBMSWEBAPP.Models
 
         public string Address { get; set; }
 
-        [DisplayName("Role ID")]       
-        public int RoleId { get; set; }
+        //[DisplayName("Role ID")]       
+        //public int RoleId { get; set; }
 
-        [ValidateNever]
-        public Role Role { get; set; }
+        //[ValidateNever]
+        //public Role Role { get; set; }
 
 
         [ValidateNever]
@@ -57,14 +57,13 @@ namespace HRBMSWEBAPP.Models
 
         }
 
-        public User(int id, string firstName, string lastName, string email, string phone, int roleid)
+        public User(int id, string firstName, string lastName, string email, string phone)
         {
             Id = id;
             First_Name = firstName;
             Last_Name = lastName;
             Email = email;
             Phone = phone;
-            RoleId = roleid;
 
         }
     }

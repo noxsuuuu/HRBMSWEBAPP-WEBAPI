@@ -4,10 +4,10 @@ namespace HRBMSWEBAPP.Repository
 {
     public interface IRoomCatDBRepository
     {
-        Task<List<RoomCategories>> GetAllRoomCategories();
-        Task<RoomCategories> GetRoomCategoriesById(int category_id);
-        Task AddRoomCategories(RoomCategories category);
-        Task DeleteRoomCategories(int category_id);
-        Task UpdateRoomCategories(int category_id, RoomCategories category);
+        List<RoomCategories> GetAllRoomCategories();
+        RoomCategories GetRoomCategoriesById(int category_id);
+        RoomCategories AddRoomCategories(RoomCategories category);
+        RoomCategories DeleteRoomCategories(int category_id);
+        RoomCategories UpdateRoomCategories(int category_id, RoomCategories category);
     }
 }

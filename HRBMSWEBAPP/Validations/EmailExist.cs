@@ -22,8 +22,8 @@ namespace HRBMSWEBAPP.Validations
                     {
                         HRBMSDBCONTEXT _context = new HRBMSDBCONTEXT();
 
-                        emailExist = (_context.User?
-                            .Any(e => e.Email == email && e.Id != userid))
+                        emailExist = (_context.Users?
+                            .Any(e => e.Email == email && e.Id != userid.ToString()))
                                 .GetValueOrDefault();
                         //here
                     }

@@ -1,4 +1,5 @@
 ﻿using HRBMSWEBAPP.Models;
+using HRBMSWEBAPP.ViewModel;
 using Microsoft.EntityFrameworkCore;
 
 namespace HRBMSWEBAPP.Data.Seed
@@ -8,35 +9,50 @@ namespace HRBMSWEBAPP.Data.Seed
         public static void InvokeUserSeed(this ModelBuilder modelBuilder)
         {
             modelBuilder
-                .Entity<User>()
+                .Entity<ApplicationUser>()
                 .HasData(
-                     new User
+                     new ApplicationUser
                      {
-                         Id = 1,
-                         First_Name = "admin",
-                         RoleId = 1,
+                         //Id = 1,
+                         FirstName = "Admin",
+                         LastName = "Manager",
+                         Email = "admin@gmail.com",
+                         PhoneNumber = "09079260368",
+                         //Address = "Rizal, PH"
                      },
-                    new User
+                    new ApplicationUser
                     {
-                        Id = 2,
-                        First_Name = "Ivhan",
-                        Last_Name = "De Leon",
+                        //Id = 2,
+                        FirstName = "Ivhan",
+                        LastName = "De Leon",
                         Email = "ivhan@gmail.com",
-                        Phone = "09079260368",
-                        RoleId = 2,
-                        Address = "Rizal, PH"
+                        PhoneNumber = "09079260368",
+                        //Address = "Rizal, PH"
                     },
-                     new User
+                     new ApplicationUser
                      {
-                         Id = 3,
-                         First_Name = "Mark",
-                         Last_Name = "Mayaman",
+                         //Id = 3,
+                         FirstName = "Mark",
+                         LastName = "Mayaman",
                          Email = "mark@gmail.com",
-                         Phone = "09125635896",
-                         RoleId = 3,
-                         Address = "Las Pinas, PH"
+                         PhoneNumber = "09125635896",
+                         //Address = "Las Pinas, PH"
                      }
                 );
+
+            //modelBuilder
+            //    .Entity<RegisterViewModel>()
+            //    .HasData(
+            //         new RegisterViewModel
+            //         {
+            //             Id = 1,
+            //             First_Name = "admin",
+            //             Last_Name = "admin",
+            //             Email = "admin@gmail.com",
+            //             Phone = "09079260368",
+            //             RoleId = 1,
+            //             Address = "Rizal, PH"
+            //         },
         }
     }
 }

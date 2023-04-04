@@ -13,33 +13,35 @@ namespace HRBMSWEBAPP.Repository.Database
             _context = context;
         }
 
-        public Task AddRoom(Room room)
+        public Room AddRoom(Room room)
         {
-            this._context.Add(room);
-            return this._context.SaveChangesAsync();
+            _context.Add(room);
+            _context.SaveChangesAsync();
+            return room;
         }
 
-        public Task DeleteRoom(int room_id)
+        public Room DeleteRoom(int room_id)
         {
-            var room = this._context.Room.FindAsync(room_id);
-            if (room.Result != null)
+            var room = GetRoomById(room_id);
+            if (room != null)
             {
-                this._context.Room.Remove(room.Result);
+                _context.Room.Remove(room);
+                _context.SaveChanges();
             }
-
-            return this._context.SaveChangesAsync();
+ 
+            return room;
         }
 
-        public Task<List<Room>> GetAllRoom()
+        public List<Room> GetAllRoom()
         {
-            return this._context.Room.Include(e => e.Category).ToListAsync();
+            return _context.Room.AsNoTracking().ToList();
         }
 
-        public Task<Room> GetRoomById(int room_id)
+        public Room GetRoomById(int room_id)
         {
-            var room = this._context.Room
+            var room = _context.Room
                    .Include(e => e.Category)
-                   .FirstOrDefaultAsync(m => m.Id == room_id);
+                   .FirstOrDefault(m => m.Id == room_id);
 
             if (room == null)
             {
@@ -49,10 +51,12 @@ namespace HRBMSWEBAPP.Repository.Database
             return room;
         }
 
-        public Task UpdateRoom(int room_id, Room room)
+        public Room UpdateRoom(int room_id, Room room)
         {
-            this._context.Update(room);
-            return this._context.SaveChangesAsync();
+            _context.Update(room);
+             _context.SaveChanges();
+
+            return room;
         }
     }
 }
