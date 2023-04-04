@@ -1,10 +1,11 @@
 ﻿using HRBMSWEBAPP.Data.Seed;
 using HRBMSWEBAPP.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace HRBMSWEBAPP.Data
 {
-    public class HRBMSDBCONTEXT : DbContext 
+    public class HRBMSDBCONTEXT : IdentityDbContext<ApplicationUser> 
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -19,7 +20,7 @@ namespace HRBMSWEBAPP.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.InvokeUserSeed();
-            modelBuilder.InvokeRoleSeed();
+            //modelBuilder.InvokeRoleSeed();
 
             base.OnModelCreating(modelBuilder);
         }
@@ -27,7 +28,7 @@ namespace HRBMSWEBAPP.Data
 
         public DbSet<Room> Room { get; set; }
 
-        public DbSet<Role> Role { get; set; }
+       // public DbSet<Role> Role { get; set; }
         public DbSet<Invoice> Invoice { get; set; }
 
         public DbSet<RoomCategories> Categories { get; set; }

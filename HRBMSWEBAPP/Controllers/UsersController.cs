@@ -1,168 +1,90 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using HRBMSWEBAPP.Models;
+using HRBMSWEBAPP.ViewModel;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using HRBMSWEBAPP.Data;
-using HRBMSWEBAPP.Models;
+using HRBMSWEBAPP.Repository;
+using HRBMSWEBAPP.Repository.Database;
 
 namespace HRBMSWEBAPP.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class UsersController : Controller
     {
-        private readonly HRBMSDBCONTEXT _context;
-
-        public UsersController(HRBMSDBCONTEXT context)
+        private UserManager<ApplicationUser> _userManager { get; }
+        public UsersController(UserManager<ApplicationUser> userManager)
         {
-            _context = context;
+            _userManager = userManager;
         }
-
-        // GET: Users
-        public async Task<IActionResult> Index()
+        // [AllowAnonymous]
+        public IActionResult GetAllUsers()
         {
-            var hRBMSDBCONTEXT = _context.User.Include(u => u.Role);
-            return View(await hRBMSDBCONTEXT.ToListAsync());
+            var userlist = _userManager.Users.ToList();
+            return View(userlist);
         }
-
-        // GET: Users/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(string userId)
         {
-            if (id == null || _context.User == null)
-            {
-                return NotFound();
-            }
-
-            var user = await _context.User
-                .Include(u => u.Role)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
+            var user = _userManager.Users.FirstOrDefault(u => u.Id == userId);
             return View(user);
         }
+        public async Task<IActionResult> Delete(string userId)
+        {
+            var user = _userManager.Users.FirstOrDefault(u => u.Id == userId);
+            var userlist = await _userManager.DeleteAsync(user);
+            return RedirectToAction(controllerName: "User", actionName: "GetAllUsers"); // reload the getall page it self
+        }
 
-        // GET: Users/Create
+        [HttpGet]
         public IActionResult Create()
         {
-            ViewData["RoleId"] = new SelectList(_context.Role, "Id", "Role_Name");
             return View();
         }
-
-        // POST: Users/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,First_Name,Last_Name,Email,Phone,Address,RoleId")] User user)
+        public async Task<IActionResult> Create(RegisterViewModel userViewModel) // model binded this where the views data is accepted 
         {
             if (ModelState.IsValid)
             {
-                _context.Add(user);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var userModel = new ApplicationUser
+                {
+                    UserName = userViewModel.Email,
+                    Email = userViewModel.Email,
+                    FirstName = userViewModel.FirstName,
+                    LastName = userViewModel.LastName
+                };
+                var result = await _userManager.CreateAsync(userModel, userViewModel.Password);
+                if (result.Succeeded)
+                {
+                    // notify user created
+
+                }
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
             }
-            ViewData["RoleId"] = new SelectList(_context.Role, "Id", "Role_Name", user.RoleId);
-            return View(user);
+            return View(userViewModel);
         }
 
-        // GET: Users/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        [HttpGet]
+        public async Task<IActionResult> Update(string userId)
         {
-            if (id == null || _context.User == null)
+            var user = _userManager.Users.FirstOrDefault(u => u.Id == userId);
+            var roles = await _userManager.GetRolesAsync(user);
+            EditUserViewModel userViewModel = new EditUserViewModel()
             {
-                return NotFound();
-            }
-
-            var user = await _context.User.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            ViewData["RoleId"] = new SelectList(_context.Role, "Id", "Role_Name", user.RoleId);
-            return View(user);
+                FirstName = user.FirstName,
+                Email = user.Email,
+                LastName = user.LastName,
+                Roles = roles
+            };
+            return View(userViewModel);
         }
-
-        // POST: Users/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,First_Name,Last_Name,Email,Phone,Address,RoleId")] User user)
+        public IActionResult Update(EditUserViewModel user)
         {
-            if (id != user.Id)
-            {
-                return NotFound();
-            }
+            //var user = _userManager.Users.FirstOrDefault(u => u.Id == newUser);
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(user);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!UserExists(user.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["RoleId"] = new SelectList(_context.Role, "Id", "Role_Name", user.RoleId);
-            return View(user);
-        }
-
-        // GET: Users/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _context.User == null)
-            {
-                return NotFound();
-            }
-
-            var user = await _context.User
-                .Include(u => u.Role)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            return View(user);
-        }
-
-        // POST: Users/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.User == null)
-            {
-                return Problem("Entity set 'HRBMSDBCONTEXT.User'  is null.");
-            }
-            var user = await _context.User.FindAsync(id);
-            if (user != null)
-            {
-                _context.User.Remove(user);
-            }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool UserExists(int id)
-        {
-          return (_context.User?.Any(e => e.Id == id)).GetValueOrDefault();
+            return RedirectToAction("GetAllUsers");
         }
     }
 }

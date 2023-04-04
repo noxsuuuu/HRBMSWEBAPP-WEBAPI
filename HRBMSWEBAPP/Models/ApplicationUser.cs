@@ -9,9 +9,9 @@ namespace HRBMSWEBAPP.Models
     public class ApplicationUser : IdentityUser
     {
 
-        [DisplayName("User ID")]
-        [Key]
-        public int Id { get; set; }
+        //[DisplayName("User ID")]
+        //[Key]
+        //public int Id { get; set; }
 
         [DisplayName("First Name")]
         public string FirstName { get; set; }

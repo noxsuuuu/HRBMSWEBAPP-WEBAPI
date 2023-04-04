@@ -39,8 +39,8 @@ namespace HRBMSWEBAPP.Models
         [DisplayName("Role ID")]       
         public int RoleId { get; set; }
 
-        [ValidateNever]
-        public Role Role { get; set; }
+        //[ValidateNever]
+        //public Role Role { get; set; }
 
 
         [ValidateNever]
