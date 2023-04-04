@@ -21,25 +21,19 @@ namespace HRBMSWEBAPP.Controllers
         // [AllowAnonymous]
 
 
-        public async Task<IActionResult> GetAllUsers()
+        public IActionResult GetAllUsers()
         {
-            var userlist = await _userManager.Users.ToListAsync();
+            var userlist = _userManager.Users.ToList();
             return View(userlist);
         }
-        public async Task<IActionResult> Details(string userId)
+        public IActionResult Details(string userId)
         {
-           /* ApplicationUser user = await _userManager.FindByIdAsync(userId.ToString());
-            if (user != null)
+            
+                var user =  _userManager.Users.FirstOrDefault(u => u.Id == userId);
+              
                 return View(user);
-            else
-                return RedirectToAction("GetAllUsers");
-            */
-            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId);
-            if (user != null)
-                return View(user);
-            else
-                return RedirectToAction("GetAllUsers");
-        }
+
+    }
         public async Task<IActionResult> Delete(string userId)
         {
             var user = _userManager.Users.FirstOrDefault(u => u.Id == userId);
@@ -64,6 +58,7 @@ namespace HRBMSWEBAPP.Controllers
                     FirstName = userViewModel.FirstName,
                     LastName = userViewModel.LastName,
                     PhoneNumber = userViewModel.PhoneNumber
+                    
                 };
                 var result = await _userManager.CreateAsync(userModel, userViewModel.Password);
                 if (result.Succeeded)
@@ -82,7 +77,7 @@ namespace HRBMSWEBAPP.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(string userId)
         {
-            var user = _userManager.Users.FirstOrDefault(u => u.Id == userId);
+            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId);
             var roles = await _userManager.GetRolesAsync(user);
             EditUserViewModel userViewModel = new EditUserViewModel()
             {

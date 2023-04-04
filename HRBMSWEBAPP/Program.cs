@@ -18,7 +18,8 @@ builder.Services.AddScoped<IRoomCatDBRepository, RoomCategoryDBRepository>();
 builder.Services.AddScoped<IinvoiceDBRepository, InvoiceDBRepository>();
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-    .AddEntityFrameworkStores<HRBMSDBCONTEXT>();
+    .AddEntityFrameworkStores<HRBMSDBCONTEXT>()
+    .AddDefaultTokenProviders();
 builder.Services.Configure<IdentityOptions>(options =>
 {
     options.Password.RequiredLength = 6;
@@ -39,6 +40,9 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
 }
 app.UseStaticFiles();
+
+
+app.Automigrate();
 
 app.UseRouting();
 
