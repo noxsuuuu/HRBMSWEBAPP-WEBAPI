@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HRBMSWEBAPP.Controllers
 {
-    [Authorize(Roles ="Administrator, User")]
+    [Authorize(Roles ="Admin, Guest")]
     public class BookingController : Controller
     {
 

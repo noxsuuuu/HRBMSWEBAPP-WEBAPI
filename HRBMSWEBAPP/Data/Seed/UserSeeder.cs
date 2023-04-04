@@ -14,11 +14,10 @@ namespace HRBMSWEBAPP.Data.Seed
                      new User
                      {
                          Id = 1,
-                         First_Name = "admin",
-                         Last_Name = "admin",
+                         First_Name = "Admin",
+                         Last_Name = "Manager",
                          Email = "admin@gmail.com",
                          Phone = "09079260368",
-                         RoleId = 1,
                          Address = "Rizal, PH"
                      },
                     new User
@@ -28,7 +27,6 @@ namespace HRBMSWEBAPP.Data.Seed
                         Last_Name = "De Leon",
                         Email = "ivhan@gmail.com",
                         Phone = "09079260368",
-                        RoleId = 2,
                         Address = "Rizal, PH"
                     },
                      new User
@@ -38,7 +36,6 @@ namespace HRBMSWEBAPP.Data.Seed
                          Last_Name = "Mayaman",
                          Email = "mark@gmail.com",
                          Phone = "09125635896",
-                         RoleId = 3,
                          Address = "Las Pinas, PH"
                      }
                 );

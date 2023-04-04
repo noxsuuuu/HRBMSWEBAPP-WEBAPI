@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HRBMSWEBAPP.Controllers
 {
-    [Authorize(Roles = "Administrator, Staff")]
+    [Authorize(Roles = "Admin, Staff")]
     public class RoomController : Controller
     {
         IRoomDBRepository _repo;
