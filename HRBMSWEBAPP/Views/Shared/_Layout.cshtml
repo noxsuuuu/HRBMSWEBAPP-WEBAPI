@@ -30,7 +30,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                       @* @if (_signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                        @* @if (_signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
                         {*@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Booking" asp-action="GetAllBookings">Booking</a>
@@ -44,15 +44,15 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Room" asp-action="GetAllRooms">Rooms</a>
                             </li>
-                            
-                            @*<li class="nav-item">
+
+                        @*<li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Invoice" asp-action="GetAllInvoice">Invoice</a>
                             </li>*@
-                            
-                            
+
+
                         @*}*@
 
-                       @*@if (_signInManager.IsSignedIn(User) && User.IsInRole("Staff"))
+                        @*@if (_signInManager.IsSignedIn(User) && User.IsInRole("Staff"))
                         {*@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Booking" asp-action="GetAllBookings">Booking</a>
@@ -72,9 +72,9 @@
                             </li>
                         }*@
                     </ul>
-                 @*   <ul class="nav navbar-nav my-2 my-lg-0">
-                       
-                        
+                    @*   <ul class="nav navbar-nav my-2 my-lg-0">
+
+
                         @if (_signInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
