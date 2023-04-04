@@ -1,4 +1,4 @@
-﻿@model RoomCategories
+﻿@model HRBMSWEBAPP.Models.RoomCategories
 
 @{
     ViewData["Title"] = "Details";
@@ -10,7 +10,12 @@
     <h4>User</h4>
     <hr />
     <dl class="row">
-        
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Room_Name)
         </dt>
@@ -35,7 +40,6 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.NoOfRooms)
         </dd>
-        
 
     </dl>
 </div>

@@ -7,7 +7,7 @@ namespace HRBMSWEBAPP.Controllers
     //[Authorize(Roles ="Admin, Guest")]
     public class RoomCategoryController : Controller
     {
-        IRoomCatDBRepository _repo;
+        private readonly IRoomCatDBRepository _repo;
 
         public RoomCategoryController(IRoomCatDBRepository repo)
         {
@@ -15,17 +15,23 @@ namespace HRBMSWEBAPP.Controllers
         }
 
 
-        public IActionResult GetAllRoomCategories()
+        public async Task<IActionResult> GetAllRoomCategories()
         {
-            var catlist = _repo.GetAllRoomCategories();
-            return View(catlist);
 
+            List<RoomCategories> catlist = await _repo.GetAllRoomCategories();
+            return View(catlist);
+ 
         }
 
-        public IActionResult Details(int catId)
+        public async Task<IActionResult> Details(int? id)
         {
-            var cat = _repo.GetRoomCategoriesById(catId);
-            return View(cat);
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            RoomCategories categories = await this._repo.GetRoomCategoriesById((int)id);
+            return View(categories);
         }
 
         public IActionResult Delete(int id)
