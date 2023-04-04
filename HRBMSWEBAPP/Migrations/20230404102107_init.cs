@@ -283,19 +283,19 @@ namespace HRBMSWEBAPP.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "User",
-                columns: new[] { "Id", "Address", "Email", "First_Name", "Last_Name", "Phone" },
-                values: new object[] { 1, "Rizal, PH", "admin@gmail.com", "Admin", "Manager", "09079260368" });
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "2e943cb7-2c16-45e4-941b-11427d08ec17", 0, "54e2f615-84b1-44b1-9779-3331fabc8c45", "ivhan@gmail.com", false, "Ivhan", "De Leon", false, null, null, null, null, "09079260368", false, "44caa3d7-032c-4e1f-9a63-7d9b1868e937", false, null });
 
             migrationBuilder.InsertData(
-                table: "User",
-                columns: new[] { "Id", "Address", "Email", "First_Name", "Last_Name", "Phone" },
-                values: new object[] { 2, "Rizal, PH", "ivhan@gmail.com", "Ivhan", "De Leon", "09079260368" });
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "6037f3a8-7d6d-4fa8-932a-16d765e79dd7", 0, "847085a2-c40b-46ff-81e2-303ccbbcd959", "mark@gmail.com", false, "Mark", "Mayaman", false, null, null, null, null, "09125635896", false, "fdbd85e7-8486-4257-a1b5-59acf16f6c69", false, null });
 
             migrationBuilder.InsertData(
-                table: "User",
-                columns: new[] { "Id", "Address", "Email", "First_Name", "Last_Name", "Phone" },
-                values: new object[] { 3, "Las Pinas, PH", "mark@gmail.com", "Mark", "Mayaman", "09125635896" });
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "fdf767f0-7191-474e-8b00-474754da7ed2", 0, "98ae09ba-4e51-42c1-956a-e01ff46241a3", "admin@gmail.com", false, "Admin", "Manager", false, null, null, null, null, "09079260368", false, "a15b03d5-200d-4a35-bded-29aaf0560de6", false, null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

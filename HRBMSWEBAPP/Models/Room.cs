@@ -23,7 +23,7 @@ namespace HRBMSWEBAPP.Models
         public int Floor_Number { get; set; }
 
         [ValidateNever]
-        public ICollection <RoomCategories> Category { get; set; }
+        public RoomCategories Category { get; set; }
 
     }
 }

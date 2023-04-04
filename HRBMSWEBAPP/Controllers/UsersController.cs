@@ -8,7 +8,7 @@ using HRBMSWEBAPP.Repository.Database;
 
 namespace HRBMSWEBAPP.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class UsersController : Controller
     {
         private UserManager<ApplicationUser> _userManager { get; }
@@ -17,6 +17,8 @@ namespace HRBMSWEBAPP.Controllers
             _userManager = userManager;
         }
         // [AllowAnonymous]
+
+
         public IActionResult GetAllUsers()
         {
             var userlist = _userManager.Users.ToList();
@@ -31,7 +33,7 @@ namespace HRBMSWEBAPP.Controllers
         {
             var user = _userManager.Users.FirstOrDefault(u => u.Id == userId);
             var userlist = await _userManager.DeleteAsync(user);
-            return RedirectToAction(controllerName: "User", actionName: "GetAllUsers"); // reload the getall page it self
+            return RedirectToAction(controllerName: "Users", actionName: "GetAllUsers"); // reload the getall page it self
         }
 
         [HttpGet]

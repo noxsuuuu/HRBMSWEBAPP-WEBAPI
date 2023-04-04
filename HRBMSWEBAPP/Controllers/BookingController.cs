@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HRBMSWEBAPP.Controllers
 {
-    [Authorize(Roles ="Admin, Guest")]
+    //[Authorize(Roles ="Admin, Guest")]
     public class BookingController : Controller
     {
 
@@ -13,7 +13,7 @@ namespace HRBMSWEBAPP.Controllers
        
         public BookingController(IBookingDBRepository repo)
         {
-            _repo = repo;
+            this._repo = repo;
         }
 
         public IActionResult GetAllBookings()

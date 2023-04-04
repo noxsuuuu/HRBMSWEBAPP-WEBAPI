@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HRBMSWEBAPP.Migrations
 {
     [DbContext(typeof(HRBMSDBCONTEXT))]
-    [Migration("20230404063915_init")]
+    [Migration("20230404102107_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -96,6 +96,53 @@ namespace HRBMSWEBAPP.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "fdf767f0-7191-474e-8b00-474754da7ed2",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "98ae09ba-4e51-42c1-956a-e01ff46241a3",
+                            Email = "admin@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Admin",
+                            LastName = "Manager",
+                            LockoutEnabled = false,
+                            PhoneNumber = "09079260368",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "a15b03d5-200d-4a35-bded-29aaf0560de6",
+                            TwoFactorEnabled = false
+                        },
+                        new
+                        {
+                            Id = "2e943cb7-2c16-45e4-941b-11427d08ec17",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "54e2f615-84b1-44b1-9779-3331fabc8c45",
+                            Email = "ivhan@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Ivhan",
+                            LastName = "De Leon",
+                            LockoutEnabled = false,
+                            PhoneNumber = "09079260368",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "44caa3d7-032c-4e1f-9a63-7d9b1868e937",
+                            TwoFactorEnabled = false
+                        },
+                        new
+                        {
+                            Id = "6037f3a8-7d6d-4fa8-932a-16d765e79dd7",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "847085a2-c40b-46ff-81e2-303ccbbcd959",
+                            Email = "mark@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Mark",
+                            LastName = "Mayaman",
+                            LockoutEnabled = false,
+                            PhoneNumber = "09125635896",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "fdbd85e7-8486-4257-a1b5-59acf16f6c69",
+                            TwoFactorEnabled = false
+                        });
                 });
 
             modelBuilder.Entity("HRBMSWEBAPP.Models.Booking", b =>
@@ -265,35 +312,6 @@ namespace HRBMSWEBAPP.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("User");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Address = "Rizal, PH",
-                            Email = "admin@gmail.com",
-                            First_Name = "Admin",
-                            Last_Name = "Manager",
-                            Phone = "09079260368"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Address = "Rizal, PH",
-                            Email = "ivhan@gmail.com",
-                            First_Name = "Ivhan",
-                            Last_Name = "De Leon",
-                            Phone = "09079260368"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Address = "Las Pinas, PH",
-                            Email = "mark@gmail.com",
-                            First_Name = "Mark",
-                            Last_Name = "Mayaman",
-                            Phone = "09125635896"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

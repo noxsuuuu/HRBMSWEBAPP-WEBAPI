@@ -24,7 +24,7 @@ namespace HRBMSWEBAPP.Data
 
             base.OnModelCreating(modelBuilder);
         }
-        public DbSet<User> User { get; set; }
+        //public DbSet<User> User { get; set; }
 
         public DbSet<Room> Room { get; set; }
 
