@@ -3,9 +3,6 @@ using HRBMSWEBAPP.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using HRBMSWEBAPP.Repository;
-using HRBMSWEBAPP.Repository.Database;
-using NuGet.Protocol;
 using Microsoft.EntityFrameworkCore;
 
 namespace HRBMSWEBAPP.Controllers
@@ -30,10 +27,9 @@ namespace HRBMSWEBAPP.Controllers
         {
             
                 var user =  _userManager.Users.FirstOrDefault(u => u.Id == userId);
-              
                 return View(user);
 
-    }
+        }
         public async Task<IActionResult> Delete(string userId)
         {
             var user = _userManager.Users.FirstOrDefault(u => u.Id == userId);

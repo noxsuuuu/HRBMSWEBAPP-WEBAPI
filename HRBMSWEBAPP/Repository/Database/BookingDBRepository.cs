@@ -62,9 +62,9 @@ namespace HRBMSWEBAPP.Repository.Database
 
         public Booking GetBookingById(int booking_id)
         {
-            /*var booking = _context.Booking
-                   *//* .Include(e => e.User)
-                    *//*.Include(e => e.Room)
+            var booking = _context.Booking
+                    /* .Include(e => e.User)
+                     .Include(e => e.Room)*/
                     .FirstOrDefault(m => m.Id == booking_id);
 
              if (booking == null)
@@ -72,9 +72,9 @@ namespace HRBMSWEBAPP.Repository.Database
                  return null;
              }
 
-             return booking;*/
+             return booking;
 
-            return _context.Booking.AsNoTracking().FirstOrDefault(t => t.Id == booking_id);
+            //return _context.Booking.AsNoTracking().FirstOrDefault(t => t.Id == booking_id);
 
         }
     }

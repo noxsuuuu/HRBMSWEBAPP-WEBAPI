@@ -12,14 +12,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<HRBMSDBCONTEXT>();
 builder.Services.AddScoped<HRBMSDBCONTEXT, HRBMSDBCONTEXT>();
 
-builder.Services.AddScoped<IBookingDBRepository, BookingDBRepository>();
-builder.Services.AddScoped<IRoomDBRepository, RoomDBRepository>();
-builder.Services.AddScoped<IRoomCatDBRepository, RoomCategoryDBRepository>();
-builder.Services.AddScoped<IinvoiceDBRepository, InvoiceDBRepository>();
-
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-    .AddEntityFrameworkStores<HRBMSDBCONTEXT>()
-    .AddDefaultTokenProviders();
+    .AddEntityFrameworkStores<HRBMSDBCONTEXT>();
 builder.Services.Configure<IdentityOptions>(options =>
 {
     options.Password.RequiredLength = 6;
@@ -29,6 +23,11 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequireLowercase = true;
     options.Password.RequireUppercase = true;
 });
+
+builder.Services.AddScoped<IBookingDBRepository, BookingDBRepository>();
+builder.Services.AddScoped<IRoomDBRepository, RoomDBRepository>();
+builder.Services.AddScoped<IRoomCatDBRepository, RoomCategoryDBRepository>();
+builder.Services.AddScoped<IinvoiceDBRepository, InvoiceDBRepository>();
 
 
 
