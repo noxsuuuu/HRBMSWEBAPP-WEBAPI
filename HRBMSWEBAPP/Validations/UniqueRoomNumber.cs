@@ -9,7 +9,7 @@ namespace HRBMSWEBAPP.Validations
         {
             if (value != null)
             {
-                if (value is string)
+                if (value is int)
                 {
                     var idproperty = validationContext.ObjectType.GetProperty("Id");
                     int _id = Convert.ToInt16(idproperty.GetValue(validationContext.ObjectInstance));
