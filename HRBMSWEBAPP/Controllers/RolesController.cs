@@ -56,6 +56,8 @@ namespace HRBMSWEBAPP.Controllers
         public IActionResult GetAllRoles()
         {
             return View(_roleManager.Roles.ToList());
+            //RoleViewModel role = this._roleManager.to();
+            //return View(role);
         }
 
         [HttpGet]
@@ -112,12 +114,56 @@ namespace HRBMSWEBAPP.Controllers
             return View(roleViewModel);
         }
 
-        public async Task<IActionResult> Delete(string roleId)
-        {
-            var oldRole = await _roleManager.FindByIdAsync(roleId);
+        //public async Task<IActionResult> Delete(string roleId)
+        //{
 
-            var todolist = _roleManager.DeleteAsync(oldRole);
-            return RedirectToAction(controllerName: "Role", actionName: "GetAllRoles"); // reload the getall page it self
+        //    var roomlist = _roleManager.DeleteAsync(roleId);
+        //    return RedirectToAction(controllerName: "Roles", actionName: "GetAllRoles");
+
+
+        //}
+
+        public async Task<IActionResult> Delete(Guid Id)
+        {
+            IdentityRole role = await _roleManager.FindByIdAsync(Id.ToString());
+            var result = await _roleManager.DeleteAsync(role);
+            return RedirectToAction(controllerName: "Roles", actionName: "GetAllRoles");
+
+            //if (Id == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //// Find the role by ID
+
+            //IdentityRole role = await _roleManager.FindByIdAsync(Id.ToString());
+
+
+            //// If role is not found, return NotFound result
+            //if (role == null)
+            //{
+            //    return NotFound();
+            //}
+        
+            //// Delete the role
+
+            //var result = await _roleManager.DeleteAsync(role);
+
+            //if (result.Succeeded)
+            //{
+            //    return RedirectToAction("GetAllRoles", "Roles");
+            //}
+            //else
+            //{
+            //    // Handle errors if any
+            //    foreach (var error in result.Errors)
+            //    {
+            //        ModelState.AddModelError(string.Empty, error.Description);
+            //    }
+
+            //    // Redirect to appropriate view with error messages
+            //    return View("ErrorView");
+            //}
         }
     }
 }
