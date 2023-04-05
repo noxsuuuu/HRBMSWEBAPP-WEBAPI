@@ -18,12 +18,13 @@ namespace HRBMSWEBAPP.Controllers
         // [AllowAnonymous]
 
 
-        public IActionResult GetAllUsers()
+        public async Task<IActionResult> GetAllUsers()
         {
-            var userlist = _userManager.Users.ToList();
+            var userlist = await _userManager.Users.ToListAsync();
             return View(userlist);
         }
-        public IActionResult Details(string userId)
+
+        public async Task<IActionResult> Details(string userId)
         {
       
                 var user =  _userManager.Users.FirstOrDefault(u => u.Id == userId);

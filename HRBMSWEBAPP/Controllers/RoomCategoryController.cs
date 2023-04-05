@@ -58,10 +58,19 @@ namespace HRBMSWEBAPP.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Update(RoomCategories category)
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
         {
-            var cat = _repo.UpdateRoomCategories(category.Id, category);
+            var old = await this._repo.GetRoomCategoriesById(id);
+            return View(old);
+
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Update(RoomCategories category)
+        {
+            await _repo.UpdateRoomCategories(category.Id, category);
             return RedirectToAction("GetAllRoomCategories");
         }
 

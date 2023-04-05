@@ -70,10 +70,20 @@ namespace HRBMSWEBAPP.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Update(Booking booking)
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
         {
-            var book = _repo.UpdateBooking(booking.Id, booking);
+            var old = await this._repo.GetBookingById(id);
+            return View(old);
+
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Update(Booking booking)
+        {
+            
+            await _repo.UpdateBooking(booking.Id,booking);
             return RedirectToAction("GetAllBookings");
         }
     }
