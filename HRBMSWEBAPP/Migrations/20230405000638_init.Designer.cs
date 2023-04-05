@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HRBMSWEBAPP.Migrations
 {
     [DbContext(typeof(HRBMSDBCONTEXT))]
-    [Migration("20230404191044_newdata")]
-    partial class newdata
+    [Migration("20230405000638_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -100,9 +100,9 @@ namespace HRBMSWEBAPP.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b782f13b-6dd1-4ae5-9a1e-046b6d671bb8",
+                            Id = "f6ec9e29-5f15-40ae-a91d-135f6d167091",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "157efd5f-1393-43e1-8f7f-18a6a5582c6f",
+                            ConcurrencyStamp = "47b1626f-d090-41f5-9feb-e5ea67b889a3",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -110,14 +110,14 @@ namespace HRBMSWEBAPP.Migrations
                             LockoutEnabled = false,
                             PhoneNumber = "09079260368",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e81cf781-7b5d-4666-8f8b-63e696459b3a",
+                            SecurityStamp = "e96d71dc-49f7-47bc-aea0-a05f16678a24",
                             TwoFactorEnabled = false
                         },
                         new
                         {
-                            Id = "2ebf4aa4-3e10-4001-acf6-7a3f5cbe25d9",
+                            Id = "fecfdbe2-1e12-4522-bea4-1550c5042576",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e0f47f55-b222-4d66-bb8d-e97e21101edb",
+                            ConcurrencyStamp = "d8e738bc-52c1-43d6-9da1-339df1f83d9c",
                             Email = "ivhan@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Ivhan",
@@ -125,14 +125,14 @@ namespace HRBMSWEBAPP.Migrations
                             LockoutEnabled = false,
                             PhoneNumber = "09079260368",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c4816e30-3859-48c2-98ba-9213ec6f85b2",
+                            SecurityStamp = "bb952a6e-e052-4dcf-8788-45575371f65e",
                             TwoFactorEnabled = false
                         },
                         new
                         {
-                            Id = "5c3f00c2-0254-4c5f-a869-1af939070b13",
+                            Id = "d3e8c4d8-4c03-4b49-84ee-98097b82941d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4eb7d26e-f2c6-4675-924a-daf62322310c",
+                            ConcurrencyStamp = "8f9e8b18-1766-4128-8022-009a34a4def7",
                             Email = "mark@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Mark",
@@ -140,7 +140,7 @@ namespace HRBMSWEBAPP.Migrations
                             LockoutEnabled = false,
                             PhoneNumber = "09125635896",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3c966461-aa84-4f26-b6c7-a5921d559b22",
+                            SecurityStamp = "58783513-6fca-4626-8190-71d96c030c11",
                             TwoFactorEnabled = false
                         });
                 });

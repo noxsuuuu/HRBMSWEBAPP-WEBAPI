@@ -25,7 +25,7 @@ namespace HRBMSWEBAPP.Controllers
         }
         public IActionResult Details(string userId)
         {
-            
+      
                 var user =  _userManager.Users.FirstOrDefault(u => u.Id == userId);
                 return View(user);
 
