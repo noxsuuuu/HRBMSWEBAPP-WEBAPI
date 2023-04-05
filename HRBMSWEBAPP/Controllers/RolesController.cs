@@ -1,4 +1,5 @@
-﻿using HRBMSWEBAPP.ViewModel;
+﻿using HRBMSWEBAPP.Models;
+using HRBMSWEBAPP.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +27,13 @@ namespace HRBMSWEBAPP.Controllers
         {
             if (ModelState.IsValid)
             {
+                //var newUser = new ApplicationUser
+                //{
+                //    Id = Guid.NewGuid(),
+                //    UserName = "username",
+                //    // Other user properties
+                //};
+
                 var role = new IdentityRole
                 {
                     Name = roleViewModel.Name
@@ -73,10 +81,35 @@ namespace HRBMSWEBAPP.Controllers
             return View();
         }
 
-        public IActionResult Details(string roleId)
+        //public IActionResult Details(string roleId)
+        //{
+        //    var role = _roleManager.FindByIdAsync(roleId);
+        //    return View(role.Result);
+        //}
+        public async Task<IActionResult> Details(string? id)
         {
-            var role = _roleManager.FindByIdAsync(roleId);
-            return View(role.Result);
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            // Find the role by ID
+            IdentityRole role = await _roleManager.FindByIdAsync(id);
+
+            // If role is not found, return NotFound result
+            if (role == null)
+            {
+                return NotFound();
+            }
+
+            // Convert IdentityRole to RoleViewModel
+            RoleViewModel roleViewModel = new RoleViewModel
+            {
+                Id = Guid.Parse(role.Id),
+                Name = role.Name
+            };
+
+            return View(roleViewModel);
         }
 
         public async Task<IActionResult> Delete(string roleId)
