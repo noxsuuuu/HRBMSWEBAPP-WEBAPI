@@ -84,12 +84,21 @@ namespace HRBMSWEBAPP.Controllers
         //    return View();
         //}
 
-        [HttpPost]
-        public IActionResult Update(Room newRoom)
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
         {
-            var room = _repo.UpdateRoom(newRoom.Id, newRoom);
+            var old = await this._repo.GetRoomById(id);
+            return View(old);
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(Room newRoom)
+        {
+            await _repo.UpdateRoom(newRoom.Id, newRoom);
             return RedirectToAction("GetAllRooms");
         }
+
         [HttpPost]
         public IActionResult Create(Room newRoom)
         {

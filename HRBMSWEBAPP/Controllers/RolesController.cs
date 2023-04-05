@@ -60,6 +60,7 @@ namespace HRBMSWEBAPP.Controllers
         public async Task<IActionResult> Update(RoleViewModel role)
         {
             var oldRole = await _roleManager.FindByIdAsync(role.Id.ToString());
+            if (oldRole == null)
             oldRole.Name = role.Name;
             var result = await _roleManager.UpdateAsync(oldRole);
             if (result.Succeeded)
