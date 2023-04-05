@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿/*using Microsoft.EntityFrameworkCore;
 
 
 namespace HRBMSWEBAPP.Data
@@ -25,4 +25,4 @@ namespace HRBMSWEBAPP.Data
         }
 
     }
-}
+}*/
