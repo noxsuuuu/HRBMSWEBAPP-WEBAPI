@@ -6,7 +6,7 @@ using System.Data;
 
 namespace HRBMSWEBAPP.Controllers
 {
-    //[Authorize(Roles = "Administrator")]
+   // [Authorize(Roles = "Admin")]
     public class RolesController : Controller
     {
         public RoleManager<IdentityRole> _roleManager; //{ get; }

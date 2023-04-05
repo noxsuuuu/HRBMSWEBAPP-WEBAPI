@@ -45,8 +45,8 @@ namespace HRBMSWEBAPP.Controllers
                 {
                     // add roles to it and allow him to login
                     //var roles = _roleManager.Roles.ToList();
-                    var role = _roleManager.Roles.FirstOrDefault(r => r.Name == "User");
-                    if (role != null)
+                    //var role = _roleManager.Roles.FirstOrDefault(r => r.Name == "Admin");
+                   /* if (role != null)
                     {
                         //var roleResult = await _userManager.AddToRolesAsync(userModel, roles.Select(s => s.Name).ToList());
                         var roleResult = await _userManager.AddToRoleAsync(userModel, role.Name);
@@ -55,10 +55,10 @@ namespace HRBMSWEBAPP.Controllers
                             ModelState.AddModelError(String.Empty, "User Role cannot be assigned");
                         }
                     }
-
+*/
                     // login the user automatically
                     await _signInManager.SignInAsync(userModel, isPersistent: false);
-                    return RedirectToAction("GetAllUser", "User");
+                    return RedirectToAction("GetAllUsers", "Users");
 
                 }
                 foreach (var error in result.Errors)
@@ -84,7 +84,7 @@ namespace HRBMSWEBAPP.Controllers
                 //login cookie and transfter to the client 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("GetAllUser", "User");
+                    return RedirectToAction("GetAllBookings", "Booking");
                 }
                 ModelState.AddModelError(string.Empty, "invalid login credentials");
             }
