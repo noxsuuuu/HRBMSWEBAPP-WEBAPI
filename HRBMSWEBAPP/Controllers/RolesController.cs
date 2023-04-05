@@ -9,7 +9,7 @@ namespace HRBMSWEBAPP.Controllers
     //[Authorize(Roles = "Administrator")]
     public class RolesController : Controller
     {
-        public RoleManager<IdentityRole> _roleManager { get; }
+        public RoleManager<IdentityRole> _roleManager; //{ get; }
         public RolesController(RoleManager<IdentityRole> roleManager)
         {
             _roleManager = roleManager;
@@ -73,10 +73,14 @@ namespace HRBMSWEBAPP.Controllers
             return View();
         }
 
-        public IActionResult Details(string roleId)
+        public async Task<IActionResult> Details(string? roleId)
         {
-            var role = _roleManager.FindByIdAsync(roleId);
-            return View(role.Result);
+            if(roleId == null)
+            {
+                return NotFound();
+            }
+            var role = await this._roleManager.FindByIdAsync(roleId);
+            return View(role);
         }
 
         public async Task<IActionResult> Delete(string roleId)
