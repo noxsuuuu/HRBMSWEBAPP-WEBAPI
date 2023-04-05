@@ -12,11 +12,6 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<HRBMSDBCONTEXT>();
 builder.Services.AddScoped<HRBMSDBCONTEXT, HRBMSDBCONTEXT>();
 
-builder.Services.AddScoped<IBookingDBRepository, BookingDBRepository>();
-builder.Services.AddScoped<IRoomDBRepository, RoomDBRepository>();
-builder.Services.AddScoped<IRoomCatDBRepository, RoomCategoryDBRepository>();
-builder.Services.AddScoped<IinvoiceDBRepository, InvoiceDBRepository>();
-
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<HRBMSDBCONTEXT>();
 builder.Services.Configure<IdentityOptions>(options =>
@@ -29,6 +24,11 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequireUppercase = true;
 });
 
+builder.Services.AddScoped<IBookingDBRepository, BookingDBRepository>();
+builder.Services.AddScoped<IRoomDBRepository, RoomDBRepository>();
+builder.Services.AddScoped<IRoomCatDBRepository, RoomCategoryDBRepository>();
+builder.Services.AddScoped<IinvoiceDBRepository, InvoiceDBRepository>();
+
 
 
 var app = builder.Build();
@@ -39,6 +39,9 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
 }
 app.UseStaticFiles();
+
+
+//app.Automigrate();
 
 app.UseRouting();
 

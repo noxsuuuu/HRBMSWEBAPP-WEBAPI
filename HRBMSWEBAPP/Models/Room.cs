@@ -12,7 +12,7 @@ namespace HRBMSWEBAPP.Models
         public int Id { get; set; }
 
         [DisplayName("Category ID")]
-        public int Cat_Id { get; set; }
+        public int CategoryId { get; set; }
 
         [DisplayName("Room Number")]
         [UniqueRoomNumber]

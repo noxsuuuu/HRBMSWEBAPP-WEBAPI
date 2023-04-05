@@ -21,8 +21,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <li class="nav-item"><a class="nav-link" href="new_user"><i class="fas fa-user"></i> Sign Up</a></li>
-                    <li classs="nav-item"><a class="nav-link" href="login"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                    
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
@@ -44,22 +43,35 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Room" asp-action="GetAllRooms">Rooms</a>
                             </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="RoomCategory" asp-action="GetAllRoomCategories">Categories</a>
+                        </li>
+                        @*<li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Invoice" asp-action="GetAllInvoice">Invoices</a>
+                        </li>*@
                         @*<li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Invoice" asp-action="GetAllInvoice">Invoice</a>
                             </li>*@
-
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="new_user"><i class="fas fa-user"></i> Sign Up</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="login"><i class="fas fa-sign-in-alt"></i> Login</a>
+                            </li>
+                        </ul>
 
                         @*}*@
 
                         @*@if (_signInManager.IsSignedIn(User) && User.IsInRole("Staff"))
                         {*@
-                            <li class="nav-item">
+                           @* <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Booking" asp-action="GetAllBookings">Booking</a>
                             </li>
 
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Room" asp-action="GetAllRooms">Rooms</a>
-                            </li>
+                            </li>*@
                         @* }
                         @if (_signInManager.IsSignedIn(User) && User.IsInRole("User"))
                         {

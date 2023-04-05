@@ -98,9 +98,9 @@ namespace HRBMSWEBAPP.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a8deb9ae-2b46-4b1c-9314-f441445697ef",
+                            Id = "f6ec9e29-5f15-40ae-a91d-135f6d167091",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3b73f19b-58ca-4dd8-83de-d0e310cce7a7",
+                            ConcurrencyStamp = "47b1626f-d090-41f5-9feb-e5ea67b889a3",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -108,14 +108,14 @@ namespace HRBMSWEBAPP.Migrations
                             LockoutEnabled = false,
                             PhoneNumber = "09079260368",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "088db5b3-3542-4e1d-a311-6489665e1006",
+                            SecurityStamp = "e96d71dc-49f7-47bc-aea0-a05f16678a24",
                             TwoFactorEnabled = false
                         },
                         new
                         {
-                            Id = "cd631613-a962-44f2-a442-5855b19d2bf0",
+                            Id = "fecfdbe2-1e12-4522-bea4-1550c5042576",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "98735dd9-2d26-4a5d-a454-174a17cc7707",
+                            ConcurrencyStamp = "d8e738bc-52c1-43d6-9da1-339df1f83d9c",
                             Email = "ivhan@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Ivhan",
@@ -123,14 +123,14 @@ namespace HRBMSWEBAPP.Migrations
                             LockoutEnabled = false,
                             PhoneNumber = "09079260368",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1336b091-472d-41fb-9aca-fb868608ac35",
+                            SecurityStamp = "bb952a6e-e052-4dcf-8788-45575371f65e",
                             TwoFactorEnabled = false
                         },
                         new
                         {
-                            Id = "bb8149f1-792d-4db7-b613-cf9ccf00823c",
+                            Id = "d3e8c4d8-4c03-4b49-84ee-98097b82941d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e8e275f8-4cbc-4622-bb24-21cb250dc40c",
+                            ConcurrencyStamp = "8f9e8b18-1766-4128-8022-009a34a4def7",
                             Email = "mark@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Mark",
@@ -138,7 +138,7 @@ namespace HRBMSWEBAPP.Migrations
                             LockoutEnabled = false,
                             PhoneNumber = "09125635896",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "03676741-37c5-4b6e-8389-2ed984fd30c4",
+                            SecurityStamp = "58783513-6fca-4626-8190-71d96c030c11",
                             TwoFactorEnabled = false
                         });
                 });
@@ -163,14 +163,9 @@ namespace HRBMSWEBAPP.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("RoomId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Booking");
                 });
@@ -210,9 +205,6 @@ namespace HRBMSWEBAPP.Migrations
                     b.Property<double>("TotalPrice")
                         .HasColumnType("float");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("BookingId");
@@ -220,8 +212,6 @@ namespace HRBMSWEBAPP.Migrations
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("RoomId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Invoice");
                 });
@@ -233,9 +223,6 @@ namespace HRBMSWEBAPP.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("Cat_Id")
-                        .HasColumnType("int");
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
@@ -251,6 +238,22 @@ namespace HRBMSWEBAPP.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Room");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryId = 1,
+                            Floor_Number = 69,
+                            Room_Number = 69
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoryId = 2,
+                            Floor_Number = 61,
+                            Room_Number = 61
+                        });
                 });
 
             modelBuilder.Entity("HRBMSWEBAPP.Models.RoomCategories", b =>
@@ -278,38 +281,24 @@ namespace HRBMSWEBAPP.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-                });
 
-            modelBuilder.Entity("HRBMSWEBAPP.Models.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("First_Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Last_Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("User");
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "sheesh",
+                            NoOfRooms = 69,
+                            Price = 69,
+                            Room_Name = "Deluxe"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "yeaaaaaaaa",
+                            NoOfRooms = 69,
+                            Price = 69,
+                            Room_Name = "Normal"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -453,15 +442,7 @@ namespace HRBMSWEBAPP.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("HRBMSWEBAPP.Models.User", "User")
-                        .WithMany("Bookings")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Room");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("HRBMSWEBAPP.Models.Invoice", b =>
@@ -484,19 +465,11 @@ namespace HRBMSWEBAPP.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("HRBMSWEBAPP.Models.User", "User")
-                        .WithMany("Invoices")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Booking");
 
                     b.Navigation("Category");
 
                     b.Navigation("Room");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("HRBMSWEBAPP.Models.Room", b =>
@@ -564,13 +537,6 @@ namespace HRBMSWEBAPP.Migrations
             modelBuilder.Entity("HRBMSWEBAPP.Models.RoomCategories", b =>
                 {
                     b.Navigation("Room");
-                });
-
-            modelBuilder.Entity("HRBMSWEBAPP.Models.User", b =>
-                {
-                    b.Navigation("Bookings");
-
-                    b.Navigation("Invoices");
                 });
 #pragma warning restore 612, 618
         }

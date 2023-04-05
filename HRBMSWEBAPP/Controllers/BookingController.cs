@@ -9,25 +9,42 @@ namespace HRBMSWEBAPP.Controllers
     public class BookingController : Controller
     {
 
-        IBookingDBRepository _repo;
+       private readonly IBookingDBRepository _repo;
+
        
         public BookingController(IBookingDBRepository repo)
         {
             this._repo = repo;
         }
 
-        public IActionResult GetAllBookings()
-        {
-            var booklist = _repo.GetAllBooking();
-            return View(booklist);
+        //public IActionResult GetAllBookings()
+        //{
+        //    var booklist = _repo.GetAllBooking();
+        //    return View(booklist);
 
+        //}
+        public async Task<IActionResult> GetAllBookings()
+        {
+            List<Booking> booking = await this._repo.GetAllBooking();
+            return View(booking);
+        }
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Booking booking = await this._repo.GetBookingById((int)id);
+            return View(booking);
         }
 
-        public IActionResult Details(int bookId)
-        {
-            var book = _repo.GetBookingById(bookId);
-            return View(book);
-        }
+
+        //public IActionResult Details(int bookId)
+        //{
+        //    var book = _repo.GetBookingById(bookId);
+        //    return View(book);
+        //}
 
         public IActionResult Delete(int id)
         {
@@ -53,10 +70,20 @@ namespace HRBMSWEBAPP.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Update(Booking booking)
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
         {
-            var book = _repo.UpdateBooking(booking.Id, booking);
+            var old = await this._repo.GetBookingById(id);
+            return View(old);
+
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Update(Booking booking)
+        {
+            
+            await _repo.UpdateBooking(booking.Id,booking);
             return RedirectToAction("GetAllBookings");
         }
     }

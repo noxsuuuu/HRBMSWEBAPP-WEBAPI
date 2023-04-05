@@ -10,8 +10,8 @@ namespace HRBMSWEBAPP.Data.Seed
             modelBuilder
                 .Entity<RoleViewModel>()
                 .HasData(
-                    new RoleViewModel
-                    {
+                    new RoleViewModel { 
+
                         Name = "Admin",
                     },
                      new RoleViewModel

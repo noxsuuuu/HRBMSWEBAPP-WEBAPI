@@ -29,14 +29,14 @@ namespace HRBMSWEBAPP.Models
         [NotMapped]
         public string DisplayStatus => Status ? "Available" : "Booked";
 
-        [DisplayName("User ID")]
+      /*  [DisplayName("User ID")]
         public int UserId { get; set; }
 
 
 
         [ValidateNever]
         public User User { get; set; }
-
+*/
         [ValidateNever]
         public Room Room { get; set; }
 
@@ -47,13 +47,13 @@ namespace HRBMSWEBAPP.Models
         {
 
         }
-        public Booking(int id, DateTime checkin, DateTime checkout, int userid, int roomId, bool stats)
+        public Booking(int id, DateTime checkin, DateTime checkout, int roomId, bool stats)
         {
             Id = id;
             CheckIn = checkin;
             CheckOut = checkout;
             RoomId = roomId;
-            UserId = userid;
+            //UserId = userid;
             Status = stats;
 
         }

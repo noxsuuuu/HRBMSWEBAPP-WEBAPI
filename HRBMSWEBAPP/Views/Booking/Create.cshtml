@@ -1,38 +1,37 @@
-﻿@model HRBMSWEBAPP.ViewModel.RegisterViewModel
+﻿@model Booking
 
 @{
-    ViewData["Title"] = "Create User";
+    ViewData["Title"] = "Create Bookings";
 }
 
-<h1>Create User</h1>
+<h1>Create Bookings</h1>
 
-<h4>Enter User Credentials</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form  asp-controller="Users" asp-action="Create" method="post">
+        <form  asp-controller="Booking" asp-action="Create" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
+                <label asp-for="RoomId" class="control-label"></label>
+                <input asp-for="RoomId" class="form-control" />
+                <span asp-validation-for="RoomId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
+                <label asp-for="CheckIn" class="control-label"></label>
+                <input asp-for="CheckIn" class="form-control" />
+                <span asp-validation-for="CheckIn" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+                <label asp-for="CheckOut" class="control-label"></label>
+                <input asp-for="CheckOut" class="form-control" />
+                <span asp-validation-for="CheckOut" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+            @*<div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for=Status" class="text-danger"></span>
+            </div>*@
+            @*<div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
                 <input asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password"></span>
@@ -41,7 +40,7 @@
                 <label asp-for="ConfirmPassword"></label>
                 <input asp-for="ConfirmPassword" class="form-control" />
                 <span asp-validation-for="ConfirmPassword"></span>
-            </div>
+            </div>*@
             @*<div class="form-group">
                 <label asp-for="RoleId" class="control-label"></label>
                 <select asp-for="RoleId" class ="form-control" asp-items="ViewBag.RoleId"></select>
@@ -54,7 +53,7 @@
 </div>
 
 <div>
-    <a asp-action="GetAllUsers">Back to List</a>
+    <a asp-action="GetAllBookings">Back to List</a>
 </div>
 
 @section Scripts {

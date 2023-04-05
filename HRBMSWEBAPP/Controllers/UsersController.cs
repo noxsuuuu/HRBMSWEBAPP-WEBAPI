@@ -3,8 +3,7 @@ using HRBMSWEBAPP.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using HRBMSWEBAPP.Repository;
-using HRBMSWEBAPP.Repository.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace HRBMSWEBAPP.Controllers
 {
@@ -19,15 +18,18 @@ namespace HRBMSWEBAPP.Controllers
         // [AllowAnonymous]
 
 
-        public IActionResult GetAllUsers()
+        public async Task<IActionResult> GetAllUsers()
         {
-            var userlist = _userManager.Users.ToList();
+            var userlist = await _userManager.Users.ToListAsync();
             return View(userlist);
         }
-        public IActionResult Details(string userId)
+
+        public async Task<IActionResult> Details(string userId)
         {
-            var user = _userManager.Users.FirstOrDefault(u => u.Id == userId);
-            return View(user);
+      
+                var user =  _userManager.Users.FirstOrDefault(u => u.Id == userId);
+                return View(user);
+
         }
         public async Task<IActionResult> Delete(string userId)
         {
@@ -51,7 +53,9 @@ namespace HRBMSWEBAPP.Controllers
                     UserName = userViewModel.Email,
                     Email = userViewModel.Email,
                     FirstName = userViewModel.FirstName,
-                    LastName = userViewModel.LastName
+                    LastName = userViewModel.LastName,
+                    PhoneNumber = userViewModel.PhoneNumber
+                    
                 };
                 var result = await _userManager.CreateAsync(userModel, userViewModel.Password);
                 if (result.Succeeded)
@@ -70,7 +74,7 @@ namespace HRBMSWEBAPP.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(string userId)
         {
-            var user = _userManager.Users.FirstOrDefault(u => u.Id == userId);
+            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId);
             var roles = await _userManager.GetRolesAsync(user);
             EditUserViewModel userViewModel = new EditUserViewModel()
             {

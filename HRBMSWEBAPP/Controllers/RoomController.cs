@@ -8,24 +8,57 @@ namespace HRBMSWEBAPP.Controllers
     //[Authorize(Roles = "Admin, Staff")]
     public class RoomController : Controller
     {
-        IRoomDBRepository _repo;
+        private readonly IRoomDBRepository _repo;
+
 
         public RoomController(IRoomDBRepository repo)
         {
-            _repo = repo;
+            this._repo = repo;
         }
 
-        public IActionResult GetAllRooms()
+        //public IActionResult GetAllRooms()
+        //{
+        //    var roomlist = _repo.GetAllRoom();
+        //    return View(roomlist);
+        //}
+        public async Task<IActionResult> GetAllRooms()
         {
-            var roomlist = _repo.GetAllRoom();
-            return View(roomlist);
+            List<Room> room = await this._repo.GetAllRoom();
+            return View(room);
+           // return this._context.Room.Include(e => e.Category.Room_Name).AsNoTracking().ToListAsync();
         }
 
-        public IActionResult Details(int roomId)
+        //public IActionResult Details(int roomId)
+        //{
+        //    var room = _repo.GetRoomById(roomId);
+        //    return View(room);
+        //}
+        //public async Task<IActionResult> Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    Booking booking = await this._repo.GetBookingById((int)id);
+        //    return View(booking);
+        //}
+        public async Task<IActionResult> Details(int? id)
         {
-            var room = _repo.GetRoomById(roomId);
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Room room = await this._repo.GetRoomById((int)id);
             return View(room);
         }
+
+        //public IActionResult Delete(int id)
+        //{
+        //    var roomlist = _repo.DeleteRoom(id);
+        //    return RedirectToAction(controllerName: "Room", actionName: "GetAllRooms");
+        //}
 
         public IActionResult Delete(int id)
         {
@@ -39,24 +72,45 @@ namespace HRBMSWEBAPP.Controllers
             return View();
         }
 
+
+        //public IActionResult Create(Room newRoom)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var room = _repo.AddRoom(newRoom);
+        //        return RedirectToAction("GetAllRooms");
+        //    }
+        //    ViewData["Message"] = "Data is not valid to create the Room";
+        //    return View();
+        //}
+
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
+        {
+            var old = await this._repo.GetRoomById(id);
+            return View(old);
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(Room newRoom)
+        {
+            await _repo.UpdateRoom(newRoom.Id, newRoom);
+            return RedirectToAction("GetAllRooms");
+        }
+
         [HttpPost]
         public IActionResult Create(Room newRoom)
         {
             if (ModelState.IsValid)
             {
-                var room = _repo.AddRoom(newRoom);
+                var book = _repo.AddRoom(newRoom);
                 return RedirectToAction("GetAllRooms");
             }
             ViewData["Message"] = "Data is not valid to create the Room";
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Update(Room newRoom)
-        {
-            var room = _repo.UpdateRoom(newRoom.Id, newRoom);
-            return RedirectToAction("GetAllRooms");
-        }
 
 
     }

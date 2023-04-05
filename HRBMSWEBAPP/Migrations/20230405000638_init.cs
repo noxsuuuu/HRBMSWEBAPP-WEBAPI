@@ -51,35 +51,19 @@ namespace HRBMSWEBAPP.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Room",
+                name: "Categories",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Cat_Id = table.Column<int>(type: "int", nullable: false),
-                    Room_Number = table.Column<int>(type: "int", nullable: false),
-                    Floor_Number = table.Column<int>(type: "int", nullable: false)
+                    Room_Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<int>(type: "int", nullable: false),
+                    NoOfRooms = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Room", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "User",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    First_Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Last_Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.PrimaryKey("PK_Categories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -189,24 +173,22 @@ namespace HRBMSWEBAPP.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Categories",
+                name: "Room",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Room_Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false),
-                    NoOfRooms = table.Column<int>(type: "int", nullable: false),
-                    RoomId = table.Column<int>(type: "int", nullable: false)
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    Room_Number = table.Column<int>(type: "int", nullable: false),
+                    Floor_Number = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categories", x => x.Id);
+                    table.PrimaryKey("PK_Room", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Categories_Room_RoomId",
-                        column: x => x.RoomId,
-                        principalTable: "Room",
+                        name: "FK_Room_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -220,8 +202,7 @@ namespace HRBMSWEBAPP.Migrations
                     RoomId = table.Column<int>(type: "int", nullable: false),
                     CheckIn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CheckOut = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<bool>(type: "bit", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    Status = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -232,12 +213,6 @@ namespace HRBMSWEBAPP.Migrations
                         principalTable: "Room",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Booking_User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -246,7 +221,6 @@ namespace HRBMSWEBAPP.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
                     BookId = table.Column<int>(type: "int", nullable: false),
                     BookingId = table.Column<int>(type: "int", nullable: false),
                     RoomId = table.Column<int>(type: "int", nullable: false),
@@ -275,27 +249,36 @@ namespace HRBMSWEBAPP.Migrations
                         column: x => x.RoomId,
                         principalTable: "Room",
                         principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Invoice_User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "User",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "2e943cb7-2c16-45e4-941b-11427d08ec17", 0, "54e2f615-84b1-44b1-9779-3331fabc8c45", "ivhan@gmail.com", false, "Ivhan", "De Leon", false, null, null, null, null, "09079260368", false, "44caa3d7-032c-4e1f-9a63-7d9b1868e937", false, null });
+                values: new object[,]
+                {
+                    { "d3e8c4d8-4c03-4b49-84ee-98097b82941d", 0, "8f9e8b18-1766-4128-8022-009a34a4def7", "mark@gmail.com", false, "Mark", "Mayaman", false, null, null, null, null, "09125635896", false, "58783513-6fca-4626-8190-71d96c030c11", false, null },
+                    { "f6ec9e29-5f15-40ae-a91d-135f6d167091", 0, "47b1626f-d090-41f5-9feb-e5ea67b889a3", "admin@gmail.com", false, "Admin", "Manager", false, null, null, null, null, "09079260368", false, "e96d71dc-49f7-47bc-aea0-a05f16678a24", false, null },
+                    { "fecfdbe2-1e12-4522-bea4-1550c5042576", 0, "d8e738bc-52c1-43d6-9da1-339df1f83d9c", "ivhan@gmail.com", false, "Ivhan", "De Leon", false, null, null, null, null, "09079260368", false, "bb952a6e-e052-4dcf-8788-45575371f65e", false, null }
+                });
 
             migrationBuilder.InsertData(
-                table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "6037f3a8-7d6d-4fa8-932a-16d765e79dd7", 0, "847085a2-c40b-46ff-81e2-303ccbbcd959", "mark@gmail.com", false, "Mark", "Mayaman", false, null, null, null, null, "09125635896", false, "fdbd85e7-8486-4257-a1b5-59acf16f6c69", false, null });
+                table: "Categories",
+                columns: new[] { "Id", "Description", "NoOfRooms", "Price", "Room_Name" },
+                values: new object[,]
+                {
+                    { 1, "sheesh", 69, 69, "Deluxe" },
+                    { 2, "yeaaaaaaaa", 69, 69, "Normal" }
+                });
 
             migrationBuilder.InsertData(
-                table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "fdf767f0-7191-474e-8b00-474754da7ed2", 0, "98ae09ba-4e51-42c1-956a-e01ff46241a3", "admin@gmail.com", false, "Admin", "Manager", false, null, null, null, null, "09079260368", false, "a15b03d5-200d-4a35-bded-29aaf0560de6", false, null });
+                table: "Room",
+                columns: new[] { "Id", "CategoryId", "Floor_Number", "Room_Number" },
+                values: new object[] { 1, 1, 69, 69 });
+
+            migrationBuilder.InsertData(
+                table: "Room",
+                columns: new[] { "Id", "CategoryId", "Floor_Number", "Room_Number" },
+                values: new object[] { 2, 2, 61, 61 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -342,16 +325,6 @@ namespace HRBMSWEBAPP.Migrations
                 column: "RoomId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Booking_UserId",
-                table: "Booking",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Categories_RoomId",
-                table: "Categories",
-                column: "RoomId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Invoice_BookingId",
                 table: "Invoice",
                 column: "BookingId");
@@ -367,9 +340,9 @@ namespace HRBMSWEBAPP.Migrations
                 column: "RoomId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Invoice_UserId",
-                table: "Invoice",
-                column: "UserId");
+                name: "IX_Room_CategoryId",
+                table: "Room",
+                column: "CategoryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -402,13 +375,10 @@ namespace HRBMSWEBAPP.Migrations
                 name: "Booking");
 
             migrationBuilder.DropTable(
-                name: "Categories");
-
-            migrationBuilder.DropTable(
-                name: "User");
-
-            migrationBuilder.DropTable(
                 name: "Room");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
         }
     }
 }
