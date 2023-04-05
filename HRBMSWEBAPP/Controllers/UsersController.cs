@@ -26,8 +26,10 @@ namespace HRBMSWEBAPP.Controllers
 
         public async Task<IActionResult> Details(string userId)
         {
-            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId);
-            return View(user);
+      
+                var user =  _userManager.Users.FirstOrDefault(u => u.Id == userId);
+                return View(user);
+
         }
         public async Task<IActionResult> Delete(string userId)
         {

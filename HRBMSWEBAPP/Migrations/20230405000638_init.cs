@@ -256,9 +256,9 @@ namespace HRBMSWEBAPP.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "1407d71c-aad3-428f-b4f7-5c206a70172b", 0, "f8c37cb7-96ee-46a4-8408-ab178fe98a03", "ivhan@gmail.com", false, "Ivhan", "De Leon", false, null, null, null, null, "09079260368", false, "4a122ca4-ad58-4e7c-8989-54d3d6c72782", false, null },
-                    { "32ff9353-4c76-4503-b6dd-b5e71aa2c493", 0, "56e5a8ed-9aab-48d5-9fce-71a3832aeb94", "mark@gmail.com", false, "Mark", "Mayaman", false, null, null, null, null, "09125635896", false, "21f55725-cac0-4439-b915-19f60b3ffb05", false, null },
-                    { "bc6ca66a-3752-471f-817b-133dcd221905", 0, "aff78d2b-ece5-4be2-8338-af5d3f3c6fe8", "admin@gmail.com", false, "Admin", "Manager", false, null, null, null, null, "09079260368", false, "bd450b35-dd8f-4c61-a8a6-ff3f5da2c7b5", false, null }
+                    { "d3e8c4d8-4c03-4b49-84ee-98097b82941d", 0, "8f9e8b18-1766-4128-8022-009a34a4def7", "mark@gmail.com", false, "Mark", "Mayaman", false, null, null, null, null, "09125635896", false, "58783513-6fca-4626-8190-71d96c030c11", false, null },
+                    { "f6ec9e29-5f15-40ae-a91d-135f6d167091", 0, "47b1626f-d090-41f5-9feb-e5ea67b889a3", "admin@gmail.com", false, "Admin", "Manager", false, null, null, null, null, "09079260368", false, "e96d71dc-49f7-47bc-aea0-a05f16678a24", false, null },
+                    { "fecfdbe2-1e12-4522-bea4-1550c5042576", 0, "d8e738bc-52c1-43d6-9da1-339df1f83d9c", "ivhan@gmail.com", false, "Ivhan", "De Leon", false, null, null, null, null, "09079260368", false, "bb952a6e-e052-4dcf-8788-45575371f65e", false, null }
                 });
 
             migrationBuilder.InsertData(
@@ -266,8 +266,8 @@ namespace HRBMSWEBAPP.Migrations
                 columns: new[] { "Id", "Description", "NoOfRooms", "Price", "Room_Name" },
                 values: new object[,]
                 {
-                    { 1, "Tite", 69, 69, "Deluxe" },
-                    { 2, "Pepe", 69, 69, "Normal" }
+                    { 1, "sheesh", 69, 69, "Deluxe" },
+                    { 2, "yeaaaaaaaa", 69, 69, "Normal" }
                 });
 
             migrationBuilder.InsertData(
