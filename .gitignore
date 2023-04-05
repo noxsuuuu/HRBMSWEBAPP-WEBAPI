@@ -361,6 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/HRBMSWEBAPP/Controllers/RolesController.cs
+#HRBMSWEBAPP/Controllers/RolesController.cs
 /HRBMSWEBAPP/Data/AutoMigration.cs
-/HRBMSWEBAPP/Views/Users/Details.cshtml
+#/HRBMSWEBAPP/Views/Users/Details.cshtml
