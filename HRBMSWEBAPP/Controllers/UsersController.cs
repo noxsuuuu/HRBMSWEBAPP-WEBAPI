@@ -103,7 +103,7 @@ namespace HRBMSWEBAPP.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Update(string userId, ApplicationUser Userr)
+        public async Task<IActionResult> Update(ApplicationUser Userr)
         {
 
             var appuser = await _userManager.GetUserIdAsync(Userr);
@@ -121,32 +121,56 @@ namespace HRBMSWEBAPP.Controllers
 
             return View(usermodel);
         }
-
-
         [HttpPost]
-        public async Task<IActionResult> Update(EditUserViewModel edituser,string id)
+        public async Task<IActionResult> Update(string id, ApplicationUser user)
         {
-            if (!ModelState.IsValid)
+            if (id != user.Id)
             {
-                return View(edituser);
+                return BadRequest();
             }
 
-            var existinguser = await _roleManager.FindByIdAsync(edituser.Id.ToString());
-
-            if (existinguser == null)
+            ApplicationUser existingUser = await _userManager.FindByIdAsync(id);
+            if (existingUser == null)
             {
                 return NotFound();
             }
 
+            // Update the user properties
+            existingUser.FirstName = user.FirstName;
+            existingUser.LastName = user.LastName;
+            existingUser.Email = user.Email;
+            existingUser.PhoneNumber = user.PhoneNumber;
 
-            //var result = await _userManager.UpdateAsync(existinguser);
+            // Update the user role
+            var userRole = await _userManager.GetRolesAsync(existingUser);
+            IdentityRole role = await _roleManager.FindByNameAsync(userRole[0]);
+            if (role == null)
+            {
+                return BadRequest();
+            }
+            await _userManager.RemoveFromRolesAsync(existingUser, userRole);
+            await _userManager.AddToRoleAsync(existingUser, role.Name);
 
-            //if (!result.Succeeded)
-            //{
-            //    // Handle the error
-            //}
+            // Update the user in the database
+            var result = await _userManager.UpdateAsync(existingUser);
+            if (!result.Succeeded)
+            {
+                return BadRequest(); 
+            }
 
             return RedirectToAction("GetAllUsers");
         }
+
+
+        //[HttpPost]
+        //public async Task<IActionResult> Update(string id)
+        //{
+
+
+        //    ApplicationUser existinguser = await _userManager.FindByIdAsync(id);
+        //    await _userManager.UpdateAsync(existinguser);
+
+        //    return RedirectToAction("GetAllUsers");
+        //}
     }
 }

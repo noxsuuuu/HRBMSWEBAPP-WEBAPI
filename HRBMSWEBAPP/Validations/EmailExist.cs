@@ -11,7 +11,7 @@ namespace HRBMSWEBAPP.Validations
             {
                 if (value is string)
                 {
-                    var useridproperty = validationContext.ObjectType.GetProperty("Id");
+                    var useridproperty = validationContext.ObjectType.GetProperty("Email");
                     int userid = Convert.ToInt16(useridproperty.GetValue(validationContext.ObjectInstance));
 
                     string email = (string)value;
