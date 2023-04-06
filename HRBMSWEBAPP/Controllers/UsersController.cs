@@ -161,16 +161,7 @@ namespace HRBMSWEBAPP.Controllers
             return RedirectToAction("GetAllUsers");
         }
 
+       
 
-        //[HttpPost]
-        //public async Task<IActionResult> Update(string id)
-        //{
-
-
-        //    ApplicationUser existinguser = await _userManager.FindByIdAsync(id);
-        //    await _userManager.UpdateAsync(existinguser);
-
-        //    return RedirectToAction("GetAllUsers");
-        //}
     }
 }
