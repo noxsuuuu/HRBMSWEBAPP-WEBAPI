@@ -10,7 +10,7 @@ namespace HRBMSWEBAPP.Controllers
     //[Authorize(Roles = "Admin")]
     public class UsersController : Controller
     {
-        private UserManager<ApplicationUser> _userManager { get; }
+        private UserManager<ApplicationUser> _userManager;
         public UsersController(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;

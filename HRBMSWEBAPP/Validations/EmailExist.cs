@@ -27,13 +27,7 @@ namespace HRBMSWEBAPP.Validations
                                 .GetValueOrDefault();
                         //here
                     }
-                    else
-                    {
-                        //HRBMS_InMemContext hrbmscontext = new HRBMS_InMemContext();
-
-                        ////emailExist = hrbmscontext.employees
-                        ////    .Exists(employee => employee.Email == email && employee.Id != employeeId);
-                    }
+                 
 
                     if (emailExist)
                     {

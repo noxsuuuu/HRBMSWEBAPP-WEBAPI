@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using System.Net.NetworkInformation;
+using System.Xml.Linq;
 
 namespace HRBMSWEBAPP.Controllers
 {
@@ -61,51 +64,94 @@ namespace HRBMSWEBAPP.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Update(string roleId)
+        public async Task<IActionResult> Update(string? id)
         {
-            var oldTodo = await _roleManager.FindByIdAsync(roleId);
-            return View(oldTodo);
+            //var role = await _roleManager.FindByIdAsync(id);
+            //var getroles = await _roleManager.GetRoleIdAsync(role);
+            var role = await _roleManager.FindByIdAsync(id);
+
+            if (role == null)
+            {
+                return NotFound();
+            }
+
+            var roleViewModel = new RoleViewModel
+            {
+                Name = role.Name
+            };
+
+            return View(roleViewModel);
 
         }
+
         [HttpPost]
-        public async Task<IActionResult> Update(Guid roleid)
+        public async Task<IActionResult> Update(RoleViewModel roleViewModel)
         {
-
-
-            // Find the role by ID
-           
-            IdentityRole identityRole = await _roleManager.FindByIdAsync(roleid.ToString());
-
-            if (identityRole == null)
+            if (!ModelState.IsValid)
             {
-                // Handle the case where role is not found, e.g., return an appropriate view or error message
-                return NotFound(); // or return View("NotFound") or any other appropriate action
+                return View(roleViewModel);
             }
 
-            // Update the properties of the retrieved role object
-            //identityRole.Name = role.Name; // Assuming Name is the property in IdentityRole that corresponds to RoleViewModel's Name property
+            var existingRole = await _roleManager.FindByIdAsync(roleViewModel.Id.ToString());
 
-            // Update the role in the RoleManager
-            var result = await _roleManager.UpdateAsync(identityRole);
-
-
-            if (result.Succeeded)
+            if (existingRole == null)
             {
-                // Role updated successfully
-                return RedirectToAction("GetAllRoles", "Roles");
+                return NotFound();
             }
-            else
+
+            existingRole.Name = roleViewModel.Name;
+            existingRole.NormalizedName = roleViewModel.Name.ToUpperInvariant(); // Update the normalized name
+
+            var result = await _roleManager.UpdateAsync(existingRole);
+
+            if (!result.Succeeded)
             {
-                // Handle the case where role update fails, e.g., return an appropriate view or error message
-                return View("Error"); // or return View("Error", result.Errors) or any other appropriate action
+                // Handle the error
             }
+
+            return RedirectToAction("GetAllRoles");
         }
 
-        //public IActionResult Details(string roleId)
+
+
+        //[HttpPost]
+        //public async Task<IActionResult> Update(IdentityRole role, string? id)
         //{
-        //    var role = _roleManager.FindByIdAsync(roleId);
-        //    return View(role.Result);
+        //    //await _repo.UpdateRoomCategories(category.Id, category);
+        //    //return RedirectToAction("GetAllRoomCategories");
+        //    var roles = await _roleManager.FindByIdAsync(id);
+
+        //    if (roles == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var roleViewModel = new RoleViewModel
+        //    {
+        //        Name = roles.Name
+        //    };
+        //    await _roleManager.UpdateAsync(roleViewModel);
+        //    // role = await _roleManager.FindByIdAsync(id);
+
+        //    //var existingRole = await _roleManager.FindByIdAsync(role.Id.ToString());
+
+        //    //// Update the role properties
+        //    //existingRole.Name = role.Name;
+        //    //existingRole.NormalizedName = role.Name.ToUpperInvariant();
+
+        //    //// Update the role in the database
+        //    //var result = await _roleManager.UpdateAsync(existingRole);
+
+        //    //if (!result.Succeeded)
+        //    //{
+        //    //    // Handle the error
+        //    //}
+
+        //    //// Redirect to the roles list page
+        //    return RedirectToAction("GetAllRoles");
         //}
+
+
         public async Task<IActionResult> Details(string? id)
         {
             if (id == null)
