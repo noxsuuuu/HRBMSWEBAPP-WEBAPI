@@ -28,25 +28,6 @@ namespace HRBMSWEBAPP.Controllers
 
         public async Task<IActionResult> Details(string? id)
         {
-            //if (id == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //ApplicationUser user = await _userManager.FindByIdAsync(id);
-
-            //if (user == null)
-            //{
-            //    return NotFound();
-            //}
-
-
-            //return View(user);
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             ApplicationUser user = await this._userManager.FindByIdAsync(id);
 
             if (user == null)
@@ -66,7 +47,7 @@ namespace HRBMSWEBAPP.Controllers
                 PhoneNumber = user.PhoneNumber,
                 Role = role
             };
-
+            
             return View(model);
 
         }
@@ -122,33 +103,49 @@ namespace HRBMSWEBAPP.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Update(string? userId, IdentityRole id)
+        public async Task<IActionResult> Update(string userId, ApplicationUser Userr)
         {
 
-            var user = await _roleManager.GetRoleIdAsync(id);
-            ApplicationUser appuser = await _userManager.FindByIdAsync(user);
-            //string roleid = "a534d2c6-1f94-46c8-84a1-4379a1fc912a";
-           // var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId);
-           // var roles = await _roleManager.GetRoleIdAsync(role);
-            EditUserViewModel userViewModel = new EditUserViewModel()
+            var appuser = await _userManager.GetUserIdAsync(Userr);
+            var user = await _userManager.FindByIdAsync(appuser);
+            var userRole = await _userManager.GetRolesAsync(user);
+            IdentityRole role = await _roleManager.FindByNameAsync(userRole[0]);
+            ApplicationUser  usermodel = new ApplicationUser
             {
-                FirstName = appuser.FirstName,
-                LastName = appuser.LastName,
-                Email = appuser.Email,
-                PhoneNumber = appuser.PhoneNumber,
-                //Roles = appuser.
+               FirstName = user.FirstName,
+               LastName = user.LastName,
+               Email = user.Email,
+               PhoneNumber= user.PhoneNumber,
+               Role = role
             };
-            return View(userViewModel);
+
+            return View(usermodel);
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> UpdateAsync(EditUserViewModel edituser,string id)
+        public async Task<IActionResult> Update(EditUserViewModel edituser,string id)
         {
-            IdentityUser identity = new IdentityUser();
-            var user = _userManager.FindByIdAsync(identity.Id);
-         //   var result = await _roleManager.UpdateAsync(existingRole);
-            await _userManager.Users.FirstOrDefaultAsync(u => u.Id == id);
+            if (!ModelState.IsValid)
+            {
+                return View(edituser);
+            }
+
+            var existinguser = await _roleManager.FindByIdAsync(edituser.Id.ToString());
+
+            if (existinguser == null)
+            {
+                return NotFound();
+            }
+
+
+            //var result = await _userManager.UpdateAsync(existinguser);
+
+            //if (!result.Succeeded)
+            //{
+            //    // Handle the error
+            //}
+
             return RedirectToAction("GetAllUsers");
         }
     }

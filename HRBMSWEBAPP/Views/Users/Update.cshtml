@@ -1,4 +1,4 @@
-﻿@model HRBMSWEBAPP.ViewModel.EditUserViewModel
+﻿@model HRBMSWEBAPP.Models.ApplicationUser
 
 @{
     ViewData["Title"] = "Edit";
@@ -40,9 +40,9 @@
                     </div>
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
-                            @if (Model.Roles.Any())
+                            @if (Model.Role.Name.Any())
                             {
-                                foreach (var role in Model.Roles)
+                                foreach (var role in Model.Role.Name)
                                 {
                                     // manage roles for user
                                     <li class="list-group-item">@role</li>
