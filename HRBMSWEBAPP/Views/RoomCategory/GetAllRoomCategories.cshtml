@@ -1,16 +1,13 @@
 ﻿@model IEnumerable<RoomCategories>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Room Categories";
 }
-
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create" asp-controller="RoomCategory">Create New</a>
-</p>
-<table class="table">
-    <thead>
+<div class="card">
+    <div class="card-body">
+<h1>Room Categories</h1>
+<table class="table table-hover">
+            <thead class="table-primary">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Room_Name)
@@ -51,3 +48,5 @@
 }
     </tbody>
 </table>
+</div>
+</div>

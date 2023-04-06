@@ -3,14 +3,13 @@
 @{
     ViewData["Title"] = "User List";
 }
+<div class="card">
+    <div class="card-body">
+<h1>Users</h1>
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
+<table class="table table-hover">
+    <thead class="table-primary">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Id)
@@ -61,3 +60,5 @@
         }
     </tbody>
 </table>
+</div>
+</div>
