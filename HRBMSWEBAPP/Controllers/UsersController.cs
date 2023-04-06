@@ -24,55 +24,25 @@ namespace HRBMSWEBAPP.Controllers
             return View(userlist);
         }
 
-        public async Task<IActionResult> Details(string? id, IdentityUser iuser)
+        public async Task<IActionResult> Details(string? id)
         {
-         // ApplicationUser appuser = await this._userManager.GetUserId(id);
-        
-        //   var result = await _userManager.CreateAsync(userModel, userViewModel.Password);
-        var user = await _userManager.FindByIdAsync(iuser.Id);
-
-            //if (user == null)
-            //{
-            //    return NotFound();
-            //}
-
-            var viewModel = new RegisterViewModel
+            // ApplicationUser appuser = await this._userManager.GetUserId(id);
+            if (id == null)
             {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Email = user.Email,
-                PhoneNumber = user.PhoneNumber
-            };
+                return NotFound();
+            }
+                
+            ApplicationUser user = await _userManager.FindByIdAsync(id);
 
-            return View(viewModel);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+
+            return View(user);
         }
-        //public async Task<IActionResult> Details(string? userId)
-        //{
-        //    if (userId == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    ApplicationUser user = await _userManager.FindByIdAsync(userId);
-
-        //    if (user == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    // Convert user to registerViewModel 
-        //    RegisterViewModel registerViewModel = new RegisterViewModel
-        //    {
-
-        //        FirstName = user.FirstName,
-        //        LastName = user.LastName,
-        //        Email = user.Email,
-        //        PhoneNumber = user.PhoneNumber
-        //    };
-
-        //    return View(registerViewModel);
-        //}
-
+       
 
         public async Task<IActionResult> Delete(string userId)
         {
