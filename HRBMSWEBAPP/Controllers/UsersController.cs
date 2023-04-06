@@ -28,21 +28,47 @@ namespace HRBMSWEBAPP.Controllers
 
         public async Task<IActionResult> Details(string? id)
         {
-            // ApplicationUser appuser = await this._userManager.GetUserId(id);
+            //if (id == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //ApplicationUser user = await _userManager.FindByIdAsync(id);
+
+            //if (user == null)
+            //{
+            //    return NotFound();
+            //}
+
+
+            //return View(user);
             if (id == null)
             {
                 return NotFound();
             }
-                
-            ApplicationUser user = await _userManager.FindByIdAsync(id);
+
+            ApplicationUser user = await this._userManager.FindByIdAsync(id);
 
             if (user == null)
             {
                 return NotFound();
             }
 
+            // Get the roles associated with the user
+            var userRole = await _userManager.GetRolesAsync(user);
+            IdentityRole role = await _roleManager.FindByNameAsync(userRole[0]);
 
-            return View(user);
+            ApplicationUser model = new ApplicationUser
+            {   
+                Email = user.Email, 
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                PhoneNumber = user.PhoneNumber,
+                Role = role
+            };
+
+            return View(model);
+
         }
 
 

@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace HRBMSWEBAPP.Models
 {
@@ -34,6 +35,10 @@ namespace HRBMSWEBAPP.Models
 
         [RegularExpression("^(09|\\+639)\\d{9}$", ErrorMessage = "Invalid phone number.")]
         public string PhoneNumber { get; set; }
+
+        [ValidateNever]
+        [NotMapped]
+        public IdentityRole Role { get; set; }
 
         //public string Address { get; set; }
         //public ApplicationUser()
