@@ -24,13 +24,56 @@ namespace HRBMSWEBAPP.Controllers
             return View(userlist);
         }
 
-        public async Task<IActionResult> Details(string userId)
+        public async Task<IActionResult> Details(string? id, IdentityUser iuser)
         {
-      
-                var user =  _userManager.Users.FirstOrDefault(u => u.Id == userId);
-                return View(user);
+         // ApplicationUser appuser = await this._userManager.GetUserId(id);
+        
+        //   var result = await _userManager.CreateAsync(userModel, userViewModel.Password);
+        var user = await _userManager.FindByIdAsync(iuser.Id);
 
+            //if (user == null)
+            //{
+            //    return NotFound();
+            //}
+
+            var viewModel = new RegisterViewModel
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber
+            };
+
+            return View(viewModel);
         }
+        //public async Task<IActionResult> Details(string? userId)
+        //{
+        //    if (userId == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    ApplicationUser user = await _userManager.FindByIdAsync(userId);
+
+        //    if (user == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    // Convert user to registerViewModel 
+        //    RegisterViewModel registerViewModel = new RegisterViewModel
+        //    {
+
+        //        FirstName = user.FirstName,
+        //        LastName = user.LastName,
+        //        Email = user.Email,
+        //        PhoneNumber = user.PhoneNumber
+        //    };
+
+        //    return View(registerViewModel);
+        //}
+
+
         public async Task<IActionResult> Delete(string userId)
         {
             var user = _userManager.Users.FirstOrDefault(u => u.Id == userId);
@@ -55,6 +98,7 @@ namespace HRBMSWEBAPP.Controllers
                     FirstName = userViewModel.FirstName,
                     LastName = userViewModel.LastName,
                     PhoneNumber = userViewModel.PhoneNumber
+                    
                     
                 };
                 var result = await _userManager.CreateAsync(userModel, userViewModel.Password);
