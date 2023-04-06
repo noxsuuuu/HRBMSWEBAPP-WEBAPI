@@ -46,6 +46,19 @@ namespace HRBMSWEBAPP.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
+        {
+            var old = await this._repo.GetRoomCategoriesById(id);
+            return View(old);
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> Update(RoomCategories category)
+        {
+            await _repo.UpdateRoomCategories(category.Id, category);
+            return RedirectToAction("GetAllRoomCategories");
+        }
 
         [HttpPost]
         public IActionResult Create(RoomCategories category)
@@ -59,21 +72,10 @@ namespace HRBMSWEBAPP.Controllers
             return View();
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Update(int id)
-        {
-            var old = await this._repo.GetRoomCategoriesById(id);
-            return View(old);
-
-        }
+    
 
 
-        [HttpPost]
-        public async Task<IActionResult> Update(RoomCategories category)
-        {
-            await _repo.UpdateRoomCategories(category.Id, category);
-            return RedirectToAction("GetAllRoomCategories");
-        }
+      
 
 
 

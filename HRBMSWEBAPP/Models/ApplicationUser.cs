@@ -36,6 +36,20 @@ namespace HRBMSWEBAPP.Models
         public string PhoneNumber { get; set; }
 
         //public string Address { get; set; }
+        //public ApplicationUser()
+        //{
+
+        //}
+
+        //public ApplicationUser(int id, string firstName, string lastName, string email, string phone)
+        //{
+        //    Id = id;
+        //    First_Name = firstName;
+        //    Last_Name = lastName;
+        //    Email = email;
+        //    Phone = phone;
+
+        //}
 
     }
 }

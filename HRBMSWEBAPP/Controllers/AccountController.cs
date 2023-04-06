@@ -18,7 +18,7 @@ namespace HRBMSWEBAPP.Controllers
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _roleManager = roleManager;
+            _roleManager = roleManager; 
         }
 
         [HttpGet]

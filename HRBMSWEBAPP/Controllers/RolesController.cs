@@ -1,12 +1,16 @@
-﻿using HRBMSWEBAPP.ViewModel;
+﻿using HRBMSWEBAPP.Models;
+using HRBMSWEBAPP.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using System.Net.NetworkInformation;
+using System.Xml.Linq;
 
 namespace HRBMSWEBAPP.Controllers
 {
-   // [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Administrator")]
     public class RolesController : Controller
     {
         public RoleManager<IdentityRole> _roleManager; //{ get; }
@@ -26,6 +30,13 @@ namespace HRBMSWEBAPP.Controllers
         {
             if (ModelState.IsValid)
             {
+                //var newUser = new ApplicationUser
+                //{
+                //    Id = Guid.NewGuid(),
+                //    UserName = "username",
+                //    // Other user properties
+                //};
+
                 var role = new IdentityRole
                 {
                     Name = roleViewModel.Name
@@ -48,48 +59,175 @@ namespace HRBMSWEBAPP.Controllers
         public IActionResult GetAllRoles()
         {
             return View(_roleManager.Roles.ToList());
+            //RoleViewModel role = this._roleManager.to();
+            //return View(role);
         }
 
         [HttpGet]
-        public async Task<IActionResult> Update(string roleId)
+        public async Task<IActionResult> Update(string? id)
         {
-            var oldTodo = await _roleManager.FindByIdAsync(roleId);
-            return View(oldTodo);
-        }
-        [HttpPost]
-        public async Task<IActionResult> Update(RoleViewModel role)
-        {
-            var oldRole = await _roleManager.FindByIdAsync(role.Id.ToString());
-            if (oldRole == null)
-            oldRole.Name = role.Name;
-            var result = await _roleManager.UpdateAsync(oldRole);
-            if (result.Succeeded)
-            {
-                return RedirectToAction("GetAllRoles");
-            }
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError(string.Empty, error.Description);
-            }
-            return View();
-        }
+            //var role = await _roleManager.FindByIdAsync(id);
+            //var getroles = await _roleManager.GetRoleIdAsync(role);
+            var role = await _roleManager.FindByIdAsync(id);
 
-        public async Task<IActionResult> Details(string? roleId)
-        {
-            if(roleId == null)
+            if (role == null)
             {
                 return NotFound();
             }
-            var role = await this._roleManager.FindByIdAsync(roleId);
-            return View(role);
+
+            var roleViewModel = new RoleViewModel
+            {
+                Name = role.Name
+            };
+
+            return View(roleViewModel);
+
         }
 
-        public async Task<IActionResult> Delete(string roleId)
+        [HttpPost]
+        public async Task<IActionResult> Update(RoleViewModel roleViewModel)
         {
-            var oldRole = await _roleManager.FindByIdAsync(roleId);
+            if (!ModelState.IsValid)
+            {
+                return View(roleViewModel);
+            }
 
-            var todolist = _roleManager.DeleteAsync(oldRole);
-            return RedirectToAction(controllerName: "Role", actionName: "GetAllRoles"); // reload the getall page it self
+            var existingRole = await _roleManager.FindByIdAsync(roleViewModel.Id.ToString());
+
+            if (existingRole == null)
+            {
+                return NotFound();
+            }
+
+            existingRole.Name = roleViewModel.Name;
+            existingRole.NormalizedName = roleViewModel.Name.ToUpperInvariant(); // Update the normalized name
+
+            var result = await _roleManager.UpdateAsync(existingRole);
+
+            if (!result.Succeeded)
+            {
+                // Handle the error
+            }
+
+            return RedirectToAction("GetAllRoles");
+        }
+
+
+
+        //[HttpPost]
+        //public async Task<IActionResult> Update(IdentityRole role, string? id)
+        //{
+        //    //await _repo.UpdateRoomCategories(category.Id, category);
+        //    //return RedirectToAction("GetAllRoomCategories");
+        //    var roles = await _roleManager.FindByIdAsync(id);
+
+        //    if (roles == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var roleViewModel = new RoleViewModel
+        //    {
+        //        Name = roles.Name
+        //    };
+        //    await _roleManager.UpdateAsync(roleViewModel);
+        //    // role = await _roleManager.FindByIdAsync(id);
+
+        //    //var existingRole = await _roleManager.FindByIdAsync(role.Id.ToString());
+
+        //    //// Update the role properties
+        //    //existingRole.Name = role.Name;
+        //    //existingRole.NormalizedName = role.Name.ToUpperInvariant();
+
+        //    //// Update the role in the database
+        //    //var result = await _roleManager.UpdateAsync(existingRole);
+
+        //    //if (!result.Succeeded)
+        //    //{
+        //    //    // Handle the error
+        //    //}
+
+        //    //// Redirect to the roles list page
+        //    return RedirectToAction("GetAllRoles");
+        //}
+
+
+        public async Task<IActionResult> Details(string? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            // Find the role by ID
+            IdentityRole role = await _roleManager.FindByIdAsync(id);
+
+            // If role is not found, return NotFound result
+            if (role == null)
+            {
+                return NotFound();
+            }
+
+            // Convert IdentityRole to RoleViewModel
+            RoleViewModel roleViewModel = new RoleViewModel
+            {
+                Id = Guid.Parse(role.Id),
+                Name = role.Name
+            };
+
+            return View(roleViewModel);
+        }
+
+        //public async Task<IActionResult> Delete(string roleId)
+        //{
+
+        //    var roomlist = _roleManager.DeleteAsync(roleId);
+        //    return RedirectToAction(controllerName: "Roles", actionName: "GetAllRoles");
+
+
+        //}
+
+        public async Task<IActionResult> Delete(Guid Id)
+        {
+            IdentityRole role = await _roleManager.FindByIdAsync(Id.ToString());
+            var result = await _roleManager.DeleteAsync(role);
+            return RedirectToAction(controllerName: "Roles", actionName: "GetAllRoles");
+
+            //if (Id == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //// Find the role by ID
+
+            //IdentityRole role = await _roleManager.FindByIdAsync(Id.ToString());
+
+
+            //// If role is not found, return NotFound result
+            //if (role == null)
+            //{
+            //    return NotFound();
+            //}
+        
+            //// Delete the role
+
+            //var result = await _roleManager.DeleteAsync(role);
+
+            //if (result.Succeeded)
+            //{
+            //    return RedirectToAction("GetAllRoles", "Roles");
+            //}
+            //else
+            //{
+            //    // Handle errors if any
+            //    foreach (var error in result.Errors)
+            //    {
+            //        ModelState.AddModelError(string.Empty, error.Description);
+            //    }
+
+            //    // Redirect to appropriate view with error messages
+            //    return View("ErrorView");
+            //}
         }
     }
 }
