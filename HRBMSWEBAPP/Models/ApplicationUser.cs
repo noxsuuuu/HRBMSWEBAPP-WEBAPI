@@ -30,7 +30,7 @@ namespace HRBMSWEBAPP.Models
 
         [DisplayName("Email Address")]
         [EmailAddress]
-        [EmailExist]
+       // [EmailExist]
         public string? Email { get; set; }
 
         [RegularExpression("^(09|\\+639)\\d{9}$", ErrorMessage = "Invalid phone number.")]
