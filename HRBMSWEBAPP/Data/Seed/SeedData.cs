@@ -39,7 +39,7 @@ namespace HRBMSWEBAPP.Data.Seed
                         Room_Name = "Deluxe",
                         NoOfRooms = 69,
                         Price = 69,
-                        Description = "sheesh",
+                        Description = "11111111111111111111",
                     },
                     new RoomCategories
                     {
@@ -47,10 +47,11 @@ namespace HRBMSWEBAPP.Data.Seed
                         Room_Name = "Normal",
                         NoOfRooms = 69,
                         Price = 69,
-                        Description = "yeaaaaaaaa",
+                        Description = "1111111111111111111",
                     }
 
                 );
+            
 
 
 

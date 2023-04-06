@@ -1,10 +1,11 @@
 ﻿using HRBMSWEBAPP.Models;
 using HRBMSWEBAPP.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HRBMSWEBAPP.Controllers
 {
-    //[Authorize(Roles ="Admin, Guest")]
+    //[Authorize(Roles ="Admin, User")]
     public class RoomCategoryController : Controller
     {
         private readonly IRoomCatDBRepository _repo;

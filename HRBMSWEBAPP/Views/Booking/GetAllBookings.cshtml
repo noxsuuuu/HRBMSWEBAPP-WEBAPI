@@ -3,14 +3,12 @@
 @{
     ViewData["Title"] = "Bookings";
 }
-
+<div class="card">
+    <div class="card-body">
 <h1>Bookings</h1>
 
-<p>
-    <a asp-action="Create" asp-controller="Booking">Create New</a>
-</p>
-<table class="table">
-    <thead>
+<table class="table table-hover">
+            <thead class="table-primary">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Id)
@@ -24,12 +22,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Status)
             </th>
-            @*<th>
-            @Html.DisplayNameFor(model => model.Address)
-            </th>*@
-            @*<th>
-            @Html.DisplayNameFor(model => model.Role)
-            </th>*@
             <th></th>
         </tr>
     </thead>
@@ -49,12 +41,6 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.DisplayStatus)
                 </td>
-                @*<td>
-            @Html.DisplayFor(modelItem => item.Address)
-            </td>*@
-                @* <td>
-            @Html.DisplayFor(modelItem => item.Role.Role_Name)
-            </td>*@
                 <td>
                     <a asp-action="Update" asp-route-id="@item.Id">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
@@ -64,3 +50,5 @@
         }
     </tbody>
 </table>
+</div>
+</div>

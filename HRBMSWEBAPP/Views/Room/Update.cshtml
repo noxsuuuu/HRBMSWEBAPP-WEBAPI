@@ -3,14 +3,19 @@
 @{
     ViewData["Title"] = "Edit";
 }
+<div class="card">
+    <div class="col-lg-6">
 
-<h1>Edit</h1>
+        <div class="card-body">
 
-<h4>User</h4>
+
+<h1>Room Edit</h1>
+
+<h4>Room</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-controller="Users" asp-action="Update" method="post">
+        <form asp-controller="Room" asp-action="Update" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
@@ -35,11 +40,9 @@
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="GetAllRooms">Back to List</a>
+        </div>
+    </div>
 </div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

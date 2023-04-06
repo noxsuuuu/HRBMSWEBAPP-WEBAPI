@@ -3,13 +3,14 @@
 @{
     ViewData["Title"] = "Details";
 }
-
-<h1>User Details</h1>
+<div class="card">
+    <div class="card-body">
+<h1>Roles Details</h1>
 
 <div>
-    <h4>User</h4>
+    <h4>Roles</h4>
     <hr />
-    <dl class="row">
+    <dl class="row" >
         
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Id)
@@ -29,6 +30,7 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="GetAllRoles">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>
+</div>
+    </div>
 </div>

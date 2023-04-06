@@ -98,9 +98,9 @@ namespace HRBMSWEBAPP.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "f6ec9e29-5f15-40ae-a91d-135f6d167091",
+                            Id = "577fda11-13b8-487d-b639-8295880ffc18",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "47b1626f-d090-41f5-9feb-e5ea67b889a3",
+                            ConcurrencyStamp = "41d402f1-63e0-47a3-8a68-60eb0fb7ba06",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -108,14 +108,14 @@ namespace HRBMSWEBAPP.Migrations
                             LockoutEnabled = false,
                             PhoneNumber = "09079260368",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e96d71dc-49f7-47bc-aea0-a05f16678a24",
+                            SecurityStamp = "b457a3b1-6677-4c37-a55e-63484833cf9b",
                             TwoFactorEnabled = false
                         },
                         new
                         {
-                            Id = "fecfdbe2-1e12-4522-bea4-1550c5042576",
+                            Id = "7ae8b3a5-9ecd-41e6-8dce-2ca28803a1f1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d8e738bc-52c1-43d6-9da1-339df1f83d9c",
+                            ConcurrencyStamp = "378389aa-e146-4aed-960f-6ba92e9a19ca",
                             Email = "ivhan@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Ivhan",
@@ -123,14 +123,14 @@ namespace HRBMSWEBAPP.Migrations
                             LockoutEnabled = false,
                             PhoneNumber = "09079260368",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "bb952a6e-e052-4dcf-8788-45575371f65e",
+                            SecurityStamp = "6fe24cd7-8c82-48e5-91b4-fccdd97f3f99",
                             TwoFactorEnabled = false
                         },
                         new
                         {
-                            Id = "d3e8c4d8-4c03-4b49-84ee-98097b82941d",
+                            Id = "b26c738b-c5ef-45ac-9391-90a4d119102b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8f9e8b18-1766-4128-8022-009a34a4def7",
+                            ConcurrencyStamp = "e341e6b7-25d0-449e-87f1-1db5d7da6ac1",
                             Email = "mark@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Mark",
@@ -138,7 +138,7 @@ namespace HRBMSWEBAPP.Migrations
                             LockoutEnabled = false,
                             PhoneNumber = "09125635896",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "58783513-6fca-4626-8190-71d96c030c11",
+                            SecurityStamp = "22ae1da5-528f-490d-aa91-df5c1963f3fa",
                             TwoFactorEnabled = false
                         });
                 });
@@ -286,7 +286,7 @@ namespace HRBMSWEBAPP.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "sheesh",
+                            Description = "11111111111111111111",
                             NoOfRooms = 69,
                             Price = 69,
                             Room_Name = "Deluxe"
@@ -294,7 +294,7 @@ namespace HRBMSWEBAPP.Migrations
                         new
                         {
                             Id = 2,
-                            Description = "yeaaaaaaaa",
+                            Description = "1111111111111111111",
                             NoOfRooms = 69,
                             Price = 69,
                             Room_Name = "Normal"

@@ -3,7 +3,8 @@
 @{
     ViewData["Title"] = "Details";
 }
-
+<div class="card">
+    <div class="card-body">
 <h1>User Details</h1>
 
 <div>
@@ -55,6 +56,5 @@
 </div>
 <div>
 
-    <a asp-action="Update" asp-route-id="@Model.Id">Edit</a> |@* not working*@
-    <a asp-action="GetAllUsers">Back to List</a>
+    <a asp-action="Update" asp-route-id="@Model.Id">Edit</a> 
 </div>
