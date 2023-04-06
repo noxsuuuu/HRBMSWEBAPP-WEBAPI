@@ -33,16 +33,14 @@
                 <input asp-for="PhoneNumber" class="form-control" />
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
-           @* not showing the roles*@
+
             <div class="form-group">
-                <label asp-for="Role" class="control-label"></label>
-                <select asp-for="Role" class="form-control" asp-items="@ViewBag.Role">
-                    <option value="">-- Select a role --</option>
+                <label asp-for="Role.Name" class="control-label"></label>
+                <select asp-for="Role.Name" asp-items="@ViewBag.RoleList" class="form-control">
+                    <option value="">-- Select Role --</option>
                 </select>
                 <span asp-validation-for="Role.Name" class="text-danger"></span>
             </div>
-
-            
 
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
