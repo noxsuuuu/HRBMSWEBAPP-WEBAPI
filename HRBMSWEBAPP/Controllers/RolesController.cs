@@ -26,31 +26,39 @@ namespace HRBMSWEBAPP.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(RoleViewModel roleViewModel)
+        public async Task<IActionResult> Create(RoleViewModel roleViewModel,IdentityRole rolemodel)
         {
-            if (ModelState.IsValid)
+            if (!_roleManager.RoleExistsAsync(rolemodel.Name).GetAwaiter().GetResult())
             {
-                //var newUser = new ApplicationUser
-                //{
-                //    Id = Guid.NewGuid(),
-                //    UserName = "username",
-                //    // Other user properties
-                //};
 
-                var role = new IdentityRole
+                if (ModelState.IsValid)
                 {
-                    Name = roleViewModel.Name
-                };
-                var result = await _roleManager.CreateAsync(role);
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("GetAllRoles");
+                    //var newUser = new ApplicationUser
+                    //{
+                    //    Id = Guid.NewGuid(),
+                    //    UserName = "username",
+                    //    // Other user properties
+                    //};
+
+                    var role = new IdentityRole
+                    {
+                        Name = roleViewModel.Name
+                    };
+                    var result = await _roleManager.CreateAsync(role);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("GetAllRoles");
+                    }
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
                 }
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
+                //popup message
             }
+            //else
+                //popup message
+               // TempData["ErrorMessage"] = "User role already exist";
             return View(roleViewModel);
         }
 
