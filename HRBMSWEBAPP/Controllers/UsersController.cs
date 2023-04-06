@@ -42,12 +42,13 @@ namespace HRBMSWEBAPP.Controllers
 
             return View(user);
         }
-       
 
-        public async Task<IActionResult> Delete(string userId)
+
+        public async Task<IActionResult> Delete(string Id)
         {
-            var user = _userManager.Users.FirstOrDefault(u => u.Id == userId);
-            var userlist = await _userManager.DeleteAsync(user);
+            ApplicationUser user = await _userManager.FindByIdAsync(Id);
+            var result = await _userManager.DeleteAsync(user);
+           // ApplicationUser user = await _userManager.FindByIdAsync(userId.ToString());
             return RedirectToAction(controllerName: "Users", actionName: "GetAllUsers"); // reload the getall page it self
         }
 
