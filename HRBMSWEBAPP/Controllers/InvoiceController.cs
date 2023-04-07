@@ -6,23 +6,27 @@ namespace HRBMSWEBAPP.Controllers
 {
     public class InvoiceController : Controller
     {
-        IinvoiceDBRepository _repo;
+        private readonly IinvoiceDBRepository _repo;
 
         public InvoiceController(IinvoiceDBRepository repo)
         {
             _repo = repo;
         }
 
-        public IActionResult GetAllInvoice()
+        public async Task<IActionResult> GetAllInvoice()
         {
-            var invoicelist = _repo.GetAllInvoice();
-            return View(invoicelist);
-
+            List<Invoice> invoice = await this._repo.GetAllInvoice();
+            return View(invoice);
         }
 
-        public IActionResult Details(int invoiceId)
+        public async Task<IActionResult> Details(int? id)
         {
-            var invoice = _repo.GetInvoiceById(invoiceId);
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Invoice invoice = await this._repo.GetInvoiceById((int)id);
             return View(invoice);
         }
 
@@ -51,9 +55,10 @@ namespace HRBMSWEBAPP.Controllers
         }
 
         [HttpPost]
-        public IActionResult Update(Invoice invoice)
+        public async Task<IActionResult> Update(Invoice invoice)
         {
-            var _invoice = _repo.UpdateInvoice(invoice.Id, invoice);
+
+            await _repo.UpdateInvoice(invoice.Id, invoice);
             return RedirectToAction("GetAllInvoice");
         }
     }

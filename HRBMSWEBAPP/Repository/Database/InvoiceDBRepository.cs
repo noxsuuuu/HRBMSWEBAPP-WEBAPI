@@ -34,8 +34,9 @@ namespace HRBMSWEBAPP.Repository.Database
         {
             //try
             //{
-                return this._context.Invoice/*.Include(e => e.User)
-                                            */.Include(e => e.Booking)
+           // return this._context.Booking.ToListAsync();
+            return this._context.Invoice.Include(e => e.User)
+                                            .Include(e => e.Booking)
                                             .Include(e => e.Room)
                                             .Include(e => e.Category).ToListAsync();
             //}
@@ -60,8 +61,8 @@ namespace HRBMSWEBAPP.Repository.Database
         public Task<Invoice> GetInvoiceById(int invoice_id)
         {
             var invoice = this._context.Invoice
-                     /*.Include(e => e.User)
-                     */.Include(e => e.Room)
+                     .Include(e => e.User)
+                     .Include(e => e.Room)
                      .Include(e => e.Booking)
                      .Include(e => e.Category)
                      .FirstOrDefaultAsync(m => m.Id == invoice_id);
