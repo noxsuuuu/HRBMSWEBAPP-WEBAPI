@@ -47,19 +47,23 @@ namespace HRBMSWEBAPP.Controllers
                     // add roles to it and allow him to login
                     //var roles = _roleManager.Roles.ToList();
                     //var role = _roleManager.Roles.FirstOrDefault(r => r.Name == "Admin");
-                   /* if (role != null)
-                    {
-                        //var roleResult = await _userManager.AddToRolesAsync(userModel, roles.Select(s => s.Name).ToList());
-                        var roleResult = await _userManager.AddToRoleAsync(userModel, role.Name);
-                        if (!roleResult.Succeeded)
-                        {
-                            ModelState.AddModelError(String.Empty, "User Role cannot be assigned");
-                        }
-                    }
-*/
+                    /* if (role != null)
+                     {
+                         //var roleResult = await _userManager.AddToRolesAsync(userModel, roles.Select(s => s.Name).ToList());
+                         var roleResult = await _userManager.AddToRoleAsync(userModel, role.Name);
+                         if (!roleResult.Succeeded)
+                         {
+                             ModelState.AddModelError(String.Empty, "User Role cannot be assigned");
+                         }
+                     }
+ */
+                    var role = await _roleManager.FindByNameAsync("Guest");
+
+                    // Add the user to the role
+                    await _userManager.AddToRoleAsync(userModel, role.Name);
                     // login the user automatically
-                    await _signInManager.SignInAsync(userModel, isPersistent: false);
-                    return RedirectToAction("GetAllUsers", "Users");
+                    //await _signInManager.SignInAsync(userModel, isPersistent: false);
+                    return RedirectToAction("Login");
 
                 }
                 foreach (var error in result.Errors)

@@ -44,14 +44,6 @@
     <button type="submit">Register</button>
 </form>*@
 
-
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title> Register - HRBMS</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-
   <!-- Favicons -->
   <link href="~/img/favicon.png" rel="icon">
   <link href="~/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -96,36 +88,42 @@
 
                  <form asp-controller="Account" asp-action="Register" method="post">
                     <div class="col-12">
-                      <label for="yourName" class="form-label">First Name</label>
+                    <label asp-for="FirstName" class="form-label">First Name</label>
                                             
-                      <input type="text" name="name" class="form-control" asp-for="FirstName" required>
+                      <input  class="form-control" asp-for="FirstName" required>
                                             <span asp-validation-for="FirstName"></span>
                     </div>
                      <div class="col-12">
-                      <label for="yourName" class="form-label">Last Name</label>
+                    <label asp-for="LastName" class="form-label">Last Name</label>
                                             
-                      <input type="text" name="name" class="form-control" asp-for="LastName" required>
+                      <input  class="form-control" asp-for="LastName" required>
                                             <span asp-validation-for="LastName"></span>
                     </div>
 
                     <div class="col-12">
-                      <label for="yourEmail" class="form-label">Your Email</label>
+                    <label asp-for="Email" class="form-label">Your Email</label>
 
-                    <input type="email" name="email" class="form-control" asp-for="Email" required>
+                    <input  class="form-control" asp-for="Email" required>
                                             <span asp-validation-for="Email"></span>
                     </div>
+                            <div class="col-12">
+                                <label asp-for="PhoneNumber" class="form-label">Your Phone Number</label>
+
+                                <input  class="form-control" asp-for="PhoneNumber" required>
+                                <span asp-validation-for="PhoneNumber"></span>
+                            </div>
 
                     <div class="col-12">
-                      <label for="yourPassword" class="form-label">Password</label>
+                                <label asp-for="Password" class="form-label">Password</label>
                                             
-                      <input type="password" name="password" class="form-control" asp-for="Password" required>
+                      <input class="form-control" asp-for="Password" required>
                                             <span asp-validation-for="Password"></span>
                     </div>
 
                     <div class="col-12">
-                      <label for="yourPassword" class="form-label">Confirm Password</label>
+                                <label asp-for="ConfirmPassword" class="form-label">Confirm Password</label>
                                             
-                      <input type="password" name="password" class="form-control" asp-for="ConfirmPassword" required>
+                      <input class="form-control" asp-for="ConfirmPassword" required>
                                             <span asp-validation-for="ConfirmPassword"></span>
                     </div>
 
@@ -136,13 +134,12 @@
                       </div>
                     </div>
                     <div class="col-12">
-                    <button class="btn btn-primary w-100" type="submit" asp-action="Login">Create Account</button>
-                    </div>
-                    <div class="col-12">
-                      <p class="small mb-0">Already have an account? <a asp-action="Login">Log in</a></p>
-                    </div>
+                    <button class="btn btn-primary w-100" type="submit">Create Account</button>
+                    </div> 
                   </form>
-
+                        <div class="col-12">
+                            <p class="small mb-0">Already have an account? <a asp-action="Login" asp-controller="Account">Log in</a></p>
+                        </div>
                 </div>
               </div>
 
