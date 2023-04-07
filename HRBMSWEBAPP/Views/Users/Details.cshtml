@@ -1,5 +1,6 @@
 ﻿@model HRBMSWEBAPP.Models.ApplicationUser
 
+
 @{
     ViewData["Title"] = "Details";
 }
@@ -54,7 +55,7 @@
 
     </dl>
 </div>
-<div>
-
-    <a asp-action="Update" asp-route-id="@Model.Id">Edit</a> 
-</div>
+        <div>
+            <a asp-action="GetAllUsers" asp-route-id="@Model?.Id">Back To List</a>  |
+            <a asp-action="Update" asp-route-id="@Model?.Id">Edit</a>
+        </div>
