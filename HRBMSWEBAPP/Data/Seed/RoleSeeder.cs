@@ -1,4 +1,5 @@
 ﻿using HRBMSWEBAPP.ViewModel;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace HRBMSWEBAPP.Data.Seed
@@ -8,15 +9,17 @@ namespace HRBMSWEBAPP.Data.Seed
         public static void InvokeRoleSeed(this ModelBuilder modelBuilder)
         {
             modelBuilder
-                .Entity<RoleViewModel>()
+                .Entity<IdentityRole>()
                 .HasData(
-                    new RoleViewModel { 
+                    new IdentityRole
+                    { 
 
                         Name = "Admin",
                     },
-                     new RoleViewModel
+                     new IdentityRole
                      {
-                         Name = "Staff",
+
+                         Name = "Guest",
                      }
                 );
         }
