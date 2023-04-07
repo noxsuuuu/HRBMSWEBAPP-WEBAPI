@@ -41,7 +41,9 @@ namespace HRBMSWEBAPP.Models
         [NotMapped]
         public IdentityRole Role { get; set; }
 
-       
+        [ValidateNever]
+        [NotMapped]
+        public IEnumerable<ApplicationUser> Userss { get; set; }
 
         //public string Address { get; set; }
         //public ApplicationUser()

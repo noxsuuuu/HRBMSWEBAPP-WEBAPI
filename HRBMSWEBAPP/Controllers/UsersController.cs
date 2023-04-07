@@ -63,27 +63,11 @@ namespace HRBMSWEBAPP.Controllers
             return RedirectToAction(controllerName: "Users", actionName: "GetAllUsers"); // reload the getall page it self
         }
 
-        //public async Task<IActionResult> OnGetAsync(string returnUrl = null)
-        //{
-
-        //    RoleViewModel role = new RoleViewModel();
-        //   { 
-        //    RoleList = _roleManager.Roles.Select(x => x.Name).Select(i => new SelectListItem
-        //    {
-        //        Text = i,
-        //        Value = i
-                
-        //    });
-        //   };
-        //    return View();
-        //}
-
-
         [HttpGet]
         public IActionResult Create()
         {
-            var roleNames = _roleManager.Roles.Select(r => r.Name).ToList();
-            ViewBag.Role = roleNames;
+            //var roleNames = _roleManager.Roles.Select(r => r.Name).ToList();
+            //ViewBag.Role = roleNames;
             return View();
         }
         [HttpPost]
@@ -121,12 +105,14 @@ namespace HRBMSWEBAPP.Controllers
             return View(userViewModel);
         }
 
+
+
         [HttpGet]
-        public async Task<IActionResult> Update(ApplicationUser Userr)
+        public async Task<IActionResult> Update(ApplicationUser Userr,string id)
         {
             var roles = _roleManager.Roles.ToList();
-            var appuser = await _userManager.GetUserIdAsync(Userr);
-            var user = await _userManager.FindByIdAsync(appuser);
+           // var appuser = await _userManager.GetUserIdAsync(Userr);
+            var user = await _userManager.FindByIdAsync(id);
             var userRole = await _userManager.GetRolesAsync(user);
             IdentityRole role = await _roleManager.FindByNameAsync(userRole[0]);
 
