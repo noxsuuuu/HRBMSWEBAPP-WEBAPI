@@ -132,7 +132,7 @@ namespace HRBMSWEBAPP.Controllers
                 LastName = user.LastName,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
-                Role = role
+                Role =  role
             };
 
             ViewBag.RoleList = roleViewModel.RoleList;
