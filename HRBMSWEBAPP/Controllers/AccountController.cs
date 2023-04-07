@@ -2,6 +2,7 @@
 using HRBMSWEBAPP.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace HRBMSWEBAPP.Controllers
 {
@@ -77,7 +78,7 @@ namespace HRBMSWEBAPP.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginUserViewModel userViewModel)
         {
-            if (ModelState.IsValid)
+           /* if (ModelState.IsValid)
             {
                 // login activity -> cookie [Roles and Claims]
                 var result = await _signInManager.PasswordSignInAsync(userViewModel.UserName, userViewModel.Password, userViewModel.RememberMe, false);
@@ -88,8 +89,23 @@ namespace HRBMSWEBAPP.Controllers
                 }
                 ModelState.AddModelError(string.Empty, "invalid login credentials");
             }
+            return View(userViewModel);*/
+
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(userViewModel.UserName, userViewModel.Password, userViewModel.RememberMe, false);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                ModelState.AddModelError(string.Empty, "invalid login credentials");
+            }
             return View(userViewModel);
+
+
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Logout()

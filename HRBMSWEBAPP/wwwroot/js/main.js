@@ -35,9 +35,14 @@
   /**
    * Sidebar toggle
    */
+   // let sidebarActivated = true;
   if (select('.toggle-sidebar-btn')) {
     on('click', '.toggle-sidebar-btn', function(e) {
-      select('body').classList.toggle('toggle-sidebar')
+        select('body').classList.toggle('toggle-sidebar')
+        /*if (!sidebarActivated) {
+            select('body').classList.toggle('toggle-sidebar');
+            sidebarActivated = false;
+        }*/
     })
   }
 

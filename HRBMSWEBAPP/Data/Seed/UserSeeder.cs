@@ -17,7 +17,7 @@ namespace HRBMSWEBAPP.Data.Seed
                          FirstName = "Admin",
                          LastName = "Manager",
                          Email = "admin@gmail.com",
-                         PhoneNumber = "09079260368",
+                         PhoneNumber = "0907926036"
                          //Address = "Rizal, PH"
                      },
                     new ApplicationUser
