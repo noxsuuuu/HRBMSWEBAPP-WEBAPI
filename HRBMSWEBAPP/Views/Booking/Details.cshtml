@@ -3,7 +3,8 @@
 @{
     ViewData["Title"] = "Details";
 }
-
+<div class="card">
+    <div class="card-body">
 <h1>Bookings Details</h1>
 
 <div>
@@ -40,19 +41,9 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="GetAllBookings">Back to List</a>
+     <a asp-action="GetAllBookings" asp-route-id="@Model?.Id">Back To List</a>  |
+    <a asp-action="Update" asp-route-id="@Model?.Id">Edit</a> 
 </div>
 
-@*<div class="card" style="width: 18rem;">
-<div class="card-body">
-    <h5 class="card-title">@Model?.CheckIn</h5>
-    <h6 class="card-subtitle mb-2 text-muted">@Model?.CheckOut</h6>
-    <p class="card-text">@Model?.Status</p>
-    <a asp-controller="Booking" asp-action="GetAllBookings" class="card-link">Back to list</a>
-
+    </div>
 </div>
-</div>
-
-
-*@

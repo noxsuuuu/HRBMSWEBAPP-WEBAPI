@@ -2,6 +2,7 @@
 using HRBMSWEBAPP.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace HRBMSWEBAPP.Controllers
 {
@@ -45,20 +46,24 @@ namespace HRBMSWEBAPP.Controllers
                 {
                     // add roles to it and allow him to login
                     //var roles = _roleManager.Roles.ToList();
-                    var role = _roleManager.Roles.FirstOrDefault(r => r.Name == "User");
-                    if (role != null)
-                    {
-                        //var roleResult = await _userManager.AddToRolesAsync(userModel, roles.Select(s => s.Name).ToList());
-                        var roleResult = await _userManager.AddToRoleAsync(userModel, role.Name);
-                        if (!roleResult.Succeeded)
-                        {
-                            ModelState.AddModelError(String.Empty, "User Role cannot be assigned");
-                        }
-                    }
+                    //var role = _roleManager.Roles.FirstOrDefault(r => r.Name == "Admin");
+                    /* if (role != null)
+                     {
+                         //var roleResult = await _userManager.AddToRolesAsync(userModel, roles.Select(s => s.Name).ToList());
+                         var roleResult = await _userManager.AddToRoleAsync(userModel, role.Name);
+                         if (!roleResult.Succeeded)
+                         {
+                             ModelState.AddModelError(String.Empty, "User Role cannot be assigned");
+                         }
+                     }
+ */
+                    var role = await _roleManager.FindByNameAsync("Guest");
 
+                    // Add the user to the role
+                    await _userManager.AddToRoleAsync(userModel, role.Name);
                     // login the user automatically
-                    await _signInManager.SignInAsync(userModel, isPersistent: false);
-                    return RedirectToAction("GetAllUser", "User");
+                    //await _signInManager.SignInAsync(userModel, isPersistent: false);
+                    return RedirectToAction("Login");
 
                 }
                 foreach (var error in result.Errors)
@@ -77,19 +82,34 @@ namespace HRBMSWEBAPP.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginUserViewModel userViewModel)
         {
-            if (ModelState.IsValid)
+           /* if (ModelState.IsValid)
             {
                 // login activity -> cookie [Roles and Claims]
                 var result = await _signInManager.PasswordSignInAsync(userViewModel.UserName, userViewModel.Password, userViewModel.RememberMe, false);
                 //login cookie and transfter to the client 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("GetAllUser", "User");
+                    return RedirectToAction("GetAllBookings", "Booking");
+                }
+                ModelState.AddModelError(string.Empty, "invalid login credentials");
+            }
+            return View(userViewModel);*/
+
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(userViewModel.UserName, userViewModel.Password, userViewModel.RememberMe, false);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError(string.Empty, "invalid login credentials");
             }
             return View(userViewModel);
+
+
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Logout()

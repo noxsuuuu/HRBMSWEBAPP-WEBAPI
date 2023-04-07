@@ -3,7 +3,10 @@
 @{
     ViewData["Title"] = "Create Bookings";
 }
+<div class="card">
+    <div class="col-lg-6">
 
+        <div class="card-body">
 <h1>Create Bookings</h1>
 
 <hr />
@@ -51,11 +54,17 @@
         </form>
     </div>
 </div>
+        </div>
+    </div>
 
-<div>
+    
+
+@*<div>
+            
     <a asp-action="GetAllBookings">Back to List</a>
-</div>
-
+</div>*@
+      </div>
+      
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

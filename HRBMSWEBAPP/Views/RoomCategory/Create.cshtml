@@ -4,6 +4,13 @@
     ViewData["Title"] = "Create Category";
 }
 
+
+<div class="card">
+    <div class="col-lg-6">
+
+        <div class="card-body">
+
+
 <h1>Create Category</h1>
 
 
@@ -43,11 +50,14 @@
         </form>
     </div>
 </div>
+        </div>
+    </div>
 
-<div>
+@*<div>
     <a asp-action="GetAllRoomCategories">Back to List</a>
 </div>
-
+*@
+</div>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

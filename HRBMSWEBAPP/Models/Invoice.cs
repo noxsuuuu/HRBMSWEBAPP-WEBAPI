@@ -8,14 +8,14 @@ namespace HRBMSWEBAPP.Models
     {
         [DisplayName("Invoice ID")]
         [Key]
-        public int Id { get; set; } 
+        public int Id { get; set; }
 
-        /*[DisplayName("User ID")]
-        public int UserId { get; set; }
+        //[DisplayName("User ID")]
+        //public int UserId { get; set; }
 
         [ValidateNever]
-        public User User { get; set; }
-*/
+        public ApplicationUser User { get; set; }
+
         [DisplayName("Booking ID")]
         public int BookId { get; set; }
 
@@ -49,7 +49,7 @@ namespace HRBMSWEBAPP.Models
         [DisplayFormat(DataFormatString = "₱{0:N}", ApplyFormatInEditMode = true, NullDisplayText = "")]
         [Required]
         public double TotalPrice { get; set; }
-
+        
         public Invoice()
         {           
         }
