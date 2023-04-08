@@ -23,23 +23,9 @@ namespace HRBMSWEBAPP.Models
         [Required]
         public DateTime CheckOut { get; set; }
 
-
-
-
-        /*  [DisplayName("User ID")]
-          public int UserId { get; set; }
-
-
-
-          [ValidateNever]
-          public User User { get; set; }
-  */
         [ValidateNever]
         public Room Room { get; set; }
 
-        
-
-        //public ICollection<Employee> Employees { get; set; }
         public Booking()
         {
 

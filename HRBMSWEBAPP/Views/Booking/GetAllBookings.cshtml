@@ -24,7 +24,7 @@
                 @Html.DisplayNameFor(model => model.CheckOut)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Status)
+                @Html.DisplayNameFor(model => model.Room.Status)
             </th>
             @*<th>
                 @Html.DisplayNameFor(model => model.Room.Category.Price)
@@ -49,7 +49,7 @@
                     @Html.DisplayFor(modelItem => item.CheckOut)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DisplayStatus)
+                    @Html.DisplayFor(modelItem => item.Room.DisplayStatus)
                 </td>
                 @*<td>
                     @Html.DisplayFor(modelItem => item.Category.Price)
