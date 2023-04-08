@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using HRBMSWEBAPP.Validations;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HRBMSWEBAPP.Models
@@ -26,13 +25,11 @@ namespace HRBMSWEBAPP.Models
 
         [ValidateNever]
         public RoomCategories Category { get; set; }
-       
-        [ValidateNever]
-        public Booking Bookings { get; set; }
 
-        [ValidateNever]
+        [DisplayName("Room Status")]
+        public bool Status { get; set; }
+
         [NotMapped]
-        public IEnumerable<SelectListItem> RoomList { get; set; }
-
+        public string DisplayStatus => Status ? "Booked" : "Available";
     }
 }
