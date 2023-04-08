@@ -221,6 +221,7 @@ namespace HRBMSWEBAPP.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     BookId = table.Column<int>(type: "int", nullable: false),
                     BookingId = table.Column<int>(type: "int", nullable: false),
                     RoomId = table.Column<int>(type: "int", nullable: false),
@@ -234,6 +235,11 @@ namespace HRBMSWEBAPP.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Invoice", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Invoice_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Invoice_Booking_BookingId",
                         column: x => x.BookingId,
@@ -252,13 +258,12 @@ namespace HRBMSWEBAPP.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "577fda11-13b8-487d-b639-8295880ffc18", 0, "41d402f1-63e0-47a3-8a68-60eb0fb7ba06", "admin@gmail.com", false, "Admin", "Manager", false, null, null, null, null, "09079260368", false, "b457a3b1-6677-4c37-a55e-63484833cf9b", false, null },
-                    { "7ae8b3a5-9ecd-41e6-8dce-2ca28803a1f1", 0, "378389aa-e146-4aed-960f-6ba92e9a19ca", "ivhan@gmail.com", false, "Ivhan", "De Leon", false, null, null, null, null, "09079260368", false, "6fe24cd7-8c82-48e5-91b4-fccdd97f3f99", false, null },
-                    { "b26c738b-c5ef-45ac-9391-90a4d119102b", 0, "e341e6b7-25d0-449e-87f1-1db5d7da6ac1", "mark@gmail.com", false, "Mark", "Mayaman", false, null, null, null, null, "09125635896", false, "22ae1da5-528f-490d-aa91-df5c1963f3fa", false, null }
+                    { "ab49726e-b21d-4756-b55d-9c6388526c1c", "247c2390-b2a9-46e3-8e54-4363a9ea3f60", "Admin", null },
+                    { "e4b82d77-3205-4e4d-8593-8deef5dcfe12", "ca365be9-50a4-431a-bafa-fef20f86821d", "Guest", null }
                 });
 
             migrationBuilder.InsertData(
@@ -338,6 +343,11 @@ namespace HRBMSWEBAPP.Migrations
                 name: "IX_Invoice_RoomId",
                 table: "Invoice",
                 column: "RoomId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Invoice_UserId",
+                table: "Invoice",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Room_CategoryId",

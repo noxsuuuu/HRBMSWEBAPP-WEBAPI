@@ -1,7 +1,11 @@
 ﻿using HRBMSWEBAPP.Models;
 using HRBMSWEBAPP.Repository;
+using HRBMSWEBAPP.ViewModel;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Data;
 
 namespace HRBMSWEBAPP.Controllers
 {
@@ -55,6 +59,17 @@ namespace HRBMSWEBAPP.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            //var rooms = _repo.GetBookingById();
+            //var roomModel = new Room
+            //{
+            //    RoomList = room.Select(r => new SelectListItem
+            //    {
+            //        Text = r.Name,
+            //        Value = r.Id.ToString(),
+            //        Selected = (role != null && r.Id == role.Id)
+            //    })
+            //};
+            //ViewBag.RoleList = roleViewModel.RoleList;
             return View();
         }
 
