@@ -37,6 +37,11 @@
                 <label asp-for="RoleId" class="control-label"></label>
                 <select asp-for="RoleId" class ="form-control" asp-items="ViewBag.RoleId"></select>
             </div>*@
+               <select asp-for="Status" class="form-control">
+                <option value="true">Available</option>
+                <option value="false">Booked</option>
+            </select>
+            <
             <div class="form-group">
                 <input type="submit" value="Register" class="btn btn-primary" />
             </div>

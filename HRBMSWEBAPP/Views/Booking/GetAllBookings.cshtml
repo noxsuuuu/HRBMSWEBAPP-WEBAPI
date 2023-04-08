@@ -14,6 +14,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Id)
             </th>
+             <th>
+                @Html.DisplayNameFor(model => model.Room.Room_Number)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.CheckIn)
             </th>
@@ -23,6 +26,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Status)
             </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.Room.Category.Price)
+            </th>*@
             <th></th>
         </tr>
     </thead>
@@ -34,6 +40,9 @@
                     @Html.DisplayFor(modelItem => item.Id)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.Room.Room_Number)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.CheckIn)
                 </td>
                 <td>
@@ -42,6 +51,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.DisplayStatus)
                 </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.Category.Price)
+                </td>*@
                 <td>
                     <a asp-action="Update" asp-route-id="@item.Id">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">Details</a> |

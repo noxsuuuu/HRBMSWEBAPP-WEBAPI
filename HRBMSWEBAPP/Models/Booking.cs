@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HRBMSWEBAPP.Models
 {
@@ -40,7 +41,7 @@ namespace HRBMSWEBAPP.Models
         [ValidateNever]
         public Room Room { get; set; }
 
-
+        
 
         //public ICollection<Employee> Employees { get; set; }
         public Booking()
@@ -54,7 +55,6 @@ namespace HRBMSWEBAPP.Models
             CheckOut = checkout;
             RoomId = roomId;
             //UserId = userid;
-            Status = stats;
 
         }
     }
