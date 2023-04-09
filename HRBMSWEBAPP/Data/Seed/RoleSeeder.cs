@@ -15,6 +15,7 @@ namespace HRBMSWEBAPP.Data.Seed
                     { 
 
                         Name = "Admin",
+
                     },
                      new IdentityRole
                      {

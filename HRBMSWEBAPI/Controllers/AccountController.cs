@@ -1,14 +1,28 @@
-﻿using HRBMSWEBAPP.Models;
+﻿/*using HRBMSWEBAPP.Models;
 using HRBMSWEBAPP.ViewModel;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;*/
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+//using Microsoft.EntityFrameworkCore;
 
 namespace HRBMSWEBAPP.Controllers
 {
-    public class AccountController : Controller
+
+
+    [Route("api/[controller]")]
+    [ApiController]
+
+    public class AccountController : ControllerBase
     {
-        private UserManager<ApplicationUser> _userManager { get; }
+
+
+        public IConfiguration _appConfig { get; }
+        public IMapper _mapper { get; }
+
+
+
+
+       /* private UserManager<ApplicationUser> _userManager { get; }
         // login user details 
         private SignInManager<ApplicationUser> _signInManager { get; }
         public RoleManager<IdentityRole> _roleManager { get; }
@@ -47,7 +61,7 @@ namespace HRBMSWEBAPP.Controllers
                     // add roles to it and allow him to login
                     //var roles = _roleManager.Roles.ToList();
                     //var role = _roleManager.Roles.FirstOrDefault(r => r.Name == "Admin");
-                    /* if (role != null)
+                    *//* if (role != null)
                      {
                          //var roleResult = await _userManager.AddToRolesAsync(userModel, roles.Select(s => s.Name).ToList());
                          var roleResult = await _userManager.AddToRoleAsync(userModel, role.Name);
@@ -56,7 +70,7 @@ namespace HRBMSWEBAPP.Controllers
                              ModelState.AddModelError(String.Empty, "User Role cannot be assigned");
                          }
                      }
- */
+ *//*
                     var role = await _roleManager.FindByNameAsync("Guest");
 
                     // Add the user to the role
@@ -82,7 +96,7 @@ namespace HRBMSWEBAPP.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginUserViewModel userViewModel)
         {
-           /* if (ModelState.IsValid)
+           *//* if (ModelState.IsValid)
             {
                 // login activity -> cookie [Roles and Claims]
                 var result = await _signInManager.PasswordSignInAsync(userViewModel.UserName, userViewModel.Password, userViewModel.RememberMe, false);
@@ -93,7 +107,7 @@ namespace HRBMSWEBAPP.Controllers
                 }
                 ModelState.AddModelError(string.Empty, "invalid login credentials");
             }
-            return View(userViewModel);*/
+            return View(userViewModel);*//*
 
             if (ModelState.IsValid)
             {
@@ -116,6 +130,6 @@ namespace HRBMSWEBAPP.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Login");
-        }
+        }*/
     }
 }
