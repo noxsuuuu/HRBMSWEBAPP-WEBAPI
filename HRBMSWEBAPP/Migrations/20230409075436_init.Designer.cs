@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HRBMSWEBAPP.Migrations
 {
     [DbContext(typeof(HRBMSDBCONTEXT))]
-    [Migration("20230407072357_init")]
+    [Migration("20230409075436_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -115,9 +115,6 @@ namespace HRBMSWEBAPP.Migrations
                     b.Property<int>("RoomId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
-
                     b.HasKey("Id");
 
                     b.HasIndex("RoomId");
@@ -193,6 +190,9 @@ namespace HRBMSWEBAPP.Migrations
                     b.Property<int>("Room_Number")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
@@ -205,14 +205,16 @@ namespace HRBMSWEBAPP.Migrations
                             Id = 1,
                             CategoryId = 1,
                             Floor_Number = 69,
-                            Room_Number = 69
+                            Room_Number = 69,
+                            Status = false
                         },
                         new
                         {
                             Id = 2,
                             CategoryId = 2,
                             Floor_Number = 61,
-                            Room_Number = 61
+                            Room_Number = 61,
+                            Status = false
                         });
                 });
 
@@ -286,20 +288,6 @@ namespace HRBMSWEBAPP.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "ab49726e-b21d-4756-b55d-9c6388526c1c",
-                            ConcurrencyStamp = "247c2390-b2a9-46e3-8e54-4363a9ea3f60",
-                            Name = "Admin"
-                        },
-                        new
-                        {
-                            Id = "e4b82d77-3205-4e4d-8593-8deef5dcfe12",
-                            ConcurrencyStamp = "ca365be9-50a4-431a-bafa-fef20f86821d",
-                            Name = "Guest"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

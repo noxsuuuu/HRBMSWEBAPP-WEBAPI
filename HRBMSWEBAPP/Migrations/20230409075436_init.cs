@@ -180,7 +180,8 @@ namespace HRBMSWEBAPP.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     Room_Number = table.Column<int>(type: "int", nullable: false),
-                    Floor_Number = table.Column<int>(type: "int", nullable: false)
+                    Floor_Number = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -201,8 +202,7 @@ namespace HRBMSWEBAPP.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoomId = table.Column<int>(type: "int", nullable: false),
                     CheckIn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CheckOut = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<bool>(type: "bit", nullable: false)
+                    CheckOut = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -258,32 +258,24 @@ namespace HRBMSWEBAPP.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[,]
-                {
-                    { "ab49726e-b21d-4756-b55d-9c6388526c1c", "247c2390-b2a9-46e3-8e54-4363a9ea3f60", "Admin", null },
-                    { "e4b82d77-3205-4e4d-8593-8deef5dcfe12", "ca365be9-50a4-431a-bafa-fef20f86821d", "Guest", null }
-                });
+                table: "Categories",
+                columns: new[] { "Id", "Description", "NoOfRooms", "Price", "Room_Name" },
+                values: new object[] { 1, "11111111111111111111", 69, 69, "Deluxe" });
 
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "Id", "Description", "NoOfRooms", "Price", "Room_Name" },
-                values: new object[,]
-                {
-                    { 1, "11111111111111111111", 69, 69, "Deluxe" },
-                    { 2, "1111111111111111111", 69, 69, "Normal" }
-                });
+                values: new object[] { 2, "1111111111111111111", 69, 69, "Normal" });
 
             migrationBuilder.InsertData(
                 table: "Room",
-                columns: new[] { "Id", "CategoryId", "Floor_Number", "Room_Number" },
-                values: new object[] { 1, 1, 69, 69 });
+                columns: new[] { "Id", "CategoryId", "Floor_Number", "Room_Number", "Status" },
+                values: new object[] { 1, 1, 69, 69, false });
 
             migrationBuilder.InsertData(
                 table: "Room",
-                columns: new[] { "Id", "CategoryId", "Floor_Number", "Room_Number" },
-                values: new object[] { 2, 2, 61, 61 });
+                columns: new[] { "Id", "CategoryId", "Floor_Number", "Room_Number", "Status" },
+                values: new object[] { 2, 2, 61, 61, false });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

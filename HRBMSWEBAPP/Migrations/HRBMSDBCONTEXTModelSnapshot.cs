@@ -113,14 +113,11 @@ namespace HRBMSWEBAPP.Migrations
                     b.Property<int>("RoomId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
-
                     b.HasKey("Id");
 
                     b.HasIndex("RoomId");
 
-                    b.ToTable("Booking", (string)null);
+                    b.ToTable("Booking");
                 });
 
             modelBuilder.Entity("HRBMSWEBAPP.Models.Invoice", b =>
@@ -171,7 +168,7 @@ namespace HRBMSWEBAPP.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Invoice", (string)null);
+                    b.ToTable("Invoice");
                 });
 
             modelBuilder.Entity("HRBMSWEBAPP.Models.Room", b =>
@@ -191,11 +188,14 @@ namespace HRBMSWEBAPP.Migrations
                     b.Property<int>("Room_Number")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Room", (string)null);
+                    b.ToTable("Room");
 
                     b.HasData(
                         new
@@ -203,14 +203,16 @@ namespace HRBMSWEBAPP.Migrations
                             Id = 1,
                             CategoryId = 1,
                             Floor_Number = 69,
-                            Room_Number = 69
+                            Room_Number = 69,
+                            Status = false
                         },
                         new
                         {
                             Id = 2,
                             CategoryId = 2,
                             Floor_Number = 61,
-                            Room_Number = 61
+                            Room_Number = 61,
+                            Status = false
                         });
                 });
 
@@ -238,7 +240,7 @@ namespace HRBMSWEBAPP.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
 
                     b.HasData(
                         new
@@ -284,20 +286,6 @@ namespace HRBMSWEBAPP.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "ab49726e-b21d-4756-b55d-9c6388526c1c",
-                            ConcurrencyStamp = "247c2390-b2a9-46e3-8e54-4363a9ea3f60",
-                            Name = "Admin"
-                        },
-                        new
-                        {
-                            Id = "e4b82d77-3205-4e4d-8593-8deef5dcfe12",
-                            ConcurrencyStamp = "ca365be9-50a4-431a-bafa-fef20f86821d",
-                            Name = "Guest"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
