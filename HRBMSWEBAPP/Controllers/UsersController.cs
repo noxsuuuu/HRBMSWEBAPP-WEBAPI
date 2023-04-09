@@ -75,6 +75,7 @@ namespace HRBMSWEBAPP.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 var userModel = new ApplicationUser
                 {
                     UserName = userViewModel.Email,

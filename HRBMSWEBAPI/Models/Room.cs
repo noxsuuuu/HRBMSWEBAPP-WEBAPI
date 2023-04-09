@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
-using HRBMSWEBAPP.Validations;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace HRBMSWEBAPP.Models
@@ -15,7 +14,7 @@ namespace HRBMSWEBAPP.Models
         public int CategoryId { get; set; }
 
         [DisplayName("Room Number")]
-        [UniqueRoomNumber]
+       // [UniqueRoomNumber]
         public int Room_Number { get; set; }
 
         [DisplayName("Floor Number")]

@@ -76,7 +76,7 @@ namespace HRBMSWEBAPP.Repository.Database
         }
         public Task<List<Booking>> GetAllBooking()
         {
-            return this._context.Booking.ToListAsync();
+            return this._context.Booking.Include(c => c.Room).ToListAsync();
         }
 
         public Task<Booking> GetBookingById(int booking_id)
