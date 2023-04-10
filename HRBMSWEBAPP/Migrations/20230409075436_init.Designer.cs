@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HRBMSWEBAPP.Migrations
 {
     [DbContext(typeof(HRBMSDBCONTEXT))]
-    [Migration("20230406072923_init")]
+    [Migration("20230409075436_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -96,53 +96,6 @@ namespace HRBMSWEBAPP.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "577fda11-13b8-487d-b639-8295880ffc18",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "41d402f1-63e0-47a3-8a68-60eb0fb7ba06",
-                            Email = "admin@gmail.com",
-                            EmailConfirmed = false,
-                            FirstName = "Admin",
-                            LastName = "Manager",
-                            LockoutEnabled = false,
-                            PhoneNumber = "09079260368",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "b457a3b1-6677-4c37-a55e-63484833cf9b",
-                            TwoFactorEnabled = false
-                        },
-                        new
-                        {
-                            Id = "7ae8b3a5-9ecd-41e6-8dce-2ca28803a1f1",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "378389aa-e146-4aed-960f-6ba92e9a19ca",
-                            Email = "ivhan@gmail.com",
-                            EmailConfirmed = false,
-                            FirstName = "Ivhan",
-                            LastName = "De Leon",
-                            LockoutEnabled = false,
-                            PhoneNumber = "09079260368",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "6fe24cd7-8c82-48e5-91b4-fccdd97f3f99",
-                            TwoFactorEnabled = false
-                        },
-                        new
-                        {
-                            Id = "b26c738b-c5ef-45ac-9391-90a4d119102b",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "e341e6b7-25d0-449e-87f1-1db5d7da6ac1",
-                            Email = "mark@gmail.com",
-                            EmailConfirmed = false,
-                            FirstName = "Mark",
-                            LastName = "Mayaman",
-                            LockoutEnabled = false,
-                            PhoneNumber = "09125635896",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "22ae1da5-528f-490d-aa91-df5c1963f3fa",
-                            TwoFactorEnabled = false
-                        });
                 });
 
             modelBuilder.Entity("HRBMSWEBAPP.Models.Booking", b =>
@@ -161,9 +114,6 @@ namespace HRBMSWEBAPP.Migrations
 
                     b.Property<int>("RoomId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -207,6 +157,9 @@ namespace HRBMSWEBAPP.Migrations
                     b.Property<double>("TotalPrice")
                         .HasColumnType("float");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BookingId");
@@ -214,6 +167,8 @@ namespace HRBMSWEBAPP.Migrations
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("RoomId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Invoice");
                 });
@@ -235,6 +190,9 @@ namespace HRBMSWEBAPP.Migrations
                     b.Property<int>("Room_Number")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
@@ -247,14 +205,16 @@ namespace HRBMSWEBAPP.Migrations
                             Id = 1,
                             CategoryId = 1,
                             Floor_Number = 69,
-                            Room_Number = 69
+                            Room_Number = 69,
+                            Status = false
                         },
                         new
                         {
                             Id = 2,
                             CategoryId = 2,
                             Floor_Number = 61,
-                            Room_Number = 61
+                            Room_Number = 61,
+                            Status = false
                         });
                 });
 
@@ -467,11 +427,17 @@ namespace HRBMSWEBAPP.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("HRBMSWEBAPP.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
                     b.Navigation("Booking");
 
                     b.Navigation("Category");
 
                     b.Navigation("Room");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("HRBMSWEBAPP.Models.Room", b =>

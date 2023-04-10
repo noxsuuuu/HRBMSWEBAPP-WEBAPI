@@ -75,6 +75,7 @@ namespace HRBMSWEBAPP.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 var userModel = new ApplicationUser
                 {
                     UserName = userViewModel.Email,
@@ -132,7 +133,7 @@ namespace HRBMSWEBAPP.Controllers
                 LastName = user.LastName,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
-                Role = role
+                Role =  role
             };
 
             ViewBag.RoleList = roleViewModel.RoleList;

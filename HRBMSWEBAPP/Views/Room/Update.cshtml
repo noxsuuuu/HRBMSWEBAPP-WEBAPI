@@ -9,40 +9,46 @@
         <div class="card-body">
 
 
-<h1>Room Edit</h1>
+            <h1>Room Edit</h1>
 
-<h4>Room</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-controller="Room" asp-action="Update" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="CategoryId" class="control-label"></label>
-                <input asp-for="CategoryId" class="form-control" />
-                <span asp-validation-for="CategoryId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Room_Number" class="control-label"></label>
-                <input asp-for="Room_Number" class="form-control" />
-                <span asp-validation-for="Room_Number" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Floor_Number" class="control-label"></label>
-                <input asp-for="Floor_Number" class="form-control" />
-                <span asp-validation-for="Floor_Number" class="text-danger"></span>
-            </div>
+            <h4>Room</h4>
+            <hr />
+            <div class="row">
+                <div class="col-md-4">
+                    <form asp-controller="Room" asp-action="Update" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+                        <div class="form-group">
+                            <label asp-for="CategoryId" class="control-label"></label>
+                            <input asp-for="CategoryId" class="form-control" />
+                            <span asp-validation-for="CategoryId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Room_Number" class="control-label"></label>
+                            <input asp-for="Room_Number" class="form-control" />
+                            <span asp-validation-for="Room_Number" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Floor_Number" class="control-label"></label>
+                            <input asp-for="Floor_Number" class="form-control" />
+                            <span asp-validation-for="Floor_Number" class="text-danger"></span>
+                        </div>
+                        <select asp-for="Status" class="form-control">
+                            <option value="false">Available</option>
+                            <option value="true">Booked</option>
+                        </select>
 
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                        <div class="form-group">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
             </div>
-        </form>
-    </div>
-</div>
         </div>
     </div>
 </div>
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

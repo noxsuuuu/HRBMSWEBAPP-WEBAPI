@@ -47,7 +47,12 @@ namespace HRBMSWEBAPP.Controllers
         {
             if (ModelState.IsValid)
             {
+               
                 var _invoice = _repo.AddInvoice(invoice);
+                if (invoice == null)
+                {
+
+                }
                 return RedirectToAction("GetAllInvoice");
             }
             ViewData["Message"] = "Data is not valid to create the Invoice";
