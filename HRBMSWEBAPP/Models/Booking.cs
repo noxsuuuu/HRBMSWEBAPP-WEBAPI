@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using HRBMSWEBAPP.Validations;
 
 namespace HRBMSWEBAPP.Models
 {
@@ -12,6 +13,7 @@ namespace HRBMSWEBAPP.Models
         [Key]
         public int Id { get; set; }
 
+        
         [DisplayName("Room ID")]
         public int RoomId { get; set; }
 
