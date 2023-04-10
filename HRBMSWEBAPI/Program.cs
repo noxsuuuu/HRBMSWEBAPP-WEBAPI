@@ -1,3 +1,4 @@
+using HRBMSWEBAPI.Configurations;
 using HRBMSWEBAPI.Data;
 using HRBMSWEBAPI.Models;
 using HRBMSWEBAPI.Repository;
@@ -13,11 +14,16 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
 builder.Services.AddHttpClient();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<HRBMSDBCONTEXT>();
+builder.Services.AddScoped<IBookingRepository, BookingDbRepository>();
+builder.Services.AddScoped<IRoomRepository, RoomDbRepository>();
+builder.Services.AddScoped<IRoomCatRepository, RoomCatDbRepository>();
+builder.Services.AddScoped<IAccountRepository, AccountDbRepository>();
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<HRBMSDBCONTEXT>()
@@ -34,7 +40,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 });
 
 
-builder.Services.AddScoped<IAccountRepository, AccountDbRepository>();
+
 
 
 
@@ -44,7 +50,7 @@ var audience = builder.Configuration["JWT:Audience"];
 var key = builder.Configuration["JWT:Key"];
 
 
-builder.Services.AddAuthentication(options =>
+/*builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -61,7 +67,7 @@ builder.Services.AddAuthentication(options =>
         ValidAudience = audience,
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
     };
-});
+});*/
 
 
 builder.Services.AddEndpointsApiExplorer();
@@ -103,7 +109,7 @@ if (app.Environment.IsDevelopment())
 }
 
 //app.UseHttpsRedirection();
-app.UseAuthentication();
+//app.UseAuthentication();
 
 app.UseAuthorization();
 

@@ -2,23 +2,22 @@
 using HRBMSWEBAPI.DTO;
 using HRBMSWEBAPI.Models;
 using HRBMSWEBAPI.Repository;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace HRBMSWEBAPI.Controllers
 {
-    //[Authorize]
-    [Route("api/v1/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
-    public class BookingController : ControllerBase
+    public class RoomController : ControllerBase
     {
-        
-
-        IBookingRepository _repo;
+        // GET: api/<RoomController>
+        IRoomRepository _repo;
         private readonly IMapper _mapper;
 
 
-        public BookingController(IBookingRepository repo, IMapper mapper)
+        public RoomController(IRoomRepository repo, IMapper mapper)
         {
             _repo = repo;
             _mapper = mapper;
@@ -27,23 +26,23 @@ namespace HRBMSWEBAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _repo.GetAllBooking());
+            return Ok(await _repo.GetAllRoom());
         }
 
-        [HttpGet("{bookId}")]
-        public async Task<IActionResult> GetById([FromRoute] int bookId)
+        [HttpGet("{roomId}")]
+        public async Task<IActionResult> GetById([FromRoute] int roomId)
         {
-            if (bookId == 0)
+            if (roomId == 0)
             {
                 return BadRequest();
             }
 
             try
             {
-                var book = await _repo.GetBookingById(bookId);
-                if (book == null)
+                var room = await _repo.GetRoomById(roomId);
+                if (room == null)
                     return NoContent();
-                return Ok(book);
+                return Ok(room);
             }
             catch (Exception ex)
             {
@@ -51,23 +50,23 @@ namespace HRBMSWEBAPI.Controllers
             }
         }
 
-        [HttpDelete("{bookId}")]
-        public async Task<IActionResult> DeleteAsync([FromRoute] int bookId)
+        [HttpDelete("{roomId}")]
+        public async Task<IActionResult> DeleteAsync([FromRoute] int roomId)
         {
-            if(bookId == 0)
+            if (roomId == 0)
                 return BadRequest();
 
-            var book = await _repo.GetBookingById(bookId);
+            var book = await _repo.GetRoomById(roomId);
 
             if (book == null)
                 return NotFound("No Resource Found");
 
-            await _repo.DeleteBooking(bookId);
+            await _repo.DeleteRoom(roomId);
             return Accepted();
         }
 
         [HttpPost]
-        public IActionResult AddBooking([FromBody] BookingDTO bookingDTO)
+        public IActionResult AddBooking([FromBody] RoomDTO roomDTO)
         {
             /*
                              if (bookingDTO == null)
@@ -84,35 +83,35 @@ namespace HRBMSWEBAPI.Controllers
 
                              return BadRequest(ModelState);*/
 
-            if (bookingDTO == null)
+            if (roomDTO == null)
                 return BadRequest("No Data provided");
 
             if (ModelState.IsValid)
             {
-                var book = _mapper.Map<Booking>(bookingDTO);
-                var newBook = _repo.AddBooking(book);
-                return CreatedAtAction("GetById", new { bookId = newBook.Id }, newBook);
+                var room = _mapper.Map<Room>(roomDTO);
+                var newRoom = _repo.AddRoom(room);
+                return CreatedAtAction("GetById", new { roomId = newRoom.Id }, newRoom);
             }
 
             return BadRequest(ModelState);
         }
-        
-        
-        
-        [HttpPut("{bookId}")]
 
-        public IActionResult UpdateBooking([FromBody] Booking booking, [FromRoute] int bookId)
+
+
+        [HttpPut("{roomId}")]
+
+        public IActionResult UpdateBooking([FromBody] Room room, [FromRoute] int roomId)
         {
-            if (booking == null)
+            if (room == null)
                 return BadRequest();
 
             if (ModelState.IsValid)
             {
-                var updatedBooking = _repo.UpdateBooking(bookId, booking);
-                return AcceptedAtAction("GetById", new { bookId = updatedBooking.Id }, updatedBooking);
+                var updatedRoom = _repo.UpdateRoom(roomId, room);
+                return AcceptedAtAction("GetById", new { roomId = updatedRoom.Id }, updatedRoom);
             }
 
-            return BadRequest(); 
+            return BadRequest();
         }
     }
 }

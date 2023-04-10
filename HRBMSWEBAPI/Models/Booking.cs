@@ -7,10 +7,10 @@ namespace HRBMSWEBAPI.Models
 {
     public class Booking
     {
-      /*  [DisplayName("Booking ID")]
+        [DisplayName("Booking ID")]
         [Key]
         public int Id { get; set; }
-*/
+
         [DisplayName("Room ID")]
         public int RoomId { get; set; }
 
@@ -49,7 +49,7 @@ namespace HRBMSWEBAPI.Models
         }
         public Booking(int id, DateTime checkin, DateTime checkout, int roomId, bool stats)
         {
-            //RoomId = id;
+            RoomId = id;
             CheckIn = checkin;
             CheckOut = checkout;
             RoomId = roomId;

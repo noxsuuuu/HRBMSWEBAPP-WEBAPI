@@ -2,23 +2,21 @@
 using HRBMSWEBAPI.DTO;
 using HRBMSWEBAPI.Models;
 using HRBMSWEBAPI.Repository;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace HRBMSWEBAPI.Controllers
 {
-    //[Authorize]
-    [Route("api/v1/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
-    public class BookingController : ControllerBase
+    public class RoomCategoryController : ControllerBase
     {
-        
-
-        IBookingRepository _repo;
+        IRoomCatRepository _repo;
         private readonly IMapper _mapper;
 
 
-        public BookingController(IBookingRepository repo, IMapper mapper)
+        public RoomCategoryController(IRoomCatRepository repo, IMapper mapper)
         {
             _repo = repo;
             _mapper = mapper;
@@ -27,23 +25,23 @@ namespace HRBMSWEBAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _repo.GetAllBooking());
+            return Ok(await _repo.GetAllRoomCategories());
         }
 
-        [HttpGet("{bookId}")]
-        public async Task<IActionResult> GetById([FromRoute] int bookId)
+        [HttpGet("{catId}")]
+        public async Task<IActionResult> GetById([FromRoute] int catId)
         {
-            if (bookId == 0)
+            if (catId == 0)
             {
                 return BadRequest();
             }
 
             try
             {
-                var book = await _repo.GetBookingById(bookId);
-                if (book == null)
+                var category = await _repo.GetRoomCategoriesById(catId);
+                if (category == null)
                     return NoContent();
-                return Ok(book);
+                return Ok(category);
             }
             catch (Exception ex)
             {
@@ -51,23 +49,23 @@ namespace HRBMSWEBAPI.Controllers
             }
         }
 
-        [HttpDelete("{bookId}")]
+        [HttpDelete("{catId}")]
         public async Task<IActionResult> DeleteAsync([FromRoute] int bookId)
         {
-            if(bookId == 0)
+            if (bookId == 0)
                 return BadRequest();
 
-            var book = await _repo.GetBookingById(bookId);
+            var book = await _repo.GetRoomCategoriesById(bookId);
 
             if (book == null)
                 return NotFound("No Resource Found");
 
-            await _repo.DeleteBooking(bookId);
+            await _repo.DeleteRoomCategories(bookId);
             return Accepted();
         }
 
         [HttpPost]
-        public IActionResult AddBooking([FromBody] BookingDTO bookingDTO)
+        public IActionResult AddRoomCategories([FromBody] RoomCategoriesDTO categoryDTO)
         {
             /*
                              if (bookingDTO == null)
@@ -77,42 +75,42 @@ namespace HRBMSWEBAPI.Controllers
 
                              if (ModelState.IsValid)
                              {
-                                 var book = _mapper.Map<Booking>(bookingDTO);
-                                 var newBook = _repo.AddBooking(book);
+                                 var book = _mapper.Map<RoomCategories>(bookingDTO);
+                                 var newBook = _repo.AddRoomCategories(book);
                                  return CreatedAtAction("GetById", new { bookId = newBook.Id }, newBook);
                              }
 
                              return BadRequest(ModelState);*/
 
-            if (bookingDTO == null)
+            if (categoryDTO == null)
                 return BadRequest("No Data provided");
 
             if (ModelState.IsValid)
             {
-                var book = _mapper.Map<Booking>(bookingDTO);
-                var newBook = _repo.AddBooking(book);
-                return CreatedAtAction("GetById", new { bookId = newBook.Id }, newBook);
+                var category = _mapper.Map<RoomCategories>(categoryDTO);
+                var newcat = _repo.AddRoomCategories(category);
+                return CreatedAtAction("GetById", new { catId = newcat.Id }, newcat);
             }
 
             return BadRequest(ModelState);
         }
-        
-        
-        
-        [HttpPut("{bookId}")]
 
-        public IActionResult UpdateBooking([FromBody] Booking booking, [FromRoute] int bookId)
+
+
+        [HttpPut("{catId}")]
+
+        public IActionResult UpdateRoomCategories([FromBody] RoomCategories category, [FromRoute] int catId)
         {
-            if (booking == null)
+            if (category == null)
                 return BadRequest();
 
             if (ModelState.IsValid)
             {
-                var updatedBooking = _repo.UpdateBooking(bookId, booking);
-                return AcceptedAtAction("GetById", new { bookId = updatedBooking.Id }, updatedBooking);
+                var updatedRoomCategories = _repo.UpdateRoomCategories(catId, category);
+                return AcceptedAtAction("GetById", new { catId = updatedRoomCategories.Id }, updatedRoomCategories);
             }
 
-            return BadRequest(); 
+            return BadRequest();
         }
     }
 }

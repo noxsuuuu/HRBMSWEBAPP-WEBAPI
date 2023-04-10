@@ -2,14 +2,14 @@
 using System.ComponentModel;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
-namespace HRBMSWEBAPP.Models
+namespace HRBMSWEBAPI.Models
 {
     public class RoomCategories
     {
-       /* [DisplayName("Category ID")]
+        [DisplayName("Category ID")]
         [Key]
         public int Id { get; set; }
-*/
+
         [DisplayName("Room Name")]
         [Required]
         public string Room_Name { get; set; }
@@ -26,8 +26,9 @@ namespace HRBMSWEBAPP.Models
         public int NoOfRooms { get; set; }
 
         public RoomCategories() { }
-        public RoomCategories(string room_Name, string description, int price, int noOfRooms)
+        public RoomCategories(int id, string room_Name, string description, int price, int noOfRooms)
         {
+            Id = id;
             Room_Name = room_Name;
             Description = description;
             Price = price;

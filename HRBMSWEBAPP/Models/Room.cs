@@ -30,6 +30,6 @@ namespace HRBMSWEBAPP.Models
         public bool Status { get; set; }
 
         [NotMapped]
-        public string DisplayStatus => Status ? "Booked" : "Available";
+        public string DisplayStatus => Status ? "Available" : "Booked";
     }
 }
