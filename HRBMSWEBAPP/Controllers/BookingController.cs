@@ -1,10 +1,12 @@
-﻿using HRBMSWEBAPP.Models;
+﻿using HRBMSWEBAPP.Data;
+using HRBMSWEBAPP.Models;
 using HRBMSWEBAPP.Repository;
 using HRBMSWEBAPP.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System.Data;
 
 namespace HRBMSWEBAPP.Controllers
@@ -14,11 +16,14 @@ namespace HRBMSWEBAPP.Controllers
     {
 
        private readonly IBookingDBRepository _repo;
+        IRoomDBRepository _Roomrepo;
+        HRBMSDBCONTEXT _context;
 
-       
-        public BookingController(IBookingDBRepository repo)
+        public BookingController(IBookingDBRepository repo, IRoomDBRepository Roomrepo, HRBMSDBCONTEXT context)
         {
             this._repo = repo;
+            _Roomrepo = Roomrepo;
+            _context = context;
         }
 
         //public IActionResult GetAllBookings()
@@ -27,11 +32,24 @@ namespace HRBMSWEBAPP.Controllers
         //    return View(booklist);
 
         //}
+
         public async Task<IActionResult> GetAllBookings()
         {
+            var rooms = _context.Room.ToList();
+            var room = new Room { Status = true };
+            //var availableDisplayString = room.DisplayStatus;
+            //var bookedDisplayString = "Booked";
+
             List<Booking> booking = await this._repo.GetAllBooking();
             return View(booking);
         }
+
+        //public async Task<IActionResult> GetAllBookings()
+        //{
+
+        //    List<Booking> booking = await this._repo.GetAllBooking();
+        //    return View(booking);
+        //}
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -59,6 +77,7 @@ namespace HRBMSWEBAPP.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+           
             //var rooms = _repo.GetBookingById();
             //var roomModel = new Room
             //{
@@ -79,6 +98,11 @@ namespace HRBMSWEBAPP.Controllers
             if (ModelState.IsValid)
             {
                 var book = _repo.AddBooking(booking);
+                var room = _Roomrepo.GetRoomById(booking.RoomId);
+
+                // Update the room status to false
+                var rooms = new Room { Status = room.Status.Equals(false) };
+                _Roomrepo.UpdateRoom(rooms.Id, rooms);
                 return RedirectToAction("GetAllBookings");
             }
             ViewData["Message"] = "Data is not valid to create the booking";

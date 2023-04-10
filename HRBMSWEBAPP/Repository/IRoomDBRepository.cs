@@ -9,5 +9,6 @@ namespace HRBMSWEBAPP.Repository
         Task AddRoom(Room room);
         Task DeleteRoom(int room_id);
         Task UpdateRoom(int room_id, Room room);
+        //void UpdateRoom(int id, Task<Room> room);
     }
 }

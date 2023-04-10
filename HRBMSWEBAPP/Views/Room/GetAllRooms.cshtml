@@ -9,6 +9,7 @@
         <table class="table table-hover">
             <thead class="table-primary">
                 <tr>
+                    <br />
                     <th>
                         @Html.DisplayNameFor(model => model.Category.Room_Name)
                     </th>
@@ -42,7 +43,7 @@
                             @Html.DisplayFor(modelItem => item.DisplayStatus)
                         </td>
                         <td>
-                            <a asp-action="Create" asp-controller="Booking" asp-route-id="@item.Id">Book Now</a> |
+                            <a asp-action="Create" asp-controller="Booking" class="btn btn-primary">Book Now</a>
                             <a asp-action="Update" asp-route-id="@item.Id">Edit</a> |
                             <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                             <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
