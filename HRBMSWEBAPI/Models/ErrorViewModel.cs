@@ -1,4 +1,4 @@
-namespace HRBMSWEBAPP.Models
+/*namespace HRBMSWEBAPP.Models
 {
     public class ErrorViewModel
     {
@@ -6,4 +6,4 @@ namespace HRBMSWEBAPP.Models
 
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
     }
-}
+}*/

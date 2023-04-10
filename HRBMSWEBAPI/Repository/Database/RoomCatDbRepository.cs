@@ -1,6 +1,6 @@
 ﻿namespace HRBMSWEBAPI.Repository.Database
 {
-    public class BookingDbRepository
+    public class RoomCatDbRepository
     {
     }
 }

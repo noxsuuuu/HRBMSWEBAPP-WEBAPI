@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace HRBMSWEBAPP.Models
+namespace HRBMSWEBAPI.Models
 {
     public class ApplicationUser : IdentityUser
     {
@@ -21,13 +21,13 @@ namespace HRBMSWEBAPP.Models
         [DisplayName("Last Name")]
         public string LastName { get; set; }
 
-        [NotMapped]
+        /*[NotMapped]
         [DisplayName("Full Name")]
         public string Full_Name
         {
             get { return FirstName + " " + LastName; }
             set { }
-        }
+        }*/
 
         [DisplayName("Email Address")]
         [EmailAddress]
@@ -37,13 +37,13 @@ namespace HRBMSWEBAPP.Models
         [RegularExpression("^(09|\\+639)\\d{9}$", ErrorMessage = "Invalid phone number.")]
         public string PhoneNumber { get; set; }
 
-        [ValidateNever]
+       /* [ValidateNever]
         [NotMapped]
         public IdentityRole Role { get; set; }
 
         [ValidateNever]
         [NotMapped]
-        public IEnumerable<ApplicationUser> Userss { get; set; }
+        public IEnumerable<ApplicationUser> Userss { get; set; }*/
 
         //public string Address { get; set; }
         //public ApplicationUser()

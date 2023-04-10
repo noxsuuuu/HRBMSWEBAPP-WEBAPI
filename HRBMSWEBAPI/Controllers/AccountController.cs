@@ -2,7 +2,13 @@
 using HRBMSWEBAPP.ViewModel;
 using Microsoft.AspNetCore.Identity;*/
 using AutoMapper;
+using HRBMSWEBAPI.DTO;
+using HRBMSWEBAPI.Models;
+using HRBMSWEBAPI.Repository;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
 //using Microsoft.EntityFrameworkCore;
 
 namespace HRBMSWEBAPP.Controllers
@@ -19,117 +25,54 @@ namespace HRBMSWEBAPP.Controllers
         public IConfiguration _appConfig { get; }
         public IMapper _mapper { get; }
 
+        IAccountRepository _repo;
 
-
-
-       /* private UserManager<ApplicationUser> _userManager { get; }
-        // login user details 
-        private SignInManager<ApplicationUser> _signInManager { get; }
-        public RoleManager<IdentityRole> _roleManager { get; }
-
-        public AccountController(UserManager<ApplicationUser> userManager,
-                                SignInManager<ApplicationUser> signInManager,
-                                RoleManager<IdentityRole> roleManager)
+        public AccountController(IAccountRepository accRepo, IMapper mapper, IConfiguration appConfig)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _roleManager = roleManager; 
+            _repo = accRepo;
+            _mapper = mapper;
+            _appConfig = appConfig;
         }
 
-        [HttpGet]
-        public IActionResult Register()
+        [HttpPost("signup")]
+
+
+        public async Task<IActionResult> Register(SignUpDTO userDTO)
         {
-            return View();
-        }
-        [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel userViewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                var userModel = new ApplicationUser
-                {
-                    UserName = userViewModel.Email,
-                    Email = userViewModel.Email,
-                    FirstName = userViewModel.FirstName,
-                    LastName = userViewModel.LastName,
-                    PhoneNumber = userViewModel.PhoneNumber,
+            var user = _mapper.Map<ApplicationUser>(userDTO);
 
-                };
-                var result = await _userManager.CreateAsync(userModel, userViewModel.Password);
-                if (result.Succeeded)
-                {
-                    // add roles to it and allow him to login
-                    //var roles = _roleManager.Roles.ToList();
-                    //var role = _roleManager.Roles.FirstOrDefault(r => r.Name == "Admin");
-                    *//* if (role != null)
-                     {
-                         //var roleResult = await _userManager.AddToRolesAsync(userModel, roles.Select(s => s.Name).ToList());
-                         var roleResult = await _userManager.AddToRoleAsync(userModel, role.Name);
-                         if (!roleResult.Succeeded)
-                         {
-                             ModelState.AddModelError(String.Empty, "User Role cannot be assigned");
-                         }
-                     }
- *//*
-                    var role = await _roleManager.FindByNameAsync("Guest");
-
-                    // Add the user to the role
-                    await _userManager.AddToRoleAsync(userModel, role.Name);
-                    // login the user automatically
-                    //await _signInManager.SignInAsync(userModel, isPersistent: false);
-                    return RedirectToAction("Login");
-
-                }
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
-            }
-            return View(userViewModel);
+            var val = await _repo.SignUpUserAsync(user, userDTO.Password);
+            return Ok();
         }
 
-        [HttpGet]
-        public IActionResult Login()
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(LoginDTO loginDTO)
         {
-            return View();
-        }
-        [HttpPost]
-        public async Task<IActionResult> Login(LoginUserViewModel userViewModel)
-        {
-           *//* if (ModelState.IsValid)
-            {
-                // login activity -> cookie [Roles and Claims]
-                var result = await _signInManager.PasswordSignInAsync(userViewModel.UserName, userViewModel.Password, userViewModel.RememberMe, false);
-                //login cookie and transfter to the client 
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("GetAllBookings", "Booking");
-                }
-                ModelState.AddModelError(string.Empty, "invalid login credentials");
-            }
-            return View(userViewModel);*//*
+            var issuer = _appConfig["JWT:Issuer"];
+            var audience = _appConfig["JWT:Audience"];
+            var key = _appConfig["JWT:Key"];
 
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(userViewModel.UserName, userViewModel.Password, userViewModel.RememberMe, false);
-
-                if (result.Succeeded)
+                var loginResult = await _repo.SignInUserAsync(loginDTO);
+                if (loginResult.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+                    // generate a token
+                    var user = _repo.FindUserByEmailAsync(loginDTO.UserName);
+                    if (user != null)
+                    {
+                        var keyBytes = Encoding.UTF8.GetBytes(key);
+                        var theKey = new SymmetricSecurityKey(keyBytes); // 256 bits of key
+                        var creds = new SigningCredentials(theKey, SecurityAlgorithms.HmacSha256);
+                        var token = new JwtSecurityToken(issuer, audience, null, expires: DateTime.Now.AddMinutes(30), signingCredentials: creds);
+                        return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token) }); // token 
+                    }
+
+
                 }
-                ModelState.AddModelError(string.Empty, "invalid login credentials");
             }
-            return View(userViewModel);
-
-
+            return BadRequest();
         }
-
-
-        [HttpGet]
-        public async Task<IActionResult> Logout()
-        {
-            await _signInManager.SignOutAsync();
-            return RedirectToAction("Login");
-        }*/
     }
 }

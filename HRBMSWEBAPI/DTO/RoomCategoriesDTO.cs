@@ -1,15 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
-namespace HRBMSWEBAPP.Models
+namespace HRBMSWEBAPI.DTO
 {
-    public class RoomCategories
+    public class RoomCategoriesDTO
     {
        /* [DisplayName("Category ID")]
         [Key]
-        public int Id { get; set; }
-*/
+        public int Id { get; set; }*/
+
         [DisplayName("Room Name")]
         [Required]
         public string Room_Name { get; set; }
@@ -25,14 +24,13 @@ namespace HRBMSWEBAPP.Models
 
         public int NoOfRooms { get; set; }
 
-        public RoomCategories() { }
-        public RoomCategories(string room_Name, string description, int price, int noOfRooms)
+        public RoomCategoriesDTO() { }
+        public RoomCategoriesDTO(string room_Name, string description, int price, int noOfRooms)
         {
             Room_Name = room_Name;
             Description = description;
             Price = price;
             NoOfRooms = noOfRooms;
         }
-
     }
 }

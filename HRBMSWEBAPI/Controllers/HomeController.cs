@@ -1,4 +1,4 @@
-﻿using HRBMSWEBAPP.Models;
+﻿/*using HRBMSWEBAPP.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -30,4 +30,4 @@ namespace HRBMSWEBAPP.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
-}
+}*/
