@@ -10,20 +10,20 @@ namespace HRBMSWEBAPP.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IRoomDBRepository _repo;
-        private readonly IRoomCatDBRepository _repo1;
+       
 
 
-        public HomeController(IRoomDBRepository repo, IRoomCatDBRepository repo1, ILogger<HomeController> logger)
+        public HomeController(IRoomDBRepository repo, ILogger<HomeController> logger)
         {
             this._repo = repo;
-            this._repo1 = repo1;
+           
             this._logger = logger;
         }
 
         public async Task<IActionResult> Index()
         {
 
-            List<RoomCategories> room = await this._repo1.GetAllRoomCategories();
+            List<Room> room = await this._repo.GetAllRoom();
             return View(room);
         }
        

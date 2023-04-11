@@ -1,4 +1,4 @@
-﻿@model IEnumerable<RoomCategories>
+﻿@model IEnumerable<Room>
 
 
 <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -37,9 +37,11 @@
 <div class="card">
     <img src="assets/img/card.jpg" class="card-img-top" alt="...">
     <div class="card-body">
-        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Room_Name)</h5>
-        <h6 class="card-title">@Html.DisplayFor(modelItem => item.Price)</h6>
-            <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Room_Number)</h5>
+        <h6 class="card-title">@Html.DisplayFor(modelItem => item.Floor_Number)</h6>
+            <p class="card-text">@Html.DisplayFor(modelItem => item.Category.Room_Name)</p>
+            <p class="card-text">@Html.DisplayFor(modelItem => item.Category.Description)</p>
+            <p class="card-text">@Html.DisplayFor(modelItem => item.Category.Price)</p>
             <p class="card-text"><a asp-action="Create" asp-controller="Booking" class="btn btn-primary">Book Now!</a></p>
     </div>
 </div>
