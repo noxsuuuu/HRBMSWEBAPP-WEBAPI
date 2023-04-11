@@ -7,11 +7,29 @@ namespace HRBMSWEBAPP.Data
 {
     public class HRBMSDBCONTEXT : IdentityDbContext<ApplicationUser> 
     {
+        public IConfiguration _appConfig { get; }
+        public ILogger _logger { get; }
+
+        public HRBMSDBCONTEXT(IConfiguration appConfig, ILogger logger)
+        {
+            _appConfig = appConfig;
+            _logger = logger;
+            
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=HRBMSDB;Integrated Security=True";
+
+            var server = _appConfig.GetConnectionString("Server");
+            var db = _appConfig.GetConnectionString("DB");
+            var userName = _appConfig.GetConnectionString("UserName");
+            var password = _appConfig.GetConnectionString("Password");
+            string connectionString = $"Server={server};Database={db};User Id={userName};Password={password};MultipleActiveResultSets=true";
+            /*string connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=HRBMSDB; ";
             optionsBuilder
                 .UseSqlServer(connectionString)
+                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);*/
+            optionsBuilder.UseSqlServer(connectionString)
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 
             base.OnConfiguring(optionsBuilder);
