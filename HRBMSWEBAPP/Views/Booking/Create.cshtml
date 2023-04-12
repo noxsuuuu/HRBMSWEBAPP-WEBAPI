@@ -27,13 +27,14 @@
                 <div class="col-md-4">
                     <form asp-controller="Booking" asp-action="Create" method="post">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <label asp-for="Room.Room_Number" class="control-label">Room Number</label>
+
+                        @*<label asp-for="Room.Room_Number" class="control-label">Room Number</label>
                         <select asp-for="Id" class="form-control" asp-items="@(new SelectList(ViewBag.listofroom,"Id","Room_Number"))"></select>
-                        @*<div class="form-group">
-                            <label asp-for="RoomId" class="control-label"></label>
-                            <input asp-for="RoomId" class="form-control" />
-                            <span asp-validation-for="RoomId" class="text-danger"></span>
-                        </div>*@
+                        *@
+                        <label asp-for="RoomId" class="control-label">Room Number</label>
+                        <select asp-for="RoomId" class="form-control" asp-items="@(new SelectList(ViewBag.listofroom, "Id", "Room_Number"))"></select>
+                        <span asp-validation-for="RoomId" class="text-danger"></span>
+                      
                         <div class="form-group">
                             <label asp-for="CheckIn" class="control-label"></label>
                             <input asp-for="CheckIn" class="form-control" />
@@ -45,25 +46,7 @@
                             <span asp-validation-for="CheckOut" class="text-danger"></span>
                         </div>
                         <br>
-                        @*<div class="form-group">
-                        <label asp-for="Status" class="control-label"></label>
-                        <input asp-for="Status" class="form-control" />
-                        <span asp-validation-for=Status" class="text-danger"></span>
-                        </div>*@
-                        @*<div class="form-group">
-                        <label asp-for="Password" class="control-label"></label>
-                        <input asp-for="Password" class="form-control" />
-                        <span asp-validation-for="Password"></span>
-                        </div>
-                        <div class="form-group">
-                        <label asp-for="ConfirmPassword"></label>
-                        <input asp-for="ConfirmPassword" class="form-control" />
-                        <span asp-validation-for="ConfirmPassword"></span>
-                        </div>*@
-                        @*<div class="form-group">
-                        <label asp-for="RoleId" class="control-label"></label>
-                        <select asp-for="RoleId" class ="form-control" asp-items="ViewBag.RoleId"></select>
-                        </div>*@
+                      
                         <div class="form-group">
                             <input type="submit" value="Register" class="btn btn-primary" />
                         </div>

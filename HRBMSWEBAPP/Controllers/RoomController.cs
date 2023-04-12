@@ -78,6 +78,18 @@ namespace HRBMSWEBAPP.Controllers
         }
 
 
+        [HttpPost]
+        public IActionResult Create(Room newRoom)
+        {
+            
+            if (ModelState.IsValid)
+            {
+                var book = _repo.AddRoom(newRoom);
+                return RedirectToAction("GetAllRooms");
+            }
+            ViewData["Message"] = "Data is not valid to create the Room";
+            return View();
+        }
         //public IActionResult Create(Room newRoom)
         //{
         //    if (ModelState.IsValid)
@@ -104,17 +116,6 @@ namespace HRBMSWEBAPP.Controllers
             return RedirectToAction("GetAllRooms");
         }
 
-        [HttpPost]
-        public IActionResult Create(Room newRoom)
-        {
-            if (ModelState.IsValid)
-            {
-                var book = _repo.AddRoom(newRoom);
-                return RedirectToAction("GetAllRooms");
-            }
-            ViewData["Message"] = "Data is not valid to create the Room";
-            return View();
-        }
 
 
 
