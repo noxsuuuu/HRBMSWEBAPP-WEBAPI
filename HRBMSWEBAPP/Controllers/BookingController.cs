@@ -77,18 +77,10 @@ namespace HRBMSWEBAPP.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-           
-            //var rooms = _repo.GetBookingById();
-            //var roomModel = new Room
-            //{
-            //    RoomList = room.Select(r => new SelectListItem
-            //    {
-            //        Text = r.Name,
-            //        Value = r.Id.ToString(),
-            //        Selected = (role != null && r.Id == role.Id)
-            //    })
-            //};
-            //ViewBag.RoleList = roleViewModel.RoleList;
+
+            List<Room> li = new List<Room>();
+            li = _context.Room.ToList();
+            ViewBag.listofroom = li;
             return View();
         }
 

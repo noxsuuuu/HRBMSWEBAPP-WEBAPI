@@ -1,5 +1,6 @@
 ﻿@model Room
 
+
 @{
     ViewData["Title"] = "Create Room";
 }
@@ -20,9 +21,11 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <br />
-                <label asp-for="CategoryId" class="control-label"></label>
+                <label asp-for = "Category.Room_Name" class="control-label">Room Type</label>
+                <select asp-for="Id" class="form-control" asp-items="@(new SelectList(ViewBag.listofcat,"Id","Room_Name"))"></select>
+               @* <label asp-for="CategoryId" class="control-label"></label>
                 <input asp-for="CategoryId" class="form-control" />
-                <span asp-validation-for="CategoryId" class="text-danger"></span>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>*@
             </div>
             <div class="form-group">
                 <label asp-for="Room_Number" class="control-label"></label>
@@ -38,7 +41,8 @@
                 <label asp-for="RoleId" class="control-label"></label>
                 <select asp-for="RoleId" class ="form-control" asp-items="ViewBag.RoleId"></select>
             </div>*@
-            <br />
+          
+             <label asp-for="Status" class="control-label">Room Status</label>
                <select asp-for="Status" class="form-control">
                 <option value="true">Available</option>
                 <option value="false">Booked</option>

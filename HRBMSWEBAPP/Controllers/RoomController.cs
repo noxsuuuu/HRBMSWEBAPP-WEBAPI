@@ -1,4 +1,5 @@
-﻿using HRBMSWEBAPP.Models;
+﻿using HRBMSWEBAPP.Data;
+using HRBMSWEBAPP.Models;
 using HRBMSWEBAPP.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,11 +10,12 @@ namespace HRBMSWEBAPP.Controllers
     public class RoomController : Controller
     {
         private readonly IRoomDBRepository _repo;
+        HRBMSDBCONTEXT _context;
 
-
-        public RoomController(IRoomDBRepository repo)
+        public RoomController(IRoomDBRepository repo , HRBMSDBCONTEXT context)
         {
             this._repo = repo;
+            _context = context;
         }
 
         //public IActionResult GetAllRooms()
@@ -69,6 +71,9 @@ namespace HRBMSWEBAPP.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            List<RoomCategories> li = new List<RoomCategories>();
+            li = _context.Categories.ToList();
+            ViewBag.listofcat =li;
             return View();
         }
 
