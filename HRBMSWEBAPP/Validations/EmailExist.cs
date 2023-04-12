@@ -1,4 +1,4 @@
-﻿using HRBMSWEBAPP.Data;
+﻿/*using HRBMSWEBAPP.Data;
 using System.ComponentModel.DataAnnotations;
 
 namespace HRBMSWEBAPP.Validations
@@ -44,3 +44,4 @@ namespace HRBMSWEBAPP.Validations
 
     }
 }
+*/
