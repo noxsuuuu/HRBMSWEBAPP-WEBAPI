@@ -44,7 +44,7 @@ namespace HRBMSWEBAPP.Data
 
         public DbSet<Room> Room { get; set; }
 
-       // public DbSet<Role> Role { get; set; }
+       // public DbSet<ApplicationUser> User { get; set; }
         public DbSet<Invoice> Invoice { get; set; }
 
         public DbSet<RoomCategories> Categories { get; set; }

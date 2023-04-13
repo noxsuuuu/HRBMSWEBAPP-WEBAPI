@@ -52,6 +52,46 @@ namespace HRBMSWEBAPP.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            Booking book = new Booking();
+            Invoice invoice = new Invoice();
+            // Query the database and retrieve all Booking records into a list
+            var bookingList = _context.Booking.ToList();
+
+            // Get the first Booking record from the list
+            var booking = bookingList.FirstOrDefault();
+
+            //if (booking != null)
+            //{
+            //    // Assign the CheckIn and CheckOut values to the new Booking object
+            //    book.CheckIn = booking.CheckIn;
+            //    book.CheckOut = booking.CheckOut;
+            //}
+
+            // Access the CheckIn and CheckOut properties
+            DateTime checkIn = booking.CheckIn;
+            DateTime checkOut = booking.CheckOut;
+
+            // Define the hourly rate
+            decimal hourlyRate = 100;
+
+
+
+            // Calculate the time span between the two dates
+            TimeSpan timeSpan = checkOut - checkIn;
+
+            // Calculate the total number of hours
+            double totalHours = timeSpan.TotalHours;
+
+            // Calculate the total book price
+            decimal totalBookPrice = hourlyRate * (decimal)totalHours;
+
+            // Assign the total book price to a property on the view model
+            invoice.TotalPrice = (double)totalBookPrice;
+            var model = new Invoice
+            {
+                TotalPrice = (double)totalBookPrice
+            };
+
             List<ApplicationUser> userlist = new List<ApplicationUser>();
             userlist = _userManager.Users.ToList();
             ViewBag.listofUser = userlist;
@@ -68,12 +108,13 @@ namespace HRBMSWEBAPP.Controllers
             booklist = _context.Booking.ToList();
             ViewBag.listofbook = booklist;
 
-            return View();
+            return View(model);
         }
 
         [HttpPost]
         public IActionResult Create(Invoice invoice)
         {
+           
             if (ModelState.IsValid)
             {
                
