@@ -57,6 +57,8 @@ namespace HRBMSWEBAPP.Controllers
                 return NotFound();
             }
 
+            var rooms = _context.Room.ToList();
+            var room = new Room { Status = true };
             Booking booking = await this._repo.GetBookingById((int)id);
             return View(booking);
         }
@@ -104,6 +106,9 @@ namespace HRBMSWEBAPP.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
+            List<Room> li = new List<Room>();
+            li = _context.Room.ToList();
+            ViewBag.listofroom = li;
             var old = await this._repo.GetBookingById(id);
             return View(old);
 

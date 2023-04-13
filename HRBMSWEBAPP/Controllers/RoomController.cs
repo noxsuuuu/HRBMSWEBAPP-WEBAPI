@@ -104,6 +104,9 @@ namespace HRBMSWEBAPP.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
+            List<RoomCategories> li = new List<RoomCategories>();
+            li = _context.Categories.ToList();
+            ViewBag.listofcat = li;
             var old = await this._repo.GetRoomById(id);
             return View(old);
 

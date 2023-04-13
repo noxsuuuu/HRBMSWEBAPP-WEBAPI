@@ -20,7 +20,7 @@
         <form  asp-controller="Room" asp-action="Create" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <br />
+             
              <label asp-for="CategoryId" class="control-label">Room Type</label>
              <select asp-for="CategoryId" class="form-control" asp-items="@(new SelectList(ViewBag.listofcat, "Id", "Room_Name"))"></select>
              <span asp-validation-for="CategoryId" class="text-danger"></span>
