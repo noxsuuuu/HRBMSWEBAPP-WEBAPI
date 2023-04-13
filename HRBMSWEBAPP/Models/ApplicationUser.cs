@@ -15,7 +15,7 @@ namespace HRBMSWEBAPP.Models
         //[Key]
         //public int Id { get; set; }
 
-        [DisplayName("First Name")]
+        [DisplayName("Guest Name")]
         public string FirstName { get; set; }
 
         [DisplayName("Last Name")]
@@ -38,12 +38,19 @@ namespace HRBMSWEBAPP.Models
         public string PhoneNumber { get; set; }
 
         [ValidateNever]
-        [NotMapped]
-        public IdentityRole Role { get; set; }
+        public ICollection<Room> Room { get; set; }
+
+        [ValidateNever]
+        public ICollection<Booking> Booking { get; set; }
 
         [ValidateNever]
         [NotMapped]
-        public IEnumerable<ApplicationUser> Userss { get; set; }
+        public IdentityRole Role { get; set; }
+
+
+        [ValidateNever]
+  
+        public ICollection<Invoice> Invoice { get; set; }
 
         //public string Address { get; set; }
         //public ApplicationUser()

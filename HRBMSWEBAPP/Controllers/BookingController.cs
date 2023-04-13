@@ -14,16 +14,17 @@ namespace HRBMSWEBAPP.Controllers
     //[Authorize(Roles ="Admin, User")]
     public class BookingController : Controller
     {
-
-       private readonly IBookingDBRepository _repo;
+        private UserManager<ApplicationUser> _userManager;
+        private readonly IBookingDBRepository _repo;
         IRoomDBRepository _Roomrepo;
         HRBMSDBCONTEXT _context;
 
-        public BookingController(IBookingDBRepository repo, IRoomDBRepository Roomrepo, HRBMSDBCONTEXT context)
+        public BookingController(IBookingDBRepository repo, IRoomDBRepository Roomrepo, HRBMSDBCONTEXT context, UserManager<ApplicationUser> userManager)
         {
             this._repo = repo;
             _Roomrepo = Roomrepo;
             _context = context;
+            _userManager = userManager;
         }
 
         //public IActionResult GetAllBookings()
@@ -35,8 +36,11 @@ namespace HRBMSWEBAPP.Controllers
 
         public async Task<IActionResult> GetAllBookings()
         {
-            var rooms = _context.Room.ToList();
-            var room = new Room { Status = true };
+            //var rooms = _context.Room.ToList();
+            //var room = new Room { Status = true };
+
+            //List<ApplicationUser> userlist = new List<ApplicationUser>();
+            //userlist = _userManager.Users.ToList();
             //var availableDisplayString = room.DisplayStatus;
             //var bookedDisplayString = "Booked";
 
@@ -52,13 +56,14 @@ namespace HRBMSWEBAPP.Controllers
         //}
         public async Task<IActionResult> Details(int? id)
         {
+
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            var rooms = _context.Room.ToList();
-            var room = new Room { Status = true };
+         
             Booking booking = await this._repo.GetBookingById((int)id);
             return View(booking);
         }
@@ -79,6 +84,9 @@ namespace HRBMSWEBAPP.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            List<ApplicationUser> userlist = new List<ApplicationUser>();
+            userlist = _userManager.Users.ToList();
+            ViewBag.listofUser = userlist;
 
             List<Room> li = new List<Room>();
             li = _context.Room.ToList();
@@ -109,6 +117,11 @@ namespace HRBMSWEBAPP.Controllers
             List<Room> li = new List<Room>();
             li = _context.Room.ToList();
             ViewBag.listofroom = li;
+
+            List<ApplicationUser> userlist = new List<ApplicationUser>();
+            userlist = _userManager.Users.ToList();
+            ViewBag.listofUser = userlist;
+
             var old = await this._repo.GetBookingById(id);
             return View(old);
 

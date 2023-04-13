@@ -31,6 +31,10 @@
                         @*<label asp-for="Room.Room_Number" class="control-label">Room Number</label>
                         <select asp-for="Id" class="form-control" asp-items="@(new SelectList(ViewBag.listofroom,"Id","Room_Number"))"></select>
                         *@
+                        <label asp-for="UserId" class="control-label">Guest Name</label>
+                        <select asp-for="UserId" class="form-control" asp-items="@(new SelectList(ViewBag.listofUser, "Id", "FirstName"))"></select>
+                        <span asp-validation-for="UserId" class="text-danger"></span>
+
                         <label asp-for="RoomId" class="control-label">Room Number</label>
                         <select asp-for="RoomId" class="form-control" asp-items="@(new SelectList(ViewBag.listofroom, "Id", "Room_Number"))"></select>
                         <span asp-validation-for="RoomId" class="text-danger"></span>

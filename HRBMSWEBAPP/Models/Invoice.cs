@@ -10,8 +10,8 @@ namespace HRBMSWEBAPP.Models
         [Key]
         public int Id { get; set; }
 
-        //[DisplayName("User ID")]
-        //public int UserId { get; set; }
+        [DisplayName("User ID")]
+        public string UserId { get; set; }
 
         [ValidateNever]
         public ApplicationUser User { get; set; }
@@ -54,10 +54,10 @@ namespace HRBMSWEBAPP.Models
         {           
         }
 
-        public Invoice(int id, int userid, int bookid, int catid, int roomid, DateTime Cout, DateTime Cin, int price, double totalp)
+        public Invoice(int id, string userid, int bookid, int catid, int roomid, DateTime Cout, DateTime Cin, int price, double totalp)
         {
            Id = id;
-           //UserId = userid;  
+           UserId = userid;  
            BookId = bookid;
            CatId = catid;
            RoomId = roomid;

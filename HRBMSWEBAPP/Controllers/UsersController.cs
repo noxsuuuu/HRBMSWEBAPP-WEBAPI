@@ -111,21 +111,25 @@ namespace HRBMSWEBAPP.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(ApplicationUser Userr,string id)
         {
-            var roles = _roleManager.Roles.ToList();
-           // var appuser = await _userManager.GetUserIdAsync(Userr);
-            var user = await _userManager.FindByIdAsync(id);
-            var userRole = await _userManager.GetRolesAsync(user);
-            IdentityRole role = await _roleManager.FindByNameAsync(userRole[0]);
+            var roles = _roleManager.Roles.ToList(); // Get all roles from the database
+            var roleList = roles.Select(r => new SelectListItem { Value = r.Id, Text = r.Name }).ToList(); // Convert roles to SelectListItem list
+            ViewBag.Roles = new SelectList(roleList, "Value", "Text"); // Store the roles in a SelectList to be accessed in the View
 
-            var roleViewModel = new RoleViewModel
-            {
-                RoleList = roles.Select(r => new SelectListItem
-                {
-                    Text = r.Name,
-                    Value = r.Id.ToString(),
-                    Selected = (role != null && r.Id == role.Id)
-                })
-            };
+            // var roles = _roleManager.Roles.ToList();
+            // var appuser = await _userManager.GetUserIdAsync(Userr);
+            var user = await _userManager.FindByIdAsync(id);
+           // var userRole = await _userManager.GetRolesAsync(user);
+           // IdentityRole role = await _roleManager.FindByNameAsync(userRole[0]);
+
+            //var roleViewModel = new RoleViewModel
+            //{
+            //    RoleList = roles.Select(r => new SelectListItem
+            //    {
+            //        Text = r.Name,
+            //        Value = r.Id.ToString(),
+            //        Selected = (role != null && r.Id == role.Id)
+            //    })
+            //};
 
             var usermodel = new ApplicationUser
             {
@@ -133,38 +137,18 @@ namespace HRBMSWEBAPP.Controllers
                 LastName = user.LastName,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
-                Role =  role
+                //Role =  role
             };
 
-            ViewBag.RoleList = roleViewModel.RoleList;
+          //  ViewBag.RoleList = roleViewModel.RoleList;
 
             return View(usermodel);
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> Update(ApplicationUser Userr)
-        //{
-
-        //    var roles = _roleManager.Roles.ToList();
-        //    var appuser = await _userManager.GetUserIdAsync(Userr);
-        //    var user = await _userManager.FindByIdAsync(appuser);
-        //    var userRole = await _userManager.GetRolesAsync(user);
-        //    IdentityRole role = await _roleManager.FindByNameAsync(userRole[0]);
-        //    ApplicationUser  usermodel = new ApplicationUser
-        //    {
-        //       FirstName = user.FirstName,
-        //       LastName = user.LastName,
-        //       Email = user.Email,
-        //       PhoneNumber= user.PhoneNumber,
-        //       Role = role,
-        //       //Role = new SelectList(roles, "Name")
-        //    };
-
-        //    return View(usermodel);
-        //}
         [HttpPost]
         public async Task<IActionResult> Update(string id, ApplicationUser user)
         {
+
             if (id != user.Id)
             {
                 return BadRequest();
@@ -181,6 +165,7 @@ namespace HRBMSWEBAPP.Controllers
             existingUser.LastName = user.LastName;
             existingUser.Email = user.Email;
             existingUser.PhoneNumber = user.PhoneNumber;
+            existingUser.Role = user.Role;
 
             // Update the user role
             var userRole = await _userManager.GetRolesAsync(existingUser);

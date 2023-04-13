@@ -25,8 +25,14 @@
             <th>
                 @Html.DisplayNameFor(model => model.Id)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.FirstName)
+            </th>
              <th>
                 @Html.DisplayNameFor(model => model.Room.Room_Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Room.Floor_Number)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CheckIn)
@@ -50,8 +56,14 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Id)
                 </td>
+                 <td>
+                    @Html.DisplayFor(modelItem => item.User.Full_Name)
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Room.Room_Number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Room.Floor_Number)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CheckIn)

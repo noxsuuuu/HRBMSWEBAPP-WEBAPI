@@ -18,12 +18,12 @@ namespace HRBMSWEBAPP.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
-            var server = _appConfig.GetConnectionString("Server");
-            var db = _appConfig.GetConnectionString("DB");
-            var userName = _appConfig.GetConnectionString("UserName");
-            var password = _appConfig.GetConnectionString("Password");
-            string connectionString = $"Server={server};Database={db};User Id={userName};Password={password};MultipleActiveResultSets=true";
-            //string connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=HRBMSDB; ";
+            //var server = _appConfig.GetConnectionString("Server");
+            //var db = _appConfig.GetConnectionString("DB");
+            //var userName = _appConfig.GetConnectionString("UserName");
+            //var password = _appConfig.GetConnectionString("Password");
+            //string connectionString = $"Server={server};Database={db};User Id={userName};Password={password};MultipleActiveResultSets=true";
+            string connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=HRBMSDB; ";
             optionsBuilder
                 .UseSqlServer(connectionString)
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
@@ -35,7 +35,7 @@ namespace HRBMSWEBAPP.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.InvokeUserSeed();
+            modelBuilder.InvokeRoleSeed();
             modelBuilder.InvokeSeedAll();
 
             base.OnModelCreating(modelBuilder);
