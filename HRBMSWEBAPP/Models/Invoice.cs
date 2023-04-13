@@ -34,16 +34,16 @@ namespace HRBMSWEBAPP.Models
         [ValidateNever]
         public RoomCategories Category { get; set; }
 
-        [DisplayName("Check In")]
-        public DateTime CheckIn { get; set; }
+        //[DisplayName("Check In")]
+        //public DateTime CheckIn { get; set; }
 
-        [DisplayName("Check Out")]
-        public DateTime CheckOut { get; set; }
+        //[DisplayName("Check Out")]
+        //public DateTime CheckOut { get; set; }
 
-        [DisplayName("Price")]
-        [DisplayFormat(DataFormatString = "₱{0:N}", ApplyFormatInEditMode = true, NullDisplayText = "")]
-        [Required]
-        public int Price { get; set; }
+        //[DisplayName("Price")]
+        //[DisplayFormat(DataFormatString = "₱{0:N}", ApplyFormatInEditMode = true, NullDisplayText = "")]
+        //[Required]
+        //public int Price { get; set; }
 
         [DisplayName("Total Price")]
         [DisplayFormat(DataFormatString = "₱{0:N}", ApplyFormatInEditMode = true, NullDisplayText = "")]
@@ -54,16 +54,13 @@ namespace HRBMSWEBAPP.Models
         {           
         }
 
-        public Invoice(int id, string userid, int bookid, int catid, int roomid, DateTime Cout, DateTime Cin, int price, double totalp)
+        public Invoice(int id, string userid, int bookid, int catid, int roomid, double totalp)
         {
            Id = id;
            UserId = userid;  
            BookingId = bookid;
            CategoryId = catid;
            RoomId = roomid;
-           CheckIn = Cin;
-           CheckOut = Cout;
-           Price = price;
            TotalPrice = totalp;
 
 

@@ -15,7 +15,7 @@ namespace HRBMSWEBAPP.Models
         //[Key]
         //public int Id { get; set; }
 
-        [DisplayName("Guest Name")]
+        [DisplayName("First Name")]
         public string FirstName { get; set; }
 
         [DisplayName("Last Name")]

@@ -32,7 +32,7 @@
                         <select asp-for="Id" class="form-control" asp-items="@(new SelectList(ViewBag.listofroom,"Id","Room_Number"))"></select>
                         *@
                         <label asp-for="UserId" class="control-label">Guest Name</label>
-                        <select asp-for="UserId" class="form-control" asp-items="@(new SelectList(ViewBag.listofUser, "Id", "FirstName"))"></select>
+                        <select asp-for="UserId" class="form-control" asp-items="@(new SelectList(ViewBag.listofUser, "Id", "Full_Name"))"></select>
                         <span asp-validation-for="UserId" class="text-danger"></span>
 
                         <label asp-for="RoomId" class="control-label">Room Number</label>

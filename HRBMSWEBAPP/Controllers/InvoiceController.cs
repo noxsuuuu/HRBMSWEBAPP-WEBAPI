@@ -1,5 +1,7 @@
-﻿using HRBMSWEBAPP.Models;
+﻿using HRBMSWEBAPP.Data;
+using HRBMSWEBAPP.Models;
 using HRBMSWEBAPP.Repository;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HRBMSWEBAPP.Controllers
@@ -7,10 +9,21 @@ namespace HRBMSWEBAPP.Controllers
     public class InvoiceController : Controller
     {
         private readonly IinvoiceDBRepository _repo;
-
-        public InvoiceController(IinvoiceDBRepository repo)
+        private UserManager<ApplicationUser> _userManager;
+        private readonly IBookingDBRepository _bookrepo;
+        IRoomDBRepository _Roomrepo;
+        HRBMSDBCONTEXT _context;
+        public InvoiceController(IinvoiceDBRepository repo, 
+                                UserManager<ApplicationUser> userManager,
+                                IBookingDBRepository bookrepo,
+                                IRoomDBRepository Roomrepo,
+                                HRBMSDBCONTEXT context)
         {
             _repo = repo;
+            _userManager = userManager;
+            _bookrepo = bookrepo;
+            _context = context;
+            _Roomrepo = Roomrepo;
         }
 
         public async Task<IActionResult> GetAllInvoice()
@@ -39,6 +52,22 @@ namespace HRBMSWEBAPP.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            List<ApplicationUser> userlist = new List<ApplicationUser>();
+            userlist = _userManager.Users.ToList();
+            ViewBag.listofUser = userlist;
+
+            List<Room> roomlist = new List<Room>();
+            roomlist = _context.Room.ToList();
+            ViewBag.listofroom = roomlist;
+
+            List<RoomCategories> catlist = new List<RoomCategories>();
+            catlist = _context.Categories.ToList();
+            ViewBag.listofcat = catlist;
+
+            List<Booking> booklist = new List<Booking>();
+            booklist = _context.Booking.ToList();
+            ViewBag.listofbook = booklist;
+
             return View();
         }
 
@@ -57,6 +86,29 @@ namespace HRBMSWEBAPP.Controllers
             }
             ViewData["Message"] = "Data is not valid to create the Invoice";
             return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
+        {
+            List<ApplicationUser> userlist = new List<ApplicationUser>();
+            userlist = _userManager.Users.ToList();
+            ViewBag.listofUser = userlist;
+
+            List<Room> roomlist = new List<Room>();
+            roomlist = _context.Room.ToList();
+            ViewBag.listofroom = roomlist;
+
+            List<RoomCategories> catlist = new List<RoomCategories>();
+            catlist = _context.Categories.ToList();
+            ViewBag.listofcat = catlist;
+
+            List<Booking> booklist = new List<Booking>();
+            booklist = _context.Booking.ToList();
+            ViewBag.listofbook = booklist;
+
+            var old = await this._repo.GetInvoiceById(id);
+            return View(old);
+
         }
 
         [HttpPost]

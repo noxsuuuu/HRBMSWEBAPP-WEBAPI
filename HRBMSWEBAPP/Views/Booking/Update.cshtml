@@ -28,6 +28,11 @@
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <input type="hidden" asp-for="Id" />
                         <div class="form-group">
+                            <label asp-for="UserId" class="control-label">Guest Name</label>
+                            <select asp-for="UserId" class="form-control" asp-items="@(new SelectList(ViewBag.listofUser, "Id", "FirstName"))"></select>
+                            <span asp-validation-for="UserId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
                             <label asp-for="RoomId" class="control-label">Room Number</label>
                             <select asp-for="RoomId" class="form-control" asp-items="@(new SelectList(ViewBag.listofroom, "Id", "Room_Number"))"></select>
                             <span asp-validation-for="RoomId" class="text-danger"></span>

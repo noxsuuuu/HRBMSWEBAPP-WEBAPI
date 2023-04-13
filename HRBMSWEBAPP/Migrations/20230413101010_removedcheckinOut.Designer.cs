@@ -4,6 +4,7 @@ using HRBMSWEBAPP.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HRBMSWEBAPP.Migrations
 {
     [DbContext(typeof(HRBMSDBCONTEXT))]
-    partial class HRBMSDBCONTEXTModelSnapshot : ModelSnapshot
+    [Migration("20230413101010_removedcheckinOut")]
+    partial class removedcheckinOut
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -138,6 +140,9 @@ namespace HRBMSWEBAPP.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Price")
                         .HasColumnType("int");
 
                     b.Property<int>("RoomId")
@@ -287,14 +292,14 @@ namespace HRBMSWEBAPP.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7778b771-d179-483d-b471-5cdce27100f8",
-                            ConcurrencyStamp = "8db4d019-703e-4b30-8128-53e245f0f4cb",
+                            Id = "c037d117-ef73-46a0-8d99-80e0f89bc77a",
+                            ConcurrencyStamp = "73d8501c-f7f2-486e-9a69-490eb937906e",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "fe6eabc3-4377-4fae-9fe9-f8732c0c00ad",
-                            ConcurrencyStamp = "1c89c798-bfa9-4340-a819-2f22a694a52a",
+                            Id = "15f1c087-3727-42fc-b2e9-9c3613969565",
+                            ConcurrencyStamp = "0edbecf1-6360-4448-a1a7-e8d9b5cafaa0",
                             Name = "Guest"
                         });
                 });
