@@ -40,6 +40,11 @@
                 <select asp-for="BookingId" class="form-control" asp-items="@(new SelectList(ViewBag.listofbook, "Id", "CheckIn"))"></select>
                 <span asp-validation-for="BookingId" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="BookingId" class="control-label">Check Out</label>
+                <select asp-for="BookingId" class="form-control" asp-items="@(new SelectList(ViewBag.listofbook, "Id", "CheckOut"))"></select>
+                <span asp-validation-for="BookingId" class="text-danger"></span>
+            </div>
 
             <div class="form-group">
                 <label asp-for="CategoryId" class="control-label">Price</label>
@@ -65,10 +70,11 @@
                             <span asp-validation-for="Price" class="text-danger"></span>
             </div>*@
             <div class="form-group">
-                <label asp-for="TotalPrice" class="control-label"></label>
-                <input asp-for="TotalPrice" class="form-control" />
-                <span asp-validation-for="TotalPrice" class="text-danger"></span>
+                        <label asp-for="TotalPrice" class="control-label"></label>
+                            <input asp-for="TotalPrice" class="form-control" />
+                            <span asp-validation-for="TotalPrice" class="text-danger"></span>
             </div>
+
             
             <div class="form-group">
                 <input type="submit" value="Register" class="btn btn-primary" />
