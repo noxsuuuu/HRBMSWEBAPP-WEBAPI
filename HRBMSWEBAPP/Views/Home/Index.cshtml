@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Room>
+﻿@model List<Room>
 
 
 <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -27,7 +27,7 @@
 </div>
 
 
-<section class="section">
+@*<section class="section">
     <div class="row align-items-top">
         <div class="col-lg-3">
 
@@ -48,6 +48,34 @@
 
 }
 </div>
+    </div>
+</section>*@
+
+<section class="section">
+    <div class="row align-items-top">
+        @for (var i = 0; i < Model.Count; i++)
+        {
+            <div class="col-lg-6">
+                <div class="card">
+                    <img src="~/img/card.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => Model[i].Room_Number)</h5>
+                        <h6 class="card-title">@Html.DisplayFor(modelItem => Model[i].Floor_Number)</h6>
+                        <p class="card-text">@Html.DisplayFor(modelItem => Model[i].Category.Room_Name)</p>
+                        <p class="card-text">@Html.DisplayFor(modelItem => Model[i].Category.Description)</p>
+                        <p class="card-text">@Html.DisplayFor(modelItem => Model[i].Category.Price)</p>
+                        <p class="card-text">
+                            <a asp-action="Create" asp-controller="Booking" class="btn btn-primary">Book Now!</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            @if (i % 2 != 0)
+            {
+                @:</div>
+                @:<div class="row align-items-top">
+            }
+        }
     </div>
 </section>
 

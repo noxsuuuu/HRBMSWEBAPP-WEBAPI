@@ -117,5 +117,24 @@ namespace HRBMSWEBAPP.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Login");
         }
+
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        public IActionResult ChangePassword(ChangePasswordModel changePasswordModel)
+        {
+
+            if (ModelState.IsValid)
+            {
+                // do something
+            }
+            return View();
+        }
+
+
+
+
     }
 }
