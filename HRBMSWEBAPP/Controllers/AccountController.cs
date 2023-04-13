@@ -1,5 +1,6 @@
 ﻿using HRBMSWEBAPP.Models;
 using HRBMSWEBAPP.ViewModel;
+using IdentityServer3.Core.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,18 +9,22 @@ namespace HRBMSWEBAPP.Controllers
 {
     public class AccountController : Controller
     {
+
         private UserManager<ApplicationUser> _userManager { get; }
         // login user details 
         private SignInManager<ApplicationUser> _signInManager { get; }
         public RoleManager<IdentityRole> _roleManager { get; }
 
+   
+
         public AccountController(UserManager<ApplicationUser> userManager,
                                 SignInManager<ApplicationUser> signInManager,
-                                RoleManager<IdentityRole> roleManager)
+                                RoleManager<IdentityRole> roleManager )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager; 
+        
         }
 
         [HttpGet]
@@ -117,24 +122,42 @@ namespace HRBMSWEBAPP.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Login");
         }
-
+        [HttpGet]
         public IActionResult ChangePassword()
         {
             return View();
         }
 
-        public IActionResult ChangePassword(ChangePasswordModel changePasswordModel)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePassword(ChangePasswordModel model)
         {
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                // do something
+                return View(model);
             }
-            return View();
+
+            var userId = await _userManager.GetUserAsync(User);
+            if(userId == null)
+            {
+                return NotFound();
+            }
+
+            var result = await _userManager.ChangePasswordAsync(userId, model.CurrentPassword, model.NewPassword);
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+                return View(model);
+            }
+
+            await _signInManager.RefreshSignInAsync(userId);
+
+            return RedirectToAction(nameof(ChangePassword), new {Message = "Your password has been changed."});
         }
-
-
-
 
     }
 }

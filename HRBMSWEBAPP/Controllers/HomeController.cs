@@ -38,11 +38,18 @@ namespace HRBMSWEBAPP.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-       /* public async Task<IActionResult> DashboardActionsAsync()
+        /*public async Task<IActionResult> Profile()
         {
-            List<Room> room = await this._repo.GetAllRoom();
-            return View(room);
 
+            List<ApplicationUser> user = await this.
+            return View();
         }*/
+
+        /* public async Task<IActionResult> DashboardActionsAsync()
+         {
+             List<Room> room = await this._repo.GetAllRoom();
+             return View(room);
+
+         }*/
     }
 }

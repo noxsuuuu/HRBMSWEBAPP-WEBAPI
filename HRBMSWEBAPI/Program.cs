@@ -24,6 +24,7 @@ builder.Services.AddScoped<IBookingRepository, BookingDbRepository>();
 builder.Services.AddScoped<IRoomRepository, RoomDbRepository>();
 builder.Services.AddScoped<IRoomCatRepository, RoomCatDbRepository>();
 builder.Services.AddScoped<IAccountRepository, AccountDbRepository>();
+builder.Services.AddScoped<IInvoiceRepository, InvoiceDbRepository>();
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<HRBMSDBCONTEXT>()

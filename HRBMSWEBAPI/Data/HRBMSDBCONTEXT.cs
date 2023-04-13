@@ -15,11 +15,16 @@ namespace HRBMSWEBAPI.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
-            var server = _appConfig.GetConnectionString("Server");
+            /*var server = _appConfig.GetConnectionString("Server");
             var db = _appConfig.GetConnectionString("DB");
             var userName = _appConfig.GetConnectionString("UserName");
             var password = _appConfig.GetConnectionString("Password");
-            string connectionString = $"Server={server};Database={db};User Id={userName};Password={password};MultipleActiveResultSets=true"; // Server ={server}; Database ={db}; User Id={userName}; Password={password}; MultipleActiveResultSets=true
+            string connectionString = $"Server={server};Database={db};User Id={userName};Password={password};MultipleActiveResultSets=true";*/ // Server ={server}; Database ={db}; User Id={userName}; Password={password}; MultipleActiveResultSets=true
+            string connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=HRBMSDB; ";
+            /*optionsBuilder
+                .UseSqlServer(connectionString)
+                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);*/
+
             optionsBuilder.UseSqlServer(connectionString)
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 
@@ -34,7 +39,7 @@ namespace HRBMSWEBAPI.Data
         public DbSet<Room> Room { get; set; }
 
 
-       // public DbSet<Invoice> Invoice { get; set; }
+        public DbSet<Invoice> Invoice { get; set; }
 
         public DbSet<RoomCategories> Categories { get; set; }
 
