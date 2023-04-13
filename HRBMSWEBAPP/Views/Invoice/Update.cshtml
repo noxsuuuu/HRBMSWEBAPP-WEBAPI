@@ -17,26 +17,41 @@
         <form asp-controller="Invoice" asp-action="Update" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-           <div class="form-group">
-                <label asp-for="BookingId" class="control-label"></label>
-                <input asp-for="BookingId" class="form-control" />
+          <div class="form-group">
+                <label asp-for="BookingId" class="control-label">Booking Id</label>
+                <select asp-for="BookingId" class="form-control" asp-items="@(new SelectList(ViewBag.listofbook, "Id", "Id"))"></select>
                 <span asp-validation-for="BookingId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Room.Id" class="control-label"></label>
-                <input asp-for="Room.Id" class="form-control" />
-                <span asp-validation-for="Room.Id" class="text-danger"></span>
+                <label asp-for="UserId" class="control-label">Guest Name</label>
+                <select asp-for="UserId" class="form-control" asp-items="@(new SelectList(ViewBag.listofUser, "Id", "Full_Name"))"></select>
+                <span asp-validation-for="UserId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Booking.Id" class="control-label"></label>
-                <input asp-for="Booking.Id" class="form-control" />
-                <span asp-validation-for="Booking.Id" class="text-danger"></span>
+                <label asp-for="RoomId" class="control-label">Room Number</label>
+                <select asp-for="RoomId" class="form-control" asp-items="@(new SelectList(ViewBag.listofroom, "Id", "Room_Number"))"></select>
+                <span asp-validation-for="RoomId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Category.Id" class="control-label"></label>
-                <input asp-for="Category.Id" class="form-control" />
-                <span asp-validation-for="Category.Id" class="text-danger"></span>
+                <label asp-for="CategoryId" class="control-label">Room Type</label>
+                <select asp-for="CategoryId" class="form-control" asp-items="@(new SelectList(ViewBag.listofcat, "Id", "Room_Name"))"></select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
             </div>
+            
+            <div class="form-group">
+                <label asp-for="BookingId" class="control-label">Check In</label>
+                <select asp-for="BookingId" class="form-control" asp-items="@(new SelectList(ViewBag.listofbook, "Id", "CheckIn"))"></select>
+                <span asp-validation-for="BookingId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label">Price</label>
+                <select asp-for="CategoryId" class="form-control" asp-items="@(new SelectList(ViewBag.listofcat, "Id", "Price"))"></select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+
+
+
            @* <div class="form-group">
                 <label asp-for="CheckIn" class="control-label"></label>
                 <input asp-for="CheckIn" class="form-control" />
@@ -47,7 +62,7 @@
                 <input asp-for="CheckOut" class="form-control" />
                 <span asp-validation-for="CheckOut" class="text-danger"></span>
             </div>*@
-            @*<div class="form-group">
+           @* <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
                 <input asp-for="Price" class="form-control" />
                             <span asp-validation-for="Price" class="text-danger"></span>

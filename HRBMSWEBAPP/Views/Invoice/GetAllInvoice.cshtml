@@ -14,27 +14,22 @@
 <table class="table">
     <thead>
         <tr>
+            
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                @Html.DisplayNameFor(model => model.BookingId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Booking.Room)
+                @Html.DisplayNameFor(model => model.User.Full_Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Booking.CheckOut)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Booking.Room.Room_Number)
+                @Html.DisplayNameFor(model => model.Room.Room_Number)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Category.Room_Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Room.Status)
+                @Html.DisplayNameFor(model => model.Category.Price)
             </th>
-           @* <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.TotalPrice)
             </th>
@@ -45,26 +40,21 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Id)
+                @Html.DisplayFor(modelItem => item.BookingId)
             </td>
             <td>
-                    @Html.DisplayFor(modelItem => item.Booking.CheckIn)
+                    @Html.DisplayFor(modelItem => item.User.Full_Name)
             </td>
+            
             <td>
-                    @Html.DisplayFor(modelItem => item.Booking.CheckOut)
-            </td>
-            <td>
-                    @Html.DisplayFor(modelItem => item.Booking.Room.Room_Number)
+                    @Html.DisplayFor(modelItem => item.Room.Room_Number)
             </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Category.Room_Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Room.Status)
+                    @Html.DisplayFor(modelItem => item.Category.Price)
                 </td>
-               @* <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.TotalPrice)
                 </td>
