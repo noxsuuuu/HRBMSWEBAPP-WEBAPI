@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HRBMSWEBAPP.Migrations
 {
-    public partial class withUserinBooking : Migration
+    public partial class withuserinbookAndinvoice : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -235,10 +235,8 @@ namespace HRBMSWEBAPP.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    BookId = table.Column<int>(type: "int", nullable: false),
                     BookingId = table.Column<int>(type: "int", nullable: false),
                     RoomId = table.Column<int>(type: "int", nullable: false),
-                    CatId = table.Column<int>(type: "int", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     CheckIn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CheckOut = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -275,8 +273,8 @@ namespace HRBMSWEBAPP.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "599f7d7d-6d16-430e-8298-553e0263cd90", "0a8cd272-6824-4612-90e4-cad8e2a26173", "Guest", null },
-                    { "65ce618d-1d17-4dc7-94e7-91465eff3251", "3bef0e48-8572-4c49-8142-b0abb06db95f", "Admin", null }
+                    { "359d2d75-3104-47af-aed8-1160b83ec348", "4f02c9f9-7056-444e-95e7-c946b2cb6a72", "Guest", null },
+                    { "ad294993-22fd-4c3d-b9c3-38673be581fb", "304ac76d-5e88-4fd0-9c43-d937256765a0", "Admin", null }
                 });
 
             migrationBuilder.InsertData(

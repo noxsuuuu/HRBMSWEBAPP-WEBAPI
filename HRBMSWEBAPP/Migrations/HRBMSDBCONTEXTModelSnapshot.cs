@@ -134,13 +134,7 @@ namespace HRBMSWEBAPP.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
-
                     b.Property<int>("BookingId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CatId")
                         .HasColumnType("int");
 
                     b.Property<int>("CategoryId")
@@ -302,14 +296,14 @@ namespace HRBMSWEBAPP.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "65ce618d-1d17-4dc7-94e7-91465eff3251",
-                            ConcurrencyStamp = "3bef0e48-8572-4c49-8142-b0abb06db95f",
+                            Id = "ad294993-22fd-4c3d-b9c3-38673be581fb",
+                            ConcurrencyStamp = "304ac76d-5e88-4fd0-9c43-d937256765a0",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "599f7d7d-6d16-430e-8298-553e0263cd90",
-                            ConcurrencyStamp = "0a8cd272-6824-4612-90e4-cad8e2a26173",
+                            Id = "359d2d75-3104-47af-aed8-1160b83ec348",
+                            ConcurrencyStamp = "4f02c9f9-7056-444e-95e7-c946b2cb6a72",
                             Name = "Guest"
                         });
                 });

@@ -17,7 +17,7 @@ namespace HRBMSWEBAPP.Models
         public ApplicationUser User { get; set; }
 
         [DisplayName("Booking ID")]
-        public int BookId { get; set; }
+        public int BookingId { get; set; }
 
         [ValidateNever]
         public Booking Booking { get; set; }
@@ -29,7 +29,7 @@ namespace HRBMSWEBAPP.Models
         public Room Room { get; set; }
 
         [DisplayName("Category ID")]
-        public int CatId { get; set; }
+        public int CategoryId { get; set; }
 
         [ValidateNever]
         public RoomCategories Category { get; set; }
@@ -58,8 +58,8 @@ namespace HRBMSWEBAPP.Models
         {
            Id = id;
            UserId = userid;  
-           BookId = bookid;
-           CatId = catid;
+           BookingId = bookid;
+           CategoryId = catid;
            RoomId = roomid;
            CheckIn = Cin;
            CheckOut = Cout;
