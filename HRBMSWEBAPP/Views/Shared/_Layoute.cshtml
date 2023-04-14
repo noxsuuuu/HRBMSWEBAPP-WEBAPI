@@ -148,7 +148,7 @@
                                 </li>
                                 <li>
                                     <a asp-area ="" asp-controller="Booking" asp-action="GetAllBookings">
-                                        <i class="bi bi-circle"></i><span>Booking</span>
+                                        <i class="bi bi-circle"></i><span>Booking List</span>
                                     </a>
                                 </li>
                                 <li>
@@ -158,12 +158,12 @@
                                 </li>
                                 <li>
                                     <a asp-area ="" asp-controller="Room" asp-action="GetAllRooms">
-                                        <i class="bi bi-circle"></i><span>Rooms</span>
+                                        <i class="bi bi-circle"></i><span>Rooms List</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a asp-area ="" asp-controller="Roles" asp-action="GetAllRoles">
-                                        <i class="bi bi-circle"></i><span>Roles</span>
+                                        <i class="bi bi-circle"></i><span>Users Roles</span>
                                     </a>
                                 </li>
                             <li>
@@ -203,6 +203,11 @@
                                     </a>
                                 </li>
                                 <li>
+                                    <a asp-area="" asp-controller="RoomCategory" asp-action="Create">
+                                        <i class="bi bi-circle"></i><span>Add Room Category</span>
+                                    </a>
+                                </li>
+                                <li>
                                     <a asp-area="" asp-controller="Booking" asp-action="Create">
                                         <i class="bi bi-circle"></i><span>Add Booking</span>
                                     </a>
@@ -216,17 +221,22 @@
                             <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                                 <li>
                                     <a asp-area="" asp-controller="Users" asp-action="GetAllUsers">
-                                        <i class="bi bi-circle"></i><span>User</span>
+                                        <i class="bi bi-circle"></i><span>User List</span>
+                                    </a>
+                                </li>
+                                 <li>
+                                <a asp-area="" asp-controller="RoomCategory" asp-action="GetAllRoomCategories">
+                                        <i class="bi bi-circle"></i><span>Room Categories</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a asp-area="" asp-controller="Booking" asp-action="GetAllBookings">
-                                        <i class="bi bi-circle"></i><span>Booking</span>
+                                        <i class="bi bi-circle"></i><span>Booking List</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a asp-area="" asp-controller="Room" asp-action="GetAllRooms">
-                                        <i class="bi bi-circle"></i><span>Rooms</span>
+                                        <i class="bi bi-circle"></i><span>Rooms List</span>
                                     </a>
                                 </li>
                             </ul>
