@@ -23,14 +23,13 @@
             <h1>Create Bookings</h1>
 
             <hr />
-            <div class="row">
+           <div class="row">
+
                 <div class="col-md-4">
                     <form asp-controller="Booking" asp-action="Create" method="post">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                        @*<label asp-for="Room.Room_Number" class="control-label">Room Number</label>
-                        <select asp-for="Id" class="form-control" asp-items="@(new SelectList(ViewBag.listofroom,"Id","Room_Number"))"></select>
-                        *@
+                       
                         <label asp-for="UserId" class="control-label">Guest Name</label>
                         <select asp-for="UserId" class="form-control" asp-items="@(new SelectList(ViewBag.listofUser, "Id", "Full_Name"))"></select>
                         <span asp-validation-for="UserId" class="text-danger"></span>
@@ -52,7 +51,8 @@
                         <br>
                       
                         <div class="form-group">
-                            <input type="submit" value="Register" class="btn btn-primary" />
+
+                            <input type="submit" value="Book Now" class="btn btn-primary" />
                         </div>
                     </form>
                 </div>
