@@ -1,4 +1,5 @@
 ﻿using HRBMSWEBAPP.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace HRBMSWEBAPP.Data.Seed
@@ -9,47 +10,41 @@ namespace HRBMSWEBAPP.Data.Seed
         public static void InvokeSeedAll(this ModelBuilder modelBuilder)
         {
             modelBuilder
-                .Entity<Room>()
-                .HasData(
-                    new Room
-                    {
-                        Id = 1,
-                        CategoryId = 1,
-                        Floor_Number = 69,
-                        Room_Number = 69,
-                        
-                    },
-                    new Room
-                    {
-                        Id = 2,
-                        CategoryId = 2,
-                        Floor_Number = 61,
-                        Room_Number = 61
-                    }
+                 .Entity<RoomCategories>()
+                 .HasData(
+                 new RoomCategories
+                 {
+                     Id = 1,
+                     Room_Name = "Deluxe",
+                     Description = "Spacious and luxurious accommodation option that offers guests an elevated level of comfort and sophistication. Typically located in upscale hotels and resorts, a Deluxe Room is designed to provide guests with an exceptional level of comfort and style.",
+                     Price = 10000,
+                 },
+                 new RoomCategories
+                 {
+                     Id = 2,
+                     Room_Name = "Normal",
+                     Description = "Generally designed to accommodate one or two guests, with basic amenities such as a comfortable bed, a clean and well-appointed bathroom, and basic furnishings. Standard Rooms may also come equipped with a small work desk, a TV, and Wi-Fi access, providing guests with everything they need for a comfortable and productive stay.",
+                     Price = 5000,
+                 }
 
-                );
-
+                 );
 
             modelBuilder
-                .Entity<RoomCategories>()
+                .Entity<IdentityRole>()
                 .HasData(
-                    new RoomCategories
+                    new IdentityRole
                     {
-                        Id = 1,
-                        Room_Name = "Deluxe",
-                        NoOfRooms = 69,
-                        Price = 69,
-                        Description = "11111111111111111111",
-                    },
-                    new RoomCategories
-                    {
-                        Id = 2,
-                        Room_Name = "Normal",
-                        NoOfRooms = 69,
-                        Price = 69,
-                        Description = "1111111111111111111",
-                    }
 
+                        Name = "Admin",
+                        NormalizedName = "ADMIN"
+
+                    },
+                     new IdentityRole
+                     {
+
+                         Name = "Guest",
+                         NormalizedName = "GUEST"
+                     }
                 );
             
 

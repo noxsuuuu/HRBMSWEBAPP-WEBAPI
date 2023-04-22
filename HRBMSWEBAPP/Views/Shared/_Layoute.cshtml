@@ -1,4 +1,5 @@
-﻿@using Microsoft.AspNetCore.Identity;
+﻿
+@using Microsoft.AspNetCore.Identity;
 @inject SignInManager<ApplicationUser> _signInManager
 
 <!DOCTYPE html>
@@ -54,11 +55,16 @@
 
                         <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                             <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle" />
-                            <span class="d-none d-md-block dropdown-toggle ps-2">@User.Identity.Name</span> <!--Edit Name of User-->
+                            <span class="d-none d-md-block dropdown-toggle ps-2">@(User.Identity.Name)</span> <!--Edit Name of User-->
                         </a>
                         <a class="dropdown-item d-flex align-items-center" asp-controller="Account" asp-action="Logout">
                             <i class="bi bi-box-arrow-right"></i>
                             <span>Sign Out</span>
+                        </a>
+
+                        <a class="dropdown-item d-flex align-items-center" asp-controller="Account" asp-action="ChangePassword">
+                            <i class="bi bi-box-arrow-right"></i>
+                            <span>Change Password</span>
                         </a>
 
 

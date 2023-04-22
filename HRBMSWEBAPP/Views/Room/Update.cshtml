@@ -24,14 +24,9 @@
                             <span asp-validation-for="CategoryId" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Room_Number" class="control-label"></label>
-                            <input asp-for="Room_Number" class="form-control" />
-                            <span asp-validation-for="Room_Number" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="Floor_Number" class="control-label"></label>
-                            <input asp-for="Floor_Number" class="form-control" />
-                            <span asp-validation-for="Floor_Number" class="text-danger"></span>
+                            <label asp-for="Category.Room_Name" class="control-label">Room Type</label>
+                            <input asp-for="Category.Room_Name" class="form-control" />
+                            <span asp-validation-for="Category.Room_Name" class="text-danger"></span>
                         </div>
                        
                         <label asp-for="Status" class="control-label">Room Status</label>

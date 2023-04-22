@@ -3,6 +3,8 @@ using HRBMSWEBAPP.Repository.Database;
 using HRBMSWEBAPP.Repository;
 using HRBMSWEBAPP.Models;
 using Microsoft.AspNetCore.Identity;
+using HRBMSWEBAPP.Service;
+using HRBMSWEBAPP.Repository.DbRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,11 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<HRBMSDBCONTEXT>();
 builder.Services.AddScoped<HRBMSDBCONTEXT, HRBMSDBCONTEXT>();
+builder.Services.AddScoped<IBookingDBRepository, BookingDBRepository>();
+builder.Services.AddScoped<IRoomDBRepository, RoomDBRepository>();
+builder.Services.AddScoped<IRoomCatDBRepository, RoomCategoryDBRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IAccountDBRepository, AccountDbRepository>();
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<HRBMSDBCONTEXT>();
@@ -24,10 +31,7 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequireUppercase = true;
 });
 
-builder.Services.AddScoped<IBookingDBRepository, BookingDBRepository>();
-builder.Services.AddScoped<IRoomDBRepository, RoomDBRepository>();
-builder.Services.AddScoped<IRoomCatDBRepository, RoomCategoryDBRepository>();
-builder.Services.AddScoped<IinvoiceDBRepository, InvoiceDBRepository>();
+
 
 
 

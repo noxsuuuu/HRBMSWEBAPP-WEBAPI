@@ -1,24 +1,21 @@
-﻿using HRBMSWEBAPP.Validations;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using HRBMSWEBAPP.Models;
 
 namespace HRBMSWEBAPP.Models
 {
     public class ApplicationUser : IdentityUser
     {
 
-        //[DisplayName("User ID")]
-        //[Key]
-        //public int Id { get; set; }
-
         [DisplayName("First Name")]
+        [Required]
         public string FirstName { get; set; }
 
         [DisplayName("Last Name")]
+        [Required]
         public string LastName { get; set; }
 
         [NotMapped]
@@ -31,42 +28,25 @@ namespace HRBMSWEBAPP.Models
 
         [DisplayName("Email Address")]
         [EmailAddress]
-       // [EmailExist]
+        [Required]
+        // [EmailExist]
         public string? Email { get; set; }
 
         [RegularExpression("^(09|\\+639)\\d{9}$", ErrorMessage = "Invalid phone number.")]
+        [Required]
         public string PhoneNumber { get; set; }
-
+        /*
+                [ValidateNever]
+                public ICollection<Room> Room { get; set; }
+        */
         [ValidateNever]
-        public ICollection<Room> Room { get; set; }
-
-        [ValidateNever]
-        public ICollection<Booking> Booking { get; set; }
+        public ICollection<Booking> Bookings { get; set; }
 
         [ValidateNever]
         [NotMapped]
         public IdentityRole Role { get; set; }
 
-
-        [ValidateNever]
-  
-        public ICollection<Invoice> Invoice { get; set; }
-
-        //public string Address { get; set; }
-        //public ApplicationUser()
-        //{
-
-        //}
-
-        //public ApplicationUser(int id, string firstName, string lastName, string email, string phone)
-        //{
-        //    Id = id;
-        //    First_Name = firstName;
-        //    Last_Name = lastName;
-        //    Email = email;
-        //    Phone = phone;
-
-        //}
+        //public string RoleId { get; set; }
 
     }
 }

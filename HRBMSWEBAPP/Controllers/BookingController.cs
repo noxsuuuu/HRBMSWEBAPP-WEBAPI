@@ -1,4 +1,5 @@
-﻿using HRBMSWEBAPP.Data;
+﻿
+using HRBMSWEBAPP.Data;
 using HRBMSWEBAPP.Models;
 using HRBMSWEBAPP.Repository;
 using HRBMSWEBAPP.ViewModel;
@@ -84,13 +85,13 @@ namespace HRBMSWEBAPP.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            List<ApplicationUser> userlist = new List<ApplicationUser>();
-            userlist = _userManager.Users.ToList();
-            ViewBag.listofUser = userlist;
+            //List<ApplicationUser> userlist = new List<ApplicationUser>();
+            //userlist = _userManager.Users.ToList();
+            //ViewBag.listofUser = userlist;
 
-            List<Room> li = new List<Room>();
-            li = _context.Room.ToList();
-            ViewBag.listofroom = li;
+            //List<Room> li = new List<Room>();
+            //li = _context.Room.ToList();
+            //ViewBag.listofroom = li;
             return View();
         }
 
@@ -100,11 +101,11 @@ namespace HRBMSWEBAPP.Controllers
             if (ModelState.IsValid)
             {
                 var book = _repo.AddBooking(booking);
-                var room = _Roomrepo.GetRoomById(booking.RoomId);
+                //var room = _Roomrepo.GetRoomById(booking.RoomId);
 
-                // Update the room status to false
-                var rooms = new Room { Status = room.Status.Equals(false) };
-                _Roomrepo.UpdateRoom(rooms.Id, rooms);
+                //// Update the room status to false
+                //var rooms = new Room { Status = room.Status.Equals(false) };
+                //_Roomrepo.UpdateRoom(rooms.Id, rooms);
                 return RedirectToAction("GetAllBookings");
             }
             ViewData["Message"] = "Data is not valid to create the booking";

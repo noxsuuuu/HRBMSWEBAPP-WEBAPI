@@ -1,4 +1,6 @@
-﻿using HRBMSWEBAPP.Models;
+﻿
+using HRBMSWEBAPP.Models;
+using HRBMSWEBAPP.Repository;
 using HRBMSWEBAPP.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,14 +14,17 @@ namespace HRBMSWEBAPP.Controllers
         // login user details 
         private SignInManager<ApplicationUser> _signInManager { get; }
         public RoleManager<IdentityRole> _roleManager { get; }
+        public IAccountDBRepository _accountRepository { get; }
 
         public AccountController(UserManager<ApplicationUser> userManager,
                                 SignInManager<ApplicationUser> signInManager,
-                                RoleManager<IdentityRole> roleManager)
+                                RoleManager<IdentityRole> roleManager,
+                                IAccountDBRepository AccountRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _roleManager = roleManager; 
+            _roleManager = roleManager;
+            _accountRepository = AccountRepository;
         }
 
         [HttpGet]
@@ -116,6 +121,34 @@ namespace HRBMSWEBAPP.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Login");
+        }
+
+
+        [HttpGet]
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePassViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _accountRepository.ChangePasswordAsync(model);
+                if (result.Succeeded)
+                {
+                    ViewBag.IsSuccess = true;
+                    //ModelState.Clear();
+                    return View();
+                }
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+            }
+
+            return View(model);
         }
     }
 }

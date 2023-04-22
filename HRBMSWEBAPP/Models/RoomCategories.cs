@@ -1,4 +1,4 @@
-﻿using HRBMSWEBAPP.Validations;
+﻿
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
@@ -24,6 +24,8 @@ namespace HRBMSWEBAPP.Models
         [Required]
         public int Price { get; set; }
 
+        [ValidateNever]
+        public ICollection<Booking> Booking { get; set; }
         public int NoOfRooms { get; set; }
 
         [ValidateNever]
