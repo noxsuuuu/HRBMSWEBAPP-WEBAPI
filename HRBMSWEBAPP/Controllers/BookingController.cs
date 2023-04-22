@@ -2,6 +2,7 @@
 using HRBMSWEBAPP.Data;
 using HRBMSWEBAPP.Models;
 using HRBMSWEBAPP.Repository;
+using HRBMSWEBAPP.Service;
 using HRBMSWEBAPP.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -18,6 +19,7 @@ namespace HRBMSWEBAPP.Controllers
         private UserManager<ApplicationUser> _userManager;
         private readonly IBookingDBRepository _repo;
         IRoomDBRepository _Roomrepo;
+        private readonly IUserService userService;
         HRBMSDBCONTEXT _context;
 
         public BookingController(IBookingDBRepository repo, IRoomDBRepository Roomrepo, HRBMSDBCONTEXT context, UserManager<ApplicationUser> userManager)
@@ -94,6 +96,31 @@ namespace HRBMSWEBAPP.Controllers
             //ViewBag.listofroom = li;
             return View();
         }
+
+
+        public IActionResult CreateRoomBooking()
+        {
+            
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateRoomBooking(Booking booking)
+        {
+            if (ModelState.IsValid)
+            {
+                var userId = userService.GetUserId();
+
+                booking.UserId = userId;
+                TempData["BookingMessage"] = "Booking successfully created.";
+
+
+                return RedirectToAction("Create");
+            }
+            ViewData["Message"] = "Data is not valid to create the booking";
+            return View();
+        }
+
 
         [HttpPost]
         public IActionResult Create(Booking booking)
