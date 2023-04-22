@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HRBMSWEBAPP.Migrations
 {
     [DbContext(typeof(HRBMSDBCONTEXT))]
-    [Migration("20230409075436_init")]
-    partial class init
+    [Migration("20230413101010_removedcheckinOut")]
+    partial class removedcheckinOut
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -115,9 +115,15 @@ namespace HRBMSWEBAPP.Migrations
                     b.Property<int>("RoomId")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("RoomId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Booking");
                 });
@@ -130,23 +136,11 @@ namespace HRBMSWEBAPP.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
-
                     b.Property<int>("BookingId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CatId")
                         .HasColumnType("int");
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("CheckIn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("CheckOut")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("Price")
                         .HasColumnType("int");
@@ -158,6 +152,7 @@ namespace HRBMSWEBAPP.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -181,6 +176,9 @@ namespace HRBMSWEBAPP.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
@@ -194,6 +192,8 @@ namespace HRBMSWEBAPP.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("CategoryId");
 
@@ -288,6 +288,20 @@ namespace HRBMSWEBAPP.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "c037d117-ef73-46a0-8d99-80e0f89bc77a",
+                            ConcurrencyStamp = "73d8501c-f7f2-486e-9a69-490eb937906e",
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = "15f1c087-3727-42fc-b2e9-9c3613969565",
+                            ConcurrencyStamp = "0edbecf1-6360-4448-a1a7-e8d9b5cafaa0",
+                            Name = "Guest"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -404,7 +418,15 @@ namespace HRBMSWEBAPP.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("HRBMSWEBAPP.Models.ApplicationUser", "User")
+                        .WithMany("Booking")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Room");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("HRBMSWEBAPP.Models.Invoice", b =>
@@ -428,8 +450,10 @@ namespace HRBMSWEBAPP.Migrations
                         .IsRequired();
 
                     b.HasOne("HRBMSWEBAPP.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                        .WithMany("Invoice")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Booking");
 
@@ -442,6 +466,10 @@ namespace HRBMSWEBAPP.Migrations
 
             modelBuilder.Entity("HRBMSWEBAPP.Models.Room", b =>
                 {
+                    b.HasOne("HRBMSWEBAPP.Models.ApplicationUser", null)
+                        .WithMany("Room")
+                        .HasForeignKey("ApplicationUserId");
+
                     b.HasOne("HRBMSWEBAPP.Models.RoomCategories", "Category")
                         .WithMany("Room")
                         .HasForeignKey("CategoryId")
@@ -500,6 +528,15 @@ namespace HRBMSWEBAPP.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("HRBMSWEBAPP.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("Booking");
+
+                    b.Navigation("Invoice");
+
+                    b.Navigation("Room");
                 });
 
             modelBuilder.Entity("HRBMSWEBAPP.Models.RoomCategories", b =>

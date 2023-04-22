@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HRBMSWEBAPP.Migrations
 {
-    public partial class init : Migration
+    public partial class withuserinbookAndinvoice : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -181,11 +181,17 @@ namespace HRBMSWEBAPP.Migrations
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     Room_Number = table.Column<int>(type: "int", nullable: false),
                     Floor_Number = table.Column<int>(type: "int", nullable: false),
-                    Status = table.Column<bool>(type: "bit", nullable: false)
+                    Status = table.Column<bool>(type: "bit", nullable: false),
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Room", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Room_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Room_Categories_CategoryId",
                         column: x => x.CategoryId,
@@ -200,6 +206,7 @@ namespace HRBMSWEBAPP.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     RoomId = table.Column<int>(type: "int", nullable: false),
                     CheckIn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CheckOut = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -207,6 +214,12 @@ namespace HRBMSWEBAPP.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Booking", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Booking_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Booking_Room_RoomId",
                         column: x => x.RoomId,
@@ -221,11 +234,9 @@ namespace HRBMSWEBAPP.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    BookId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     BookingId = table.Column<int>(type: "int", nullable: false),
                     RoomId = table.Column<int>(type: "int", nullable: false),
-                    CatId = table.Column<int>(type: "int", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     CheckIn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CheckOut = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -258,24 +269,32 @@ namespace HRBMSWEBAPP.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Categories",
-                columns: new[] { "Id", "Description", "NoOfRooms", "Price", "Room_Name" },
-                values: new object[] { 1, "11111111111111111111", 69, 69, "Deluxe" });
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "359d2d75-3104-47af-aed8-1160b83ec348", "4f02c9f9-7056-444e-95e7-c946b2cb6a72", "Guest", null },
+                    { "ad294993-22fd-4c3d-b9c3-38673be581fb", "304ac76d-5e88-4fd0-9c43-d937256765a0", "Admin", null }
+                });
 
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "Id", "Description", "NoOfRooms", "Price", "Room_Name" },
-                values: new object[] { 2, "1111111111111111111", 69, 69, "Normal" });
+                values: new object[,]
+                {
+                    { 1, "11111111111111111111", 69, 69, "Deluxe" },
+                    { 2, "1111111111111111111", 69, 69, "Normal" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Room",
-                columns: new[] { "Id", "CategoryId", "Floor_Number", "Room_Number", "Status" },
-                values: new object[] { 1, 1, 69, 69, false });
+                columns: new[] { "Id", "ApplicationUserId", "CategoryId", "Floor_Number", "Room_Number", "Status" },
+                values: new object[] { 1, null, 1, 69, 69, false });
 
             migrationBuilder.InsertData(
                 table: "Room",
-                columns: new[] { "Id", "CategoryId", "Floor_Number", "Room_Number", "Status" },
-                values: new object[] { 2, 2, 61, 61, false });
+                columns: new[] { "Id", "ApplicationUserId", "CategoryId", "Floor_Number", "Room_Number", "Status" },
+                values: new object[] { 2, null, 2, 61, 61, false });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -322,6 +341,11 @@ namespace HRBMSWEBAPP.Migrations
                 column: "RoomId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Booking_UserId",
+                table: "Booking",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Invoice_BookingId",
                 table: "Invoice",
                 column: "BookingId");
@@ -340,6 +364,11 @@ namespace HRBMSWEBAPP.Migrations
                 name: "IX_Invoice_UserId",
                 table: "Invoice",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Room_ApplicationUserId",
+                table: "Room",
+                column: "ApplicationUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Room_CategoryId",
@@ -371,13 +400,13 @@ namespace HRBMSWEBAPP.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
                 name: "Booking");
 
             migrationBuilder.DropTable(
                 name: "Room");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Categories");

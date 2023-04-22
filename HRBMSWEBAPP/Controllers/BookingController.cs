@@ -1,10 +1,12 @@
-﻿using HRBMSWEBAPP.Models;
+﻿using HRBMSWEBAPP.Data;
+using HRBMSWEBAPP.Models;
 using HRBMSWEBAPP.Repository;
 using HRBMSWEBAPP.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System.Data;
 
 namespace HRBMSWEBAPP.Controllers
@@ -12,13 +14,17 @@ namespace HRBMSWEBAPP.Controllers
     //[Authorize(Roles ="Admin, User")]
     public class BookingController : Controller
     {
+        private UserManager<ApplicationUser> _userManager;
+        private readonly IBookingDBRepository _repo;
+        IRoomDBRepository _Roomrepo;
+        HRBMSDBCONTEXT _context;
 
-       private readonly IBookingDBRepository _repo;
-
-       
-        public BookingController(IBookingDBRepository repo)
+        public BookingController(IBookingDBRepository repo, IRoomDBRepository Roomrepo, HRBMSDBCONTEXT context, UserManager<ApplicationUser> userManager)
         {
             this._repo = repo;
+            _Roomrepo = Roomrepo;
+            _context = context;
+            _userManager = userManager;
         }
 
         //public IActionResult GetAllBookings()
@@ -27,18 +33,37 @@ namespace HRBMSWEBAPP.Controllers
         //    return View(booklist);
 
         //}
+
         public async Task<IActionResult> GetAllBookings()
         {
+            //var rooms = _context.Room.ToList();
+            //var room = new Room { Status = true };
+
+            //List<ApplicationUser> userlist = new List<ApplicationUser>();
+            //userlist = _userManager.Users.ToList();
+            //var availableDisplayString = room.DisplayStatus;
+            //var bookedDisplayString = "Booked";
+
             List<Booking> booking = await this._repo.GetAllBooking();
             return View(booking);
         }
+
+        //public async Task<IActionResult> GetAllBookings()
+        //{
+
+        //    List<Booking> booking = await this._repo.GetAllBooking();
+        //    return View(booking);
+        //}
         public async Task<IActionResult> Details(int? id)
         {
+
+
             if (id == null)
             {
                 return NotFound();
             }
 
+         
             Booking booking = await this._repo.GetBookingById((int)id);
             return View(booking);
         }
@@ -59,17 +84,13 @@ namespace HRBMSWEBAPP.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            //var rooms = _repo.GetBookingById();
-            //var roomModel = new Room
-            //{
-            //    RoomList = room.Select(r => new SelectListItem
-            //    {
-            //        Text = r.Name,
-            //        Value = r.Id.ToString(),
-            //        Selected = (role != null && r.Id == role.Id)
-            //    })
-            //};
-            //ViewBag.RoleList = roleViewModel.RoleList;
+            List<ApplicationUser> userlist = new List<ApplicationUser>();
+            userlist = _userManager.Users.ToList();
+            ViewBag.listofUser = userlist;
+
+            List<Room> li = new List<Room>();
+            li = _context.Room.ToList();
+            ViewBag.listofroom = li;
             return View();
         }
 
@@ -79,6 +100,11 @@ namespace HRBMSWEBAPP.Controllers
             if (ModelState.IsValid)
             {
                 var book = _repo.AddBooking(booking);
+                var room = _Roomrepo.GetRoomById(booking.RoomId);
+
+                // Update the room status to false
+                var rooms = new Room { Status = room.Status.Equals(false) };
+                _Roomrepo.UpdateRoom(rooms.Id, rooms);
                 return RedirectToAction("GetAllBookings");
             }
             ViewData["Message"] = "Data is not valid to create the booking";
@@ -88,6 +114,14 @@ namespace HRBMSWEBAPP.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
+            List<Room> li = new List<Room>();
+            li = _context.Room.ToList();
+            ViewBag.listofroom = li;
+
+            List<ApplicationUser> userlist = new List<ApplicationUser>();
+            userlist = _userManager.Users.ToList();
+            ViewBag.listofUser = userlist;
+
             var old = await this._repo.GetBookingById(id);
             return View(old);
 

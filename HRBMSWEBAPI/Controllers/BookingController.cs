@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HRBMSWEBAPI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/v1/[controller]")]
     [ApiController]
     public class BookingController : ControllerBase
@@ -69,20 +69,6 @@ namespace HRBMSWEBAPI.Controllers
         [HttpPost]
         public IActionResult AddBooking([FromBody] BookingDTO bookingDTO)
         {
-            /*
-                             if (bookingDTO == null)
-                             {
-                                 return BadRequest("No data provided");
-                             }
-
-                             if (ModelState.IsValid)
-                             {
-                                 var book = _mapper.Map<Booking>(bookingDTO);
-                                 var newBook = _repo.AddBooking(book);
-                                 return CreatedAtAction("GetById", new { bookId = newBook.Id }, newBook);
-                             }
-
-                             return BadRequest(ModelState);*/
 
             if (bookingDTO == null)
                 return BadRequest("No Data provided");

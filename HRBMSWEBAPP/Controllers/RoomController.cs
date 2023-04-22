@@ -1,4 +1,5 @@
-﻿using HRBMSWEBAPP.Models;
+﻿using HRBMSWEBAPP.Data;
+using HRBMSWEBAPP.Models;
 using HRBMSWEBAPP.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,11 +10,12 @@ namespace HRBMSWEBAPP.Controllers
     public class RoomController : Controller
     {
         private readonly IRoomDBRepository _repo;
+        HRBMSDBCONTEXT _context;
 
-
-        public RoomController(IRoomDBRepository repo)
+        public RoomController(IRoomDBRepository repo , HRBMSDBCONTEXT context)
         {
             this._repo = repo;
+            _context = context;
         }
 
         //public IActionResult GetAllRooms()
@@ -69,10 +71,25 @@ namespace HRBMSWEBAPP.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            List<RoomCategories> li = new List<RoomCategories>();
+            li = _context.Categories.ToList();
+            ViewBag.listofcat =li;
             return View();
         }
 
 
+        [HttpPost]
+        public IActionResult Create(Room newRoom)
+        {
+            
+            if (ModelState.IsValid)
+            {
+                var book = _repo.AddRoom(newRoom);
+                return RedirectToAction("GetAllRooms");
+            }
+            ViewData["Message"] = "Data is not valid to create the Room";
+            return View();
+        }
         //public IActionResult Create(Room newRoom)
         //{
         //    if (ModelState.IsValid)
@@ -87,6 +104,9 @@ namespace HRBMSWEBAPP.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
+            List<RoomCategories> li = new List<RoomCategories>();
+            li = _context.Categories.ToList();
+            ViewBag.listofcat = li;
             var old = await this._repo.GetRoomById(id);
             return View(old);
 
@@ -99,17 +119,6 @@ namespace HRBMSWEBAPP.Controllers
             return RedirectToAction("GetAllRooms");
         }
 
-        [HttpPost]
-        public IActionResult Create(Room newRoom)
-        {
-            if (ModelState.IsValid)
-            {
-                var book = _repo.AddRoom(newRoom);
-                return RedirectToAction("GetAllRooms");
-            }
-            ViewData["Message"] = "Data is not valid to create the Room";
-            return View();
-        }
 
 
 

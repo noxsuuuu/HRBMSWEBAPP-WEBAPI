@@ -1,5 +1,6 @@
-﻿@model IEnumerable<RoomCategories>
-
+﻿@model IEnumerable<Room>
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<ApplicationUser> _signInManager
 
 <link href="https://fonts.gstatic.com" rel="preconnect">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -17,37 +18,161 @@
 <link href="~/css/stylesheet.css" rel="stylesheet">
 
 <div class="pagetitle">
-<h1>Dashboard</h1>
-<nav>
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">Home</a></li>
-        <li class="breadcrumb-item">Dashboard</li>
-    </ol>
-</nav>
+    <h1>Dashboard</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">Home</a></li>
+            <li class="breadcrumb-item">Dashboard</li>
+        </ol>
+    </nav>
 </div>
 
-
-<section class="section">
-    <div class="row align-items-top">
-        <div class="col-lg-3">
-
-@foreach(var item in Model)
+@if (_signInManager.IsSignedIn(User) && User.IsInRole("Guest"))
 {
-    
-<div class="card">
-    <img src="assets/img/card.jpg" class="card-img-top" alt="...">
-    <div class="card-body">
-        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Room_Name)</h5>
-        <h6 class="card-title">@Html.DisplayFor(modelItem => item.Price)</h6>
-            <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
-            <p class="card-text"><a asp-action="Create" asp-controller="Booking" class="btn btn-primary">Book Now!</a></p>
-    </div>
-</div>
+    <section class="section">
+        <div class="row align-items-top">
+            <div class="d-flex flex-row">
 
+                @foreach (var item in Model)
+                {
+                    <div class="card mx-2" style="width: 20rem; border-radius: 10px;">
+                        <img src="~/img/card.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title bg-light p-2 mb-0" style="border-top-left-radius: 10px; border-top-right-radius: 10px;">
+                                <span class="label label-info">Room Number:</span>
+                                @Html.DisplayFor(modelItem => item.Room_Number)
+                            </h5>
+                            <div class="card-body bg-white p-2" style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
+                                <h6 class="card-subtitle mb-2 text-muted">
+                                    <small class="label label-secondary">Floor Number:</small>
+                                    @Html.DisplayFor(modelItem => item.Floor_Number)
+                                </h6>
+                                <p class="card-text">@Html.DisplayFor(modelItem => item.Category.Room_Name)</p>
+                                <p class="card-text">@Html.DisplayFor(modelItem => item.Category.Description)</p>
+                                <p class="card-text">@Html.DisplayFor(modelItem => item.Category.Price)</p>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+
+
+
+            @*<div class="col-lg-3">
+
+        @foreach(var item in Model)
+        {
+
+        <div class="card">
+        <img src="~/img/card.png" class="card-img-top" alt="...">
+        <div class="card-body">
+        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Room_Number)</h5>
+        <h6 class="card-title">@Html.DisplayFor(modelItem => item.Floor_Number)</h6>
+        <p class="card-text">@Html.DisplayFor(modelItem => item.Category.Room_Name)</p>
+        <p class="card-text">@Html.DisplayFor(modelItem => item.Category.Description)</p>
+        <p class="card-text">@Html.DisplayFor(modelItem => item.Category.Price)</p>
+        <p class="card-text"><a asp-action="Create" asp-controller="Booking" class="btn btn-primary">Book Now!</a></p>
+        </div>
+        </div>
+
+        }
+        </div>*@
+        </div>
+    </section>
 }
-</div>
-    </div>
-</section>
+else if (_signInManager.IsSignedIn(User) && User.IsInRole("Admin") || User.IsInRole("Staff"))
+{
+    <section class="section">
+        <div class="row align-items-top">
+            <div class="d-flex flex-row">
+
+                @foreach (var item in Model)
+                {
+                    <div class="card mx-2" style="width: 20rem; border-radius: 10px;">
+                        <img src="~/img/card.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title bg-light p-2 mb-0" style="border-top-left-radius: 10px; border-top-right-radius: 10px;">
+                                <span class="label label-info">Room Number:</span>
+                                @Html.DisplayFor(modelItem => item.Room_Number)
+                            </h5>
+                            <div class="card-body bg-white p-2" style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
+                                <h6 class="card-subtitle mb-2 text-muted">
+                                    <small class="label label-secondary">Floor Number:</small>
+                                    @Html.DisplayFor(modelItem => item.Floor_Number)
+                                </h6>
+                                <p class="card-text">@Html.DisplayFor(modelItem => item.Category.Room_Name)</p>
+                                <p class="card-text">@Html.DisplayFor(modelItem => item.Category.Description)</p>
+                                <p class="card-text">@Html.DisplayFor(modelItem => item.Category.Price)</p>
+                                <p class="card-text"><a asp-action="Create" asp-controller="Booking" class="btn btn-primary">Book Now!</a></p>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+
+
+
+            @*<div class="col-lg-3">
+
+        @foreach(var item in Model)
+        {
+
+        <div class="card">
+        <img src="~/img/card.png" class="card-img-top" alt="...">
+        <div class="card-body">
+        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Room_Number)</h5>
+        <h6 class="card-title">@Html.DisplayFor(modelItem => item.Floor_Number)</h6>
+        <p class="card-text">@Html.DisplayFor(modelItem => item.Category.Room_Name)</p>
+        <p class="card-text">@Html.DisplayFor(modelItem => item.Category.Description)</p>
+        <p class="card-text">@Html.DisplayFor(modelItem => item.Category.Price)</p>
+        <p class="card-text"><a asp-action="Create" asp-controller="Booking" class="btn btn-primary">Book Now!</a></p>
+        </div>
+        </div>
+
+        }
+        </div>*@
+        </div>
+    </section>
+}
+else
+{
+
+    <section class="section">
+        <div class="row align-items-top">
+            <div class="d-flex flex-row">
+
+                @foreach (var item in Model)
+                {
+                    <div class="card mx-2" style="width: 20rem; border-radius: 10px;">
+                        <img src="~/img/card.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title bg-light p-2 mb-0" style="border-top-left-radius: 10px; border-top-right-radius: 10px;">
+                                <span class="label label-info">Room Number:</span>
+                                @Html.DisplayFor(modelItem => item.Room_Number)
+                            </h5>
+                            <div class="card-body bg-white p-2" style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
+                                <h6 class="card-subtitle mb-2 text-muted">
+                                    <small class="label label-secondary">Floor Number:</small>
+                                    @Html.DisplayFor(modelItem => item.Floor_Number)
+                                </h6>
+                                <p class="card-text">@Html.DisplayFor(modelItem => item.Category.Room_Name)</p>
+                                <p class="card-text">@Html.DisplayFor(modelItem => item.Category.Description)</p>
+                                <p class="card-text">@Html.DisplayFor(modelItem => item.Category.Price)</p>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </section>
+}
 
 
 

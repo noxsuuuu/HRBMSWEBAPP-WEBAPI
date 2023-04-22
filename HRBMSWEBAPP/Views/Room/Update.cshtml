@@ -19,8 +19,8 @@
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <input type="hidden" asp-for="Id" />
                         <div class="form-group">
-                            <label asp-for="CategoryId" class="control-label"></label>
-                            <input asp-for="CategoryId" class="form-control" />
+                            <label asp-for="CategoryId" class="control-label">Room Type</label>
+                            <select asp-for="CategoryId" class="form-control" asp-items="@(new SelectList(ViewBag.listofcat, "Id", "Room_Name"))"></select>
                             <span asp-validation-for="CategoryId" class="text-danger"></span>
                         </div>
                         <div class="form-group">
@@ -33,11 +33,13 @@
                             <input asp-for="Floor_Number" class="form-control" />
                             <span asp-validation-for="Floor_Number" class="text-danger"></span>
                         </div>
+                       
+                        <label asp-for="Status" class="control-label">Room Status</label>
                         <select asp-for="Status" class="form-control">
-                            <option value="false">Available</option>
-                            <option value="true">Booked</option>
+                            <option value="true">Available</option>
+                            <option value="false">Booked</option>
                         </select>
-
+                        <br/>
                         <div class="form-group">
                             <input type="submit" value="Save" class="btn btn-primary" />
                         </div>

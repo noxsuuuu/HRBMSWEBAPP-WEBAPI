@@ -4,6 +4,7 @@ using HRBMSWEBAPP.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HRBMSWEBAPP.Migrations
 {
     [DbContext(typeof(HRBMSDBCONTEXT))]
-    partial class HRBMSDBCONTEXTModelSnapshot : ModelSnapshot
+    [Migration("20230413095549_withuserinbookAndinvoice")]
+    partial class withuserinbookAndinvoice
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -138,6 +140,15 @@ namespace HRBMSWEBAPP.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CheckIn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CheckOut")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Price")
                         .HasColumnType("int");
 
                     b.Property<int>("RoomId")
@@ -287,14 +298,14 @@ namespace HRBMSWEBAPP.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7778b771-d179-483d-b471-5cdce27100f8",
-                            ConcurrencyStamp = "8db4d019-703e-4b30-8128-53e245f0f4cb",
+                            Id = "ad294993-22fd-4c3d-b9c3-38673be581fb",
+                            ConcurrencyStamp = "304ac76d-5e88-4fd0-9c43-d937256765a0",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "fe6eabc3-4377-4fae-9fe9-f8732c0c00ad",
-                            ConcurrencyStamp = "1c89c798-bfa9-4340-a819-2f22a694a52a",
+                            Id = "359d2d75-3104-47af-aed8-1160b83ec348",
+                            ConcurrencyStamp = "4f02c9f9-7056-444e-95e7-c946b2cb6a72",
                             Name = "Guest"
                         });
                 });

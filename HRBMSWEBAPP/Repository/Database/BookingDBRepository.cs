@@ -76,12 +76,14 @@ namespace HRBMSWEBAPP.Repository.Database
         }
         public Task<List<Booking>> GetAllBooking()
         {
-            return this._context.Booking.Include(c => c.Room).ToListAsync();
+            return this._context.Booking.Include(c => c.Room).Include(c => c.User).AsNoTracking().ToListAsync();
         }
 
         public Task<Booking> GetBookingById(int booking_id)
         {
             var booking = this._context.Booking
+                .Include(e => e.User)
+                .Include(e => e.Room)
                 .FirstOrDefaultAsync(m => m.Id == booking_id);
 
             if (booking == null)

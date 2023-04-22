@@ -18,11 +18,23 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Id)
         </dd>
-       <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Booking.Room)
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.User.Full_Name)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Booking.Room)
+            @Html.DisplayFor(model => model.User.Full_Name)
+        </dd>
+       <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.BookingId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.BookingId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Booking.CheckIn)
+        </dt>
+         <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Booking.CheckIn)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Booking.CheckOut)
@@ -31,10 +43,16 @@
             @Html.DisplayFor(model => model.Booking.CheckOut)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Booking.Room.Room_Number)
+            @Html.DisplayNameFor(model => model.Room.Room_Number)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Booking.Room.Room_Number)
+            @Html.DisplayFor(model => model.Room.Room_Number)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Room.Floor_Number)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Room.Floor_Number)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Category.Room_Name)
@@ -49,10 +67,10 @@
             @Html.DisplayFor(model => model.Room.DisplayStatus)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.DisplayNameFor(model => model.Category.Price)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
+            @Html.DisplayFor(model => model.Category.Price)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.TotalPrice)
