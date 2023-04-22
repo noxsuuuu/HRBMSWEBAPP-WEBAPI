@@ -22,7 +22,8 @@ namespace HRBMSWEBAPP.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var user = _userService.GetUserId();
+            var user = _userService.GetUserFirstName();
+            ViewBag.UserId = user;
             List<Room> room = await this._repo.GetAllRoom();
             return View(room);
         }
