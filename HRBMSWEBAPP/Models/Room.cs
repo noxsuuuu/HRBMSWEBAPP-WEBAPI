@@ -21,5 +21,19 @@ namespace HRBMSWEBAPP.Models
 
         [NotMapped]
         public string DisplayStatus => Status ? "Available" : "Booked";
+
+        public Room()
+        {
+
+        }
+
+        public Room(int id, bool status, int catId)
+        {
+            Id = id;
+            Status = status;
+            CategoryId = catId;
+        }
+
+
     }
 }

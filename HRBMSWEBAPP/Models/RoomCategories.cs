@@ -25,7 +25,8 @@ namespace HRBMSWEBAPP.Models
 
         [ValidateNever]
         public ICollection<Booking> Booking { get; set; }
-        public int NoOfRooms { get; set; }
+        
+        //public int NoOfRooms { get; set; }
 
         [ValidateNever]
         public ICollection <Room> Room { get; set; }
