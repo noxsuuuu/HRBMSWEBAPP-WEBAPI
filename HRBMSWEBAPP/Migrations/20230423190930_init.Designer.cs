@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HRBMSWEBAPP.Migrations
 {
     [DbContext(typeof(HRBMSDBCONTEXT))]
-    [Migration("20230423112937_removeNumberOfRooms")]
-    partial class removeNumberOfRooms
+    [Migration("20230423190930_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -226,15 +226,15 @@ namespace HRBMSWEBAPP.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2a8959cd-e056-49b1-a34e-34a549eb30df",
-                            ConcurrencyStamp = "572b7f3f-2bb2-489a-bd18-fb085077f35f",
+                            Id = "63826161-685a-46a9-85b8-a4df836bb534",
+                            ConcurrencyStamp = "8cc34893-1d61-43b0-bf85-45b0d1057372",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "4c552899-ce07-497d-bda0-f40fb80f23fe",
-                            ConcurrencyStamp = "d9cdac83-b2db-4a17-a6b3-78c4fc69be01",
+                            Id = "965dcdad-c943-4db1-8f89-a49cdbd1d447",
+                            ConcurrencyStamp = "2edbc474-551a-4099-8bd5-c11b8517b310",
                             Name = "Guest",
                             NormalizedName = "GUEST"
                         });

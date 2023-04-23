@@ -58,8 +58,7 @@ namespace HRBMSWEBAPP.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Room_Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false),
-                    NoOfRooms = table.Column<int>(type: "int", nullable: false)
+                    Price = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -229,17 +228,17 @@ namespace HRBMSWEBAPP.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "b231850f-bb21-4ea0-b4d2-259b0869c377", "77137e00-dadf-4aa5-80b2-a37553118d68", "Admin", "ADMIN" },
-                    { "cc1283dc-d085-4f62-977d-1d360b528158", "deb872e4-2d01-4b24-a93a-26b2db8fb38a", "Guest", "GUEST" }
+                    { "63826161-685a-46a9-85b8-a4df836bb534", "8cc34893-1d61-43b0-bf85-45b0d1057372", "Admin", "ADMIN" },
+                    { "965dcdad-c943-4db1-8f89-a49cdbd1d447", "2edbc474-551a-4099-8bd5-c11b8517b310", "Guest", "GUEST" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Categories",
-                columns: new[] { "Id", "Description", "NoOfRooms", "Price", "Room_Name" },
+                columns: new[] { "Id", "Description", "Price", "Room_Name" },
                 values: new object[,]
                 {
-                    { 1, "Spacious and luxurious accommodation option that offers guests an elevated level of comfort and sophistication. Typically located in upscale hotels and resorts, a Deluxe Room is designed to provide guests with an exceptional level of comfort and style.", 0, 10000, "Deluxe" },
-                    { 2, "Generally designed to accommodate one or two guests, with basic amenities such as a comfortable bed, a clean and well-appointed bathroom, and basic furnishings. Standard Rooms may also come equipped with a small work desk, a TV, and Wi-Fi access, providing guests with everything they need for a comfortable and productive stay.", 0, 5000, "Normal" }
+                    { 1, "Spacious and luxurious accommodation option that offers guests an elevated level of comfort and sophistication. Typically located in upscale hotels and resorts, a Deluxe Room is designed to provide guests with an exceptional level of comfort and style.", 10000, "Deluxe" },
+                    { 2, "Generally designed to accommodate one or two guests, with basic amenities such as a comfortable bed, a clean and well-appointed bathroom, and basic furnishings. Standard Rooms may also come equipped with a small work desk, a TV, and Wi-Fi access, providing guests with everything they need for a comfortable and productive stay.", 5000, "Normal" }
                 });
 
             migrationBuilder.CreateIndex(

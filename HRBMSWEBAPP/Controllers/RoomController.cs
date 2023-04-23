@@ -1,6 +1,7 @@
 ﻿using HRBMSWEBAPP.Data;
 using HRBMSWEBAPP.Models;
 using HRBMSWEBAPP.Repository;
+using HRBMSWEBAPP.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -67,29 +68,55 @@ namespace HRBMSWEBAPP.Controllers
             var roomlist = _repo.DeleteRoom(id);
             return RedirectToAction(controllerName: "Room", actionName: "GetAllRooms");
         }
-
         [HttpGet]
         public IActionResult Create()
         {
-            List<RoomCategories> li = new List<RoomCategories>();
-            li = _context.Categories.ToList();
-            ViewBag.listofcat =li;
+            ViewBag.Categories = _context.Categories.ToList();
             return View();
         }
-
 
         [HttpPost]
         public IActionResult Create(Room newRoom)
         {
-            
             if (ModelState.IsValid)
             {
-                var book = _repo.AddRoom(newRoom);
+                _repo.AddRoom(newRoom);
                 return RedirectToAction("GetAllRooms");
             }
+
+            // If ModelState is invalid, collect the validation errors
+            var errors = ModelState.Values.SelectMany(v => v.Errors).ToList();
             ViewData["Message"] = "Data is not valid to create the Room";
+            ViewBag.Categories = _context.Categories.ToList();
             return View();
         }
+
+
+
+        /* [HttpGet]
+         public IActionResult Create()
+         {
+             var categories = _context.Categories.ToList();
+             if (categories == null)
+             {
+                 return NotFound();
+             }
+             ViewBag.listofcat = categories;
+             return View();
+         }
+
+         [HttpPost]
+         public IActionResult Create(Room newRoom)
+         {
+
+             if (ModelState.IsValid)
+             {
+                 var book = _repo.AddRoom(newRoom);
+                 return RedirectToAction("GetAllRooms");
+             }
+             ViewData["Message"] = "Data is not valid to create the Room";
+             return View();
+         }*/
         //public IActionResult Create(Room newRoom)
         //{
         //    if (ModelState.IsValid)

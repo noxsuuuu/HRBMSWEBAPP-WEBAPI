@@ -7,6 +7,7 @@ namespace HRBMSWEBAPP.Repository.Database
     public class RoomDBRepository : IRoomDBRepository
     {
         HRBMSDBCONTEXT _context;
+        
 
         public RoomDBRepository(HRBMSDBCONTEXT context)
         {
@@ -19,10 +20,10 @@ namespace HRBMSWEBAPP.Repository.Database
         //    _context.SaveChangesAsync();
         //    return room;
         //}
-        public Task AddRoom(Room room)
+        public async Task AddRoom(Room room)
         {
-            this._context.Add(room);
-            return this._context.SaveChangesAsync();
+            await this._context.Room.AddAsync(room);
+            await this._context.SaveChangesAsync();
         }
         public Task DeleteRoom(int room_id)
         {
