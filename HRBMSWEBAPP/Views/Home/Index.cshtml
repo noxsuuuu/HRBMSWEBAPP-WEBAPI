@@ -27,6 +27,8 @@
     </nav>
 </div>
 
+
+
             @*<div class="col-lg-3">
 
         @foreach(var item in Model)
@@ -46,7 +48,18 @@
 
         }
         </div>*@
-     
+@section scripts {
+    <script>
+        $(function () {
+            $('a[data-room-id]').click(function (e) {
+                e.preventDefault();
+                var roomId = $(this).data('room-id');
+                $("#roomId").val(roomId);
+                $("#booking-form").submit();
+            });
+        });
+    </script>
+}
 
     <section class="section">
         <div class="row align-items-top">
@@ -69,7 +82,9 @@
                                 <p class="card-text">@Html.DisplayFor(modelItem => item.Category.Room_Name)</p>
                                 <p class="card-text">@Html.DisplayFor(modelItem => item.Category.Description)</p>
                                 <p class="card-text">@Html.DisplayFor(modelItem => item.Category.Price)</p>
-                                <p class="card-text"><a asp-action="Create" asp-controller="Booking" class="btn btn-primary">Book Now!</a></p>
+                            <p class="card-text"><a asp-action="CreateRoomBooking" asp-controller="Booking" class="btn btn-primary" asp-route-roomId="@item.Id">Book Now!</a>
+
+                </p>
                             </div>
                         </div>
                     </div>

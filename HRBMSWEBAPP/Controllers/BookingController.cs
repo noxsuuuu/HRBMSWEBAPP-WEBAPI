@@ -18,6 +18,7 @@ namespace HRBMSWEBAPP.Controllers
     {
         private UserManager<ApplicationUser> _userManager;
         private readonly IBookingDBRepository _repo;
+       
         IRoomDBRepository _Roomrepo;
         private readonly IUserService userService;
         HRBMSDBCONTEXT _context;
@@ -97,26 +98,32 @@ namespace HRBMSWEBAPP.Controllers
             return View();
         }
 
-
-        public IActionResult CreateRoomBooking()
+        [HttpGet]
+        public IActionResult CreateRoomBooking(int roomId)
         {
-            
+            ViewData["RoomId"] = roomId;
             return View();
         }
 
         [HttpPost]
-        public IActionResult CreateRoomBooking(Booking booking)
+        public IActionResult CreateRoomBooking(int roomId, Booking booking)
         {
             if (ModelState.IsValid)
             {
-                var userId = userService.GetUserId();
-
+                var userId = _userManager.GetUserId(User);
                 booking.UserId = userId;
+                booking.RoomId = roomId;
+
+                // Save the booking to the database
+                _context.Booking.Add(booking);
+                _context.SaveChanges();
+
                 TempData["BookingMessage"] = "Booking successfully created.";
 
-
-                return RedirectToAction("Create");
+                // Redirect to a thank-you page or back to the room list page
+                return View();
             }
+
             ViewData["Message"] = "Data is not valid to create the booking";
             return View();
         }

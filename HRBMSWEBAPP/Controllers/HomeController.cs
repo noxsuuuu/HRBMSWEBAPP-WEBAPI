@@ -27,7 +27,15 @@ namespace HRBMSWEBAPP.Controllers
             List<Room> room = await this._repo.GetAllRoom();
             return View(room);
         }
-       
+
+      /*  public async Task<IActionResult> CreateBooking()
+        {
+            var user = _userService.GetUserFirstName();
+            ViewBag.UserId = user;
+            List<Room> room = await this._repo.GetAllRoom();
+            return View(room);
+        }*/
+
         public IActionResult Privacy()
         {
             return View();

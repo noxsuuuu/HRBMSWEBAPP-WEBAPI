@@ -23,8 +23,8 @@ namespace HRBMSWEBAPP.Models
         [Required]
         public int Price { get; set; }
 
-        [ValidateNever]
-        public ICollection<Booking> Booking { get; set; }
+        /*[ValidateNever]
+        public ICollection<Booking> Booking { get; set; }*/
         
         //public int NoOfRooms { get; set; }
 

@@ -26,6 +26,7 @@
         <div class="card-body">
             <h1>Create Bookings</h1>
 
+            <h4>Room Id: @ViewBag.RoomId</h4>
             <hr />
             <div class="row">
 
@@ -33,11 +34,12 @@
                     <form asp-controller="Booking" asp-action="CreateRoomBooking" method="post">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
+                        <label class="control-label">Room ID</label>
+                        <input class="form-control" value="@ViewBag.RoomId" name="RoomId" readonly />
 
                         <label class="control-label">Guest Name</label>
                         <input class="form-control" value="@firstName @lastName " readonly />
                         <span class="text-danger"></span>
-
 
                         <div class="form-group">
                             <label asp-for="CheckIn" class="control-label"></label>
@@ -49,13 +51,14 @@
                             <input asp-for="CheckOut" class="form-control" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
                             <span asp-validation-for="CheckOut" class="text-danger"></span>
                         </div>
+                        
                         <br>
 
                         <div class="form-group">
-
                             <input type="submit" value="Booking" class="btn btn-primary" />
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>

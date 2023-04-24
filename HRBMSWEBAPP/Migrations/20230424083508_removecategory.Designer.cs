@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HRBMSWEBAPP.Migrations
 {
     [DbContext(typeof(HRBMSDBCONTEXT))]
-    [Migration("20230423190930_init")]
-    partial class init
+    [Migration("20230424083508_removecategory")]
+    partial class removecategory
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -107,9 +107,6 @@ namespace HRBMSWEBAPP.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("CheckIn")
                         .IsRequired()
                         .HasColumnType("datetime2");
@@ -117,6 +114,9 @@ namespace HRBMSWEBAPP.Migrations
                     b.Property<DateTime?>("CheckOut")
                         .IsRequired()
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("RoomCategoriesId")
+                        .HasColumnType("int");
 
                     b.Property<int>("RoomId")
                         .HasColumnType("int");
@@ -127,7 +127,7 @@ namespace HRBMSWEBAPP.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("RoomCategoriesId");
 
                     b.HasIndex("RoomId");
 
@@ -226,15 +226,15 @@ namespace HRBMSWEBAPP.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "63826161-685a-46a9-85b8-a4df836bb534",
-                            ConcurrencyStamp = "8cc34893-1d61-43b0-bf85-45b0d1057372",
+                            Id = "b54f0586-7909-4356-9383-950259b9bddc",
+                            ConcurrencyStamp = "1522e074-1103-4a7d-8b1e-d52d9d2f8856",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "965dcdad-c943-4db1-8f89-a49cdbd1d447",
-                            ConcurrencyStamp = "2edbc474-551a-4099-8bd5-c11b8517b310",
+                            Id = "e4513b5c-8196-439f-ae88-0b9562e4bf0e",
+                            ConcurrencyStamp = "158ef852-0148-4bb2-bceb-532421ab2fb5",
                             Name = "Guest",
                             NormalizedName = "GUEST"
                         });
@@ -348,11 +348,9 @@ namespace HRBMSWEBAPP.Migrations
 
             modelBuilder.Entity("HRBMSWEBAPP.Models.Booking", b =>
                 {
-                    b.HasOne("HRBMSWEBAPP.Models.RoomCategories", "Category")
+                    b.HasOne("HRBMSWEBAPP.Models.RoomCategories", null)
                         .WithMany("Booking")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RoomCategoriesId");
 
                     b.HasOne("HRBMSWEBAPP.Models.Room", "Room")
                         .WithMany("Bookings")
@@ -365,8 +363,6 @@ namespace HRBMSWEBAPP.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Category");
 
                     b.Navigation("Room");
 

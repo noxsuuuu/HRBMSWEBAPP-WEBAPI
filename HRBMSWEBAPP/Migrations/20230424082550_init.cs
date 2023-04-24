@@ -200,8 +200,8 @@ namespace HRBMSWEBAPP.Migrations
                     CheckIn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CheckOut = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
-                    RoomId = table.Column<int>(type: "int", nullable: false)
+                    RoomId = table.Column<int>(type: "int", nullable: false),
+                    RoomCategoriesId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -210,17 +210,19 @@ namespace HRBMSWEBAPP.Migrations
                         name: "FK_Booking_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Booking_Categories_CategoryId",
-                        column: x => x.CategoryId,
+                        name: "FK_Booking_Categories_RoomCategoriesId",
+                        column: x => x.RoomCategoriesId,
                         principalTable: "Categories",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Booking_Room_RoomId",
                         column: x => x.RoomId,
                         principalTable: "Room",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -228,8 +230,8 @@ namespace HRBMSWEBAPP.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "63826161-685a-46a9-85b8-a4df836bb534", "8cc34893-1d61-43b0-bf85-45b0d1057372", "Admin", "ADMIN" },
-                    { "965dcdad-c943-4db1-8f89-a49cdbd1d447", "2edbc474-551a-4099-8bd5-c11b8517b310", "Guest", "GUEST" }
+                    { "512594de-f939-4836-aae6-149064bf7f6a", "27fb9f81-def0-4d61-b247-453fbd27ef80", "Admin", "ADMIN" },
+                    { "cd47534b-5eb4-4890-9fd9-d6d24f0ef786", "58866ad3-18c5-4cc3-af79-047b75809691", "Guest", "GUEST" }
                 });
 
             migrationBuilder.InsertData(
@@ -281,9 +283,9 @@ namespace HRBMSWEBAPP.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Booking_CategoryId",
+                name: "IX_Booking_RoomCategoriesId",
                 table: "Booking",
-                column: "CategoryId");
+                column: "RoomCategoriesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Booking_RoomId",

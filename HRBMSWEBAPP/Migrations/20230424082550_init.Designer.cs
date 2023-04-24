@@ -4,6 +4,7 @@ using HRBMSWEBAPP.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HRBMSWEBAPP.Migrations
 {
     [DbContext(typeof(HRBMSDBCONTEXT))]
-    partial class HRBMSDBCONTEXTModelSnapshot : ModelSnapshot
+    [Migration("20230424082550_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -113,6 +115,9 @@ namespace HRBMSWEBAPP.Migrations
                         .IsRequired()
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("RoomCategoriesId")
+                        .HasColumnType("int");
+
                     b.Property<int>("RoomId")
                         .HasColumnType("int");
 
@@ -121,6 +126,8 @@ namespace HRBMSWEBAPP.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RoomCategoriesId");
 
                     b.HasIndex("RoomId");
 
@@ -219,15 +226,15 @@ namespace HRBMSWEBAPP.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "67b6b659-23b6-41d0-b48a-9760faec04ae",
-                            ConcurrencyStamp = "6d2e9879-6e51-4114-8315-f189fed7aaf7",
+                            Id = "512594de-f939-4836-aae6-149064bf7f6a",
+                            ConcurrencyStamp = "27fb9f81-def0-4d61-b247-453fbd27ef80",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "390e306e-65ab-4927-ba17-2d37b6fa31a4",
-                            ConcurrencyStamp = "47bad451-5c48-41c3-8c46-c43003286340",
+                            Id = "cd47534b-5eb4-4890-9fd9-d6d24f0ef786",
+                            ConcurrencyStamp = "58866ad3-18c5-4cc3-af79-047b75809691",
                             Name = "Guest",
                             NormalizedName = "GUEST"
                         });
@@ -341,6 +348,10 @@ namespace HRBMSWEBAPP.Migrations
 
             modelBuilder.Entity("HRBMSWEBAPP.Models.Booking", b =>
                 {
+                    b.HasOne("HRBMSWEBAPP.Models.RoomCategories", null)
+                        .WithMany("Booking")
+                        .HasForeignKey("RoomCategoriesId");
+
                     b.HasOne("HRBMSWEBAPP.Models.Room", "Room")
                         .WithMany("Bookings")
                         .HasForeignKey("RoomId")
@@ -432,6 +443,8 @@ namespace HRBMSWEBAPP.Migrations
 
             modelBuilder.Entity("HRBMSWEBAPP.Models.RoomCategories", b =>
                 {
+                    b.Navigation("Booking");
+
                     b.Navigation("Room");
                 });
 #pragma warning restore 612, 618

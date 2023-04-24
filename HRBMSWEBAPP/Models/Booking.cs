@@ -21,10 +21,12 @@ namespace HRBMSWEBAPP.Models
         [ValidateNever]
         public ApplicationUser User { get; set; }
         [DisplayName("User ID")]
+        [Required]
         public string UserId { get; set; }
         [ValidateNever]
         public Room Room { get; set; }
-        public RoomCategories Category { get; set; }
+        /*[ValidateNever]
+        public RoomCategories Category { get; set; }*/
         public int RoomId { get; set; }
 
 
