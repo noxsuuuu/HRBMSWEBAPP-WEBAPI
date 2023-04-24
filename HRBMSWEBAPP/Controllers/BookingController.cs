@@ -20,15 +20,18 @@ namespace HRBMSWEBAPP.Controllers
         private readonly IBookingDBRepository _repo;
        
         IRoomDBRepository _Roomrepo;
-        private readonly IUserService userService;
+        private readonly IUserService _UserService;
         HRBMSDBCONTEXT _context;
 
-        public BookingController(IBookingDBRepository repo, IRoomDBRepository Roomrepo, HRBMSDBCONTEXT context, UserManager<ApplicationUser> userManager)
+        public BookingController(IBookingDBRepository repo, IRoomDBRepository Roomrepo, 
+                                 HRBMSDBCONTEXT context, UserManager<ApplicationUser> userManager,
+                                 IUserService userService)
         {
             this._repo = repo;
             _Roomrepo = Roomrepo;
             _context = context;
             _userManager = userManager;
+            _UserService = userService;
         }
 
         //public IActionResult GetAllBookings()
@@ -79,10 +82,25 @@ namespace HRBMSWEBAPP.Controllers
         //    return View(book);
         //}
 
-        public IActionResult Delete(int id)
+        //public IActionResult Delete(int id)
+        //{
+        //    var booklist = _repo.DeleteBooking(id);
+        //    return RedirectToAction(controllerName: "Booking", actionName: "GetAllBookings");
+        //}
+        public async Task<IActionResult> Delete(int id)
         {
-            var booklist = _repo.DeleteBooking(id);
-            return RedirectToAction(controllerName: "Booking", actionName: "GetAllBookings");
+            // Check if the booking exists
+            var booking = await this._repo.GetBookingById(id);
+            if (booking == null)
+            {
+                return NotFound();
+            }
+
+            // Delete the booking from the database
+            await this._repo.DeleteBooking(id);
+
+            // Redirect to the list of bookings
+            return RedirectToAction("GetAllBookings");
         }
 
         [HttpGet]
@@ -107,13 +125,13 @@ namespace HRBMSWEBAPP.Controllers
 
         [HttpPost]
         public IActionResult CreateRoomBooking(int roomId, Booking booking)
-        {
+        { 
+           
             if (ModelState.IsValid)
             {
-                var userId = _userManager.GetUserId(User);
+                var userId = _UserService.GetUserId();
                 booking.UserId = userId;
                 booking.RoomId = roomId;
-
                 // Save the booking to the database
                 _context.Booking.Add(booking);
                 _context.SaveChanges();
@@ -121,7 +139,7 @@ namespace HRBMSWEBAPP.Controllers
                 TempData["BookingMessage"] = "Booking successfully created.";
 
                 // Redirect to a thank-you page or back to the room list page
-                return View();
+                return RedirectToAction("GetAllBookings");
             }
 
             ViewData["Message"] = "Data is not valid to create the booking";

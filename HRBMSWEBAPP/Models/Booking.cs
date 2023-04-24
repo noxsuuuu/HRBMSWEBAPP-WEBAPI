@@ -20,9 +20,9 @@ namespace HRBMSWEBAPP.Models
         public DateTime? CheckOut { get; set; }
         [ValidateNever]
         public ApplicationUser User { get; set; }
+
         [DisplayName("User ID")]
-        [Required]
-        public string UserId { get; set; }
+        public string? UserId { get; set; }
         [ValidateNever]
         public Room Room { get; set; }
         /*[ValidateNever]
