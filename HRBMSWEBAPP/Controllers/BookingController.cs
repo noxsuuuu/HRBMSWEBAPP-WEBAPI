@@ -136,6 +136,14 @@ namespace HRBMSWEBAPP.Controllers
                 _context.Booking.Add(booking);
                 _context.SaveChanges();
 
+                var room = _context.Room.FirstOrDefault(r => r.Id == roomId);
+                if (room != null)
+                {
+                    room.Status = false;
+                    _context.Room.Update(room);
+                    _context.SaveChanges();
+                }
+
                 TempData["BookingMessage"] = "Booking successfully created.";
 
                 // Redirect to a thank-you page or back to the room list page
