@@ -56,6 +56,10 @@ namespace HRBMSWEBAPP.Repository.Database
         {
             return this._context.Room.Include(e=>e.Category).AsNoTracking().ToListAsync();
         }
+        public List<Room> GetAllRoom1()
+        {
+            return this._context.Room.Include(e => e.Category).AsNoTracking().ToList();
+        }
 
         //public List<Room> GetAllRoom()
         //{

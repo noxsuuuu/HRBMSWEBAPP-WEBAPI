@@ -28,11 +28,12 @@ namespace HRBMSWEBAPP.Controllers
 
         public async Task<IActionResult> GetAllUsers()
         {
+          
             var userlist = await _userManager.Users.ToListAsync();
             return View(userlist);
         }
-
-        public async Task<IActionResult> Details(string? id)
+       
+    public async Task<IActionResult> Details(string? id)
         {
             ApplicationUser user = await this._userManager.FindByIdAsync(id);
 

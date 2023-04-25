@@ -80,7 +80,11 @@ namespace HRBMSWEBAPP.Repository.Database
         {
             return this._context.Booking.Include(c => c.Room).Include(c => c.User).AsNoTracking().ToListAsync();
         }
+        public List<Booking> GetAllBooking1()
+        {
 
+            return _context.Booking.Include(c => c.User).AsNoTracking().ToList();
+        }
         public Task<Booking> GetBookingById(int booking_id)
         {
             var booking = this._context.Booking

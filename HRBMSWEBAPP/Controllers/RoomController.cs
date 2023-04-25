@@ -20,8 +20,15 @@ namespace HRBMSWEBAPP.Controllers
         }
 
      
-        public async Task<IActionResult> GetAllRooms()
+        public async Task<IActionResult> GetAllRooms(string searchString)
         {
+            var roomlist = from books in _repo.GetAllRoom1()
+                           select books;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                roomlist = roomlist.Where(s => s.Category.Room_Name.ToLower().Contains(searchString.Trim().ToLower()));
+                return View(roomlist.ToList());
+            }
             List<Room> room = await this._repo.GetAllRoom();
             return View(room);
            // return this._context.Room.Include(e => e.Category.Room_Name).AsNoTracking().ToListAsync();

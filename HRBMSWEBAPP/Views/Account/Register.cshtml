@@ -93,7 +93,9 @@
                         }
 
                         <form asp-controller="Account" asp-action="Register" method="post">
+                            
                     <div class="col-12">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <label asp-for="FirstName" class="form-label">First Name</label>
                                             
                       <input  class="form-control" asp-for="FirstName" required>
@@ -110,7 +112,7 @@
                     <label asp-for="Email" class="form-label">Your Email</label>
 
                     <input  class="form-control" asp-for="Email" required>
-                                            <span asp-validation-for="Email"></span>
+                                <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
                             <div class="col-12">
                                 <label asp-for="PhoneNumber" class="form-label">Your Phone Number</label>
