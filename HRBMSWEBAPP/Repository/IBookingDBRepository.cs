@@ -9,7 +9,8 @@ namespace HRBMSWEBAPP.Repository
         Task AddBooking(Booking booking);
         Task DeleteBooking(int booking_id);
         Task UpdateBooking(int booking_id, Booking booking);
+    
 
-       
+
     }
 }

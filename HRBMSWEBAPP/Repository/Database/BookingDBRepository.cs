@@ -51,7 +51,7 @@ namespace HRBMSWEBAPP.Repository.Database
         //    {
         //        _context.Booking.Remove(booking);
         //        _context.SaveChanges();
-            
+
         //    }
         //    return booking;
 
@@ -69,6 +69,8 @@ namespace HRBMSWEBAPP.Repository.Database
 
 
         //}
+        
+
         public Task UpdateBooking(int bookingId, Booking booking)
         {
             this._context.Update(booking);
@@ -93,6 +95,9 @@ namespace HRBMSWEBAPP.Repository.Database
 
             return booking;
         }
+
+
+
 
         //public List<Booking> GetAllBooking()
         //{

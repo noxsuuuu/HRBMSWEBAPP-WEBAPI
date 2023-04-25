@@ -123,10 +123,12 @@ namespace HRBMSWEBAPP.Controllers
             return View();
         }
 
+
         [HttpPost]
         public IActionResult CreateRoomBooking(int roomId, Booking booking)
-        { 
+        {
            
+
             if (ModelState.IsValid)
             {
                 var userId = _UserService.GetUserId();
@@ -196,5 +198,7 @@ namespace HRBMSWEBAPP.Controllers
             await _repo.UpdateBooking(booking.Id,booking);
             return RedirectToAction("GetAllBookings");
         }
+      
+        
     }
 }
