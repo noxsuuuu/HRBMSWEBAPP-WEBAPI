@@ -89,6 +89,7 @@ namespace HRBMSWEBAPP.Controllers
         //}
         public async Task<IActionResult> Delete(int id)
         {
+        
             // Check if the booking exists
             var booking = await this._repo.GetBookingById(id);
             if (booking == null)
@@ -96,6 +97,13 @@ namespace HRBMSWEBAPP.Controllers
                 return NotFound();
             }
 
+            var room = await this._Roomrepo.GetRoomById(booking.RoomId);
+            if (room != null)
+            {
+                room.Status = true;
+                _context.Room.Update(room);
+                _context.SaveChanges();
+            }
             // Delete the booking from the database
             await this._repo.DeleteBooking(id);
 
@@ -135,6 +143,7 @@ namespace HRBMSWEBAPP.Controllers
                 booking.UserId = userId;
                 booking.RoomId = roomId;
                 // Save the booking to the database
+                ViewBag.BookSuccess = true;
                 _context.Booking.Add(booking);
                 _context.SaveChanges();
 

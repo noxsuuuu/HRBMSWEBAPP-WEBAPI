@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using HRBMSWEBAPP.Models;
+using HRBMSWEBAPP.Validations;
 
 namespace HRBMSWEBAPP.Models
 {
@@ -29,9 +30,10 @@ namespace HRBMSWEBAPP.Models
         [DisplayName("Email Address")]
         [EmailAddress]
         [Required]
-        // [EmailExist]
+        [EmailExist]
         public string? Email { get; set; }
 
+        [DisplayName("Phone Number")]
         [RegularExpression("^(09|\\+639)\\d{9}$", ErrorMessage = "Invalid phone number.")]
         [Required]
         public string PhoneNumber { get; set; }

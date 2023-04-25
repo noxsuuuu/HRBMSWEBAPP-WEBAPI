@@ -1,47 +1,26 @@
-﻿/*using HRBMSWEBAPP.Data;
+﻿using HRBMSWEBAPP.Data;
+using HRBMSWEBAPP.Models;
+using HRBMSWEBAPP.ViewModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace HRBMSWEBAPP.Validations
 {
       public class EmailExist : ValidationAttribute
         {
-        protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            if (value != null)
+          
+            var user = (RegisterViewModel)validationContext.ObjectInstance;
+            var dbContext = (HRBMSDBCONTEXT)validationContext.GetService(typeof(HRBMSDBCONTEXT));
+            var emailexist = dbContext.Users.FirstOrDefault(b => b.Email == user.Email);
+            if (emailexist != null)
             {
-                if (value is string)
-                {
-                    var useridproperty = validationContext.ObjectType.GetProperty("Email");
-                    int userid = Convert.ToInt16(useridproperty.GetValue(validationContext.ObjectInstance));
-
-                    string email = (string)value;
-
-                    bool emailExist = false;
-
-                    if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "DBDevelopment")
-                    {
-                        HRBMSDBCONTEXT _context = new HRBMSDBCONTEXT();
-
-                        emailExist = (_context.Users?
-                            .Any(e => e.Email == email && e.Id != userid.ToString()))
-                                .GetValueOrDefault();
-                        //here
-                    }
-                 
-
-                    if (emailExist)
-                    {
-                        return new ValidationResult("Email address already registered.");
-                    }
-                }
-                else
-                {
-                    return new ValidationResult("Invalid Email Address.");
-                }
+                return new ValidationResult("This email address is already in use.");
             }
+
             return ValidationResult.Success;
         }
+      
 
     }
 }
-*/
