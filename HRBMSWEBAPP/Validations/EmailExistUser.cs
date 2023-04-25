@@ -5,12 +5,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HRBMSWEBAPP.Validations
 {
-      public class EmailExist : ValidationAttribute
+      public class EmailExistUser : ValidationAttribute
         {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             
-            var user = (RegisterViewModel)validationContext.ObjectInstance;
+            var user = (ApplicationUser)validationContext.ObjectInstance;
             var dbContext = (HRBMSDBCONTEXT)validationContext.GetService(typeof(HRBMSDBCONTEXT));
             var emailexist = dbContext.Users.FirstOrDefault(b => b.Email == user.Email);
             if (emailexist != null)
