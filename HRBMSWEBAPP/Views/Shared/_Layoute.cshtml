@@ -96,18 +96,19 @@
 
         </nav>
 
+        @if (_signInManager.IsSignedIn(User))
+        {
+            <aside id="sidebar" class="sidebar">
 
-        <aside id="sidebar" class="sidebar">
+                <ul class="sidebar-nav" id="sidebar-nav">
 
-            <ul class="sidebar-nav" id="sidebar-nav">
-
-                <li class="nav-item">
-                    <a class="nav-link " asp-controller="Home" asp-action="Index">
-                        <!-- Insert Home page -->
-                        <i class="bi bi-grid"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link " asp-controller="Home" asp-action="Index">
+                            <!-- Insert Home page -->
+                            <i class="bi bi-grid"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
 
                     <li class="nav-item">
                         <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
@@ -119,7 +120,7 @@
                                     <i class="bi bi-circle"></i><span>Add User</span>
                                 </a>
                             </li>
-                          
+
                             <li>
                                 <a asp-area="" asp-controller="RoomCategory" asp-action="Create">
                                     <i class="bi bi-circle"></i><span>Add Category</span>
@@ -168,45 +169,58 @@
                                     <i class="bi bi-circle"></i><span>Users Roles</span>
                                 </a>
                             </li>
-                         
+
                         </ul>
                     </li>
 
-            </ul>
+                </ul>
 
-        </aside>
-
-       
-      
-        
-    </header>
-
-    <div>
-        <main role="main" id="main" class="main">
-
-            @RenderBody()
-
-        </main>
-    </div>
+            </aside>
+        }
 
 
-    <footer id="footer" class="footer">
-        <div class="copyright">
-            &copy; Copyright <strong><span>Hotel Room Booking System</span></strong>. All Rights Reserved
+
+            </header>
+
+    @if (_signInManager.IsSignedIn(User))
+    {
+        <div>
+            <main role="main" id="main" class="main">
+
+                @RenderBody()
+
+            </main>
         </div>
-        <div class="credits">
-            Designed by Ivhan and Mark
+
+
+        <footer id="footer" class="footer">
+            <div class="copyright">
+                &copy; Copyright <strong><span>Hotel Room Booking System</span></strong>. All Rights Reserved
+            </div>
+            <div class="credits">
+                Designed by Ivhan and Mark
+            </div>
+        </footer>
+    }
+    else
+    {
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
         </div>
-    </footer>
+
+        <footer class="border-top footer text-muted">
+            <div class="copyright">
+                &copy; Copyright <strong><span>Hotel Room Booking System</span></strong>. All Rights Reserved
+            </div>
+            <div class="credits">
+                Designed by Ivhan and Mark
+            </div>
+        </footer>
     }
 
-    <div>
-        <main role="main">
-
-            @RenderBody()
-
-        </main>
-    </div>
+   
 
     <script src="~/vendor/apexcharts/apexcharts.min.js"></script>
     <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
