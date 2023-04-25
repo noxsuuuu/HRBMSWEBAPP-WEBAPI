@@ -22,22 +22,16 @@ namespace HRBMSWEBAPP.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var user = _userService.GetUserFirstName();
-            ViewBag.UserId = user;
-            List<Room> room = await this._repo.GetAllRoom();
-            return View(room);
-        }
-
-        public ActionResult Index1()
-        {
-            ViewBag.Title = "Index1";
-            return View("Index", "_MasterLayout");
+             var user = _userService.GetUserFirstName();
+             ViewBag.UserId = user;
+             List<Room> room = await this._repo.GetAllRoom();
+             return View(room);
         }
 
 
         public ActionResult StaticPage()
         {
-            return View("StaticWebPage");
+            return View("StaticPage");
         }
 
         public IActionResult Privacy()
