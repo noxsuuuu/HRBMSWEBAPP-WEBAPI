@@ -6,13 +6,30 @@
 <div class="card">
     <div class="card-body">
 <h1>Users</h1>
-       
-       
-
+        @using (Html.BeginForm())
+        {
+            <div class="search-form row g-0">
+                <div class="form-group col-10 search-pad">
+                    @Html.TextBox("searchString", null, new { @class = "form-control", placeholder = "Enter Name" })
+                </div>
+                <div class="form-group col-2">
+                    <input type="submit" value="Search" class="btn btn-custom btn-block" />
+                </div>
+            </div>
+        }
+        <br />
+      @*  <tr>
+            <td>
+                &nbsp;
+            </td>
+        </tr>*@
         <a asp-action="Create" asp-controller="Users" class="btn btn-primary">Add New User</a>
         <br />
+     
 <table class="table table-hover">
+            <br />
     <thead class="table-primary">
+
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.FirstName)
