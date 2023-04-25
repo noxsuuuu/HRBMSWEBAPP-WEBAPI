@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace HRBMSWEBAPP.Controllers
 {
@@ -26,9 +27,19 @@ namespace HRBMSWEBAPP.Controllers
         // [AllowAnonymous]
 
 
-        public async Task<IActionResult> GetAllUsers()
+        public async Task<IActionResult> GetAllUsers(string searchString)
         {
-          
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); 
+            var userlists = _context.Users
+                .Where(p => (p.Id == userId))
+                .ToList();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                userlists = userlists.Where(ap => ap.FirstName.ToLower().Contains(searchString.Trim().ToLower()) || ap.Email.ToLower().Contains(searchString.Trim().ToLower())).ToList();
+                return View(userlists);
+            }
+
             var userlist = await _userManager.Users.ToListAsync();
             return View(userlist);
         }
