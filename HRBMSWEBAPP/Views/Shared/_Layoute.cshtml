@@ -1,4 +1,7 @@
 ﻿@inject Microsoft.AspNetCore.Identity.SignInManager<ApplicationUser> _signInManager
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,13 +32,12 @@
     <!--  Main CSS File -->
     <link href="~/css/stylesheet.css" rel="stylesheet" asp-append-version="true">
 </head>
-
 <body>
     <header id="header" class="header fixed-top d-flex align-items-center">
         <div class="d-flex align-items-center justify-content-between">
             <a asp-area="" asp-controller="Home" asp-action="Index" class="logo d-flex align-items-center">
                 <img src="~/img/logo.png" alt="">
-                <span class="d-none d-lg-block">Hotel Room Booking System</span>
+                <span class="d-none d-lg-block">HoBoSys</span>
             </a>
 
             @* <i class="bi bi-list toggle-sidebar-btn"></i>*@
@@ -52,9 +54,9 @@
 
                         <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                             @*  <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle" />
-                           <label asp-for="Users" class="control-label">User Role</label>
-                            <select asp-for="Role" class="form-control" asp-items="@(new SelectList(ViewBag.listofrole, "Id", "Name"))"></select>
-                            <span asp-validation-for="Role" class="text-danger"></span>*@
+                        <label asp-for="Users" class="control-label">User Role</label>
+                        <select asp-for="Role" class="form-control" asp-items="@(new SelectList(ViewBag.listofrole, "Id", "Name"))"></select>
+                        <span asp-validation-for="Role" class="text-danger"></span>*@
                             <span class="d-none d-md-block dropdown-toggle ps-2">@(ViewBag.UserId)</span><!--Edit Name of User-->
                         </a>
 
@@ -92,12 +94,13 @@
 
 
                 }
-                @*  </ul>*@
+                  </ul>
 
         </nav>
 
-
-        <aside id="sidebar" class="sidebar">
+        @if (_signInManager.IsSignedIn(User))
+        {
+            <aside id="sidebar" class="sidebar">
 
             <ul class="sidebar-nav" id="sidebar-nav">
 
@@ -109,88 +112,104 @@
                     </a>
                 </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-                            <i class="bi bi-journal-text"></i><span>Add Forms</span><i class="bi bi-chevron-down ms-auto"></i>
-                        </a>
-                        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                            <li>
-                                <a asp-area="" asp-controller="Users" asp-action="Create">
-                                    <i class="bi bi-circle"></i><span>Add User</span>
-                                </a>
-                            </li>
-                          
-                            <li>
-                                <a asp-area="" asp-controller="RoomCategory" asp-action="Create">
-                                    <i class="bi bi-circle"></i><span>Add Category</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a asp-area="" asp-controller="Room" asp-action="Create">
-                                    <i class="bi bi-circle"></i><span>Add Rooms</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a asp-area="" asp-controller="Roles" asp-action="Create">
-                                    <i class="bi bi-circle"></i><span>Add Roles</span>
-                                </a>
-                            </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+                        <i class="bi bi-journal-text"></i><span>Add Forms</span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a asp-area="" asp-controller="Users" asp-action="Create">
+                                <i class="bi bi-circle"></i><span>Add User</span>
+                            </a>
+                        </li>
 
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link collapsed" data-bs-target=" #tables-nav" data-bs-toggle="collapse" href="#">
-                            <i class="bi bi-bar-chart"></i><span>Tables</span><i class="bi bi-chevron-down ms-auto"></i>
-                        </a>
-                        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                            <li>
-                                <a asp-area="" asp-controller="Users" asp-action="GetAllUsers">
-                                    <i class="bi bi-circle"></i><span>User</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a asp-area="" asp-controller="Booking" asp-action="GetAllBookings">
-                                    <i class="bi bi-circle"></i><span>Booking List</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a asp-area="" asp-controller="RoomCategory" asp-action="GetAllRoomCategories">
-                                    <i class="bi bi-circle"></i><span>Room Categories</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a asp-area="" asp-controller="Room" asp-action="GetAllRooms">
-                                    <i class="bi bi-circle"></i><span>Rooms List</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a asp-area="" asp-controller="Roles" asp-action="GetAllRoles">
-                                    <i class="bi bi-circle"></i><span>Users Roles</span>
-                                </a>
-                            </li>
-                         
-                        </ul>
-                    </li>
+                        <li>
+                            <a asp-area="" asp-controller="RoomCategory" asp-action="Create">
+                                <i class="bi bi-circle"></i><span>Add Category</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-area="" asp-controller="Room" asp-action="Create">
+                                <i class="bi bi-circle"></i><span>Add Rooms</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-area="" asp-controller="Roles" asp-action="Create">
+                                <i class="bi bi-circle"></i><span>Add Roles</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target=" #tables-nav" data-bs-toggle="collapse" href="#">
+                        <i class="bi bi-bar-chart"></i><span>Tables</span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a asp-area="" asp-controller="Users" asp-action="GetAllUsers">
+                                <i class="bi bi-circle"></i><span>User</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-area="" asp-controller="Booking" asp-action="GetAllBookings">
+                                <i class="bi bi-circle"></i><span>Booking List</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-area="" asp-controller="RoomCategory" asp-action="GetAllRoomCategories">
+                                <i class="bi bi-circle"></i><span>Room Categories</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-area="" asp-controller="Room" asp-action="GetAllRooms">
+                                <i class="bi bi-circle"></i><span>Rooms List</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-area="" asp-controller="Roles" asp-action="GetAllRoles">
+                                <i class="bi bi-circle"></i><span>Users Roles</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
 
             </ul>
 
         </aside>
+        }
 
-       
-      
-        
+
+
     </header>
+    @if (_signInManager.IsSignedIn(User))
+    {
+        <div>
+            <main role="main" id="main" class="main">
 
-    <div>
-        <main role="main" id="main" class="main">
+                @RenderBody()
 
+            </main>
+        </div>
+
+
+        <footer id="footer" class="footer">
+            <div class="copyright">
+                &copy; Copyright <strong><span>Hotel Room Booking System</span></strong>. All Rights Reserved
+            </div>
+            <div class="credits">
+                Designed by Ivhan and Mark
+            </div>
+        </footer>
+    }else {
+    <div class="container">
+        <main role="main" class="pb-3">
             @RenderBody()
-
         </main>
     </div>
 
-
-    <footer id="footer" class="footer">
+    <footer class="border-top footer text-muted">
         <div class="copyright">
             &copy; Copyright <strong><span>Hotel Room Booking System</span></strong>. All Rights Reserved
         </div>
@@ -199,15 +218,6 @@
         </div>
     </footer>
     }
-
-    <div>
-        <main role="main">
-
-            @RenderBody()
-
-        </main>
-    </div>
-
     <script src="~/vendor/apexcharts/apexcharts.min.js"></script>
     <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="~/vendor/chart.js/chart.umd.js"></script>
