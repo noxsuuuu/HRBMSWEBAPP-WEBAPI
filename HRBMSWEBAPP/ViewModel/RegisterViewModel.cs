@@ -9,10 +9,12 @@ namespace HRBMSWEBAPP.ViewModel
     {
         [DisplayName("First Name")]
         [Required]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "First name must only contain letters.")]
         public string FirstName { get; set; }
 
         [DisplayName("Last Name")]
         [Required]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Last name must only contain letters.")]
         public string LastName { get; set; }
 
         [DisplayName("Email Address")]

@@ -36,7 +36,7 @@ namespace HRBMSWEBAPP.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                userlists = userlists.Where(ap => ap.FirstName.ToLower().Contains(searchString.Trim().ToLower()) || ap.Email.ToLower().Contains(searchString.Trim().ToLower())).ToList();
+                userlists = userlists.Where(ap => ap.Full_Name.ToLower().Contains(searchString.Trim().ToLower()) || ap.Email.ToLower().Contains(searchString.Trim().ToLower())).ToList();
                 return View(userlists);
             }
 
