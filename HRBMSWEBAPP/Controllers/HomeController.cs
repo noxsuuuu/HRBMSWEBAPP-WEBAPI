@@ -28,13 +28,6 @@ namespace HRBMSWEBAPP.Controllers
             return View(room);
         }
 
-      /*  public async Task<IActionResult> CreateBooking()
-        {
-            var user = _userService.GetUserFirstName();
-            ViewBag.UserId = user;
-            List<Room> room = await this._repo.GetAllRoom();
-            return View(room);
-        }*/
 
         public IActionResult Privacy()
         {
@@ -47,11 +40,6 @@ namespace HRBMSWEBAPP.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-       /* public async Task<IActionResult> DashboardActionsAsync()
-        {
-            List<Room> room = await this._repo.GetAllRoom();
-            return View(room);
-
-        }*/
+      
     }
 }
