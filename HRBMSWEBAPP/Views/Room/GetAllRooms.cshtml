@@ -9,6 +9,17 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+@using (Html.BeginForm())
+{
+    <div class="search-form row g-0">
+        <div class="form-group col-10 search-pad">
+            @Html.TextBox("SearchString", null, new { @class = "form-control", placeholder = "Enter Category Type" })
+        </div>
+        <div class="form-group col-2">
+            <input type="submit" value="Search" class="btn btn-custom btn-block" />
+        </div>
+    </div>
+}
 <table class="table">
     <thead>
         <tr>

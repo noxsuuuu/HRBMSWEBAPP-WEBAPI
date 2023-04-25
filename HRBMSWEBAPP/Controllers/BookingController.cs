@@ -41,17 +41,25 @@ namespace HRBMSWEBAPP.Controllers
 
         //}
 
-        public async Task<IActionResult> GetAllBookings()
+        public async Task<IActionResult> GetAllBookings(string searchString)
         {
-            //var rooms = _context.Room.ToList();
-            //var room = new Room { Status = true };
+            //var gadgets = from gadget in _repo.GetAllGadgets()
+            //              select gadget;
+            //if (!String.IsNullOrEmpty(searchString))
+            //{
+            //    gadgets = gadgets.Where(s => s.GadgetName.ToLower().Contains(searchString.Trim().ToLower()));
+            //}
+            //return View(gadgets.ToList());
 
-            //List<ApplicationUser> userlist = new List<ApplicationUser>();
-            //userlist = _userManager.Users.ToList();
-            //var availableDisplayString = room.DisplayStatus;
-            //var bookedDisplayString = "Booked";
+            var booklist = from books in _repo.GetAllBooking1()
+                           select books;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                booklist = booklist.Where(s => s.User.Full_Name.ToLower().Contains(searchString.Trim().ToLower()));
+                return View(booklist.ToList());
+            }
 
-            List<Booking> booking = await this._repo.GetAllBooking();
+            List <Booking> booking = await this._repo.GetAllBooking();
             return View(booking);
         }
 
