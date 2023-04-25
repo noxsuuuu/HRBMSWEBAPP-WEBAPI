@@ -32,7 +32,7 @@ namespace HRBMSWEBAPP.Models
         [DisplayName("Email Address")]
         [EmailAddress]
         [Required]
-        [EmailExist] 
+        //[EmailExist] 
         public string? Email { get; set; }
 
         [DisplayName("Phone Number")]

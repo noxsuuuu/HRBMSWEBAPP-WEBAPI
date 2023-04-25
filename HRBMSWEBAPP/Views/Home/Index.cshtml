@@ -65,7 +65,7 @@
 
 
 
-@*<section class="section" style="margin-top: 2em;">
+<section class="section" style="margin-top: 2em;">
       <div class="container">
        
         <div class="row check-availabilty" id="next">
@@ -74,17 +74,15 @@
             <form asp-action="Index" asp-controller="Home">
               <div class="row">
                 <div class="col-md-6 mb-3 mb-lg-0 col-lg-3">
+                            <div class="form-group">
                   <label for="checkin_date" class="font-weight-bold text-black">Check In</label>
-                  <div class="field-icon-wrap">
-                    <div class="icon"><span class="icon-calendar"></span></div>
-                    <input type="text" id="checkin_date" class="form-control">
+                                <input id="CheckIn" class="form-control" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
                   </div>
                 </div>
                 <div class="col-md-6 mb-3 mb-lg-0 col-lg-3">
+                            <div class="form-group">
                   <label for="checkout_date" class="font-weight-bold text-black">Check Out</label>
-                  <div class="field-icon-wrap">
-                    <div class="icon"><span class="icon-calendar"></span></div>
-                    <input type="text" id="checkout_date" class="form-control">
+                                <input id="CheckOut" class="form-control" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
                   </div>
                 </div>
                 <div class="col-md-6 mb-3 mb-md-0 col-lg-3">
@@ -93,8 +91,8 @@
                       <div class="field-icon-wrap">
                         <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                         <select name="" id="Category" class="form-control">
-                          <option value="">Deluxe</option>
-                          <option value="">Normal</option>
+                          <option value="Deluxe">Deluxe</option>
+                          <option value="Normal">Normal</option>
                         </select>
                       </div>
                 </div>
@@ -110,7 +108,7 @@
       </div>
     </section>
 
-*@
+
 
 <section class="section" style="margin-top: 2em;">
         <div class="row align-items-top">
@@ -133,7 +131,14 @@
                                 <p class="card-text">@Html.DisplayFor(modelItem => item.Category.Room_Name)</p>
                                 <p class="card-text">@Html.DisplayFor(modelItem => item.Category.Description)</p>
                                 <p class="card-text">@Html.DisplayFor(modelItem => item.Category.Price)</p>
-                            <p class="card-text"><a asp-action="CreateRoomBooking" asp-controller="Booking" class="btn btn-primary" asp-route-roomId="@item.Id">Book Now!</a>
+                            <p class="card-text">
+
+                                @if (_signInManager.IsSignedIn(User))
+                                {
+                                    <a asp-action="CreateRoomBooking" asp-controller="Booking" class="btn btn-primary" asp-route-roomId="@item.Id">Book Now!</a>
+                                }
+                                <a asp-action="Login" asp-controller="Account" class="btn btn-primary">Book Now!</a>
+                               
 
                 </p>
                             </div>
@@ -167,10 +172,6 @@
         }
         </div>*@
        
-
-
-
-
 
 <!-- Vendor JS Files -->
 <script src="~/vendor/apexcharts/apexcharts.min.js"></script>

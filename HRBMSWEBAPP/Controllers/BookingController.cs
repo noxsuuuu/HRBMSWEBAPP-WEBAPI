@@ -166,7 +166,7 @@ namespace HRBMSWEBAPP.Controllers
                 TempData["BookingMessage"] = "Booking successfully created.";
 
                 // Redirect to a thank-you page or back to the room list page
-                return RedirectToAction("GetAllBookings");
+                return RedirectToAction("Index", "Home");
             }
 
             ViewData["Message"] = "Data is not valid to create the booking";
