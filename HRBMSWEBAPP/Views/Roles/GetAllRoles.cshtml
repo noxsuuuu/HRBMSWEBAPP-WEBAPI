@@ -3,7 +3,16 @@
     ViewData["Title"] = "Roles";
 }
 
-<h1>Roles</h1>
+
+<div class="pagetitle">
+    <h1>Roles</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">Home</a></li>
+            <li class="breadcrumb-item">Roles</li>
+        </ol>
+    </nav>
+</div>
 
 <p>
     <a asp-action="Create" asp-controller="Roles" class="btn btn-primary">Add New Role</a>

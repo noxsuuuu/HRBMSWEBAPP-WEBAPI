@@ -3,9 +3,20 @@
 @{
     ViewData["Title"] = "User List";
 }
+
+
+<div class="pagetitle">
+    <h1>User</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">Home</a></li>
+            <li class="breadcrumb-item">User</li>
+        </ol>
+    </nav>
+</div>
+
 <div class="card">
     <div class="card-body">
-<h1>Users</h1>
         @using (Html.BeginForm())
         {
             <div class="search-form row g-0">

@@ -12,7 +12,11 @@
     } else {
       return document.querySelector(el)
     }
-  }
+    }
+
+    function alertUser() {
+        alert("Your registration was successful!");
+    }
 
   /**
    * Easy event listener function

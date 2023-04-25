@@ -53,6 +53,7 @@ namespace HRBMSWEBAPP.Controllers
                     var role = await _roleManager.FindByNameAsync("Guest");
                     // Add the user to the role
                     await _userManager.AddToRoleAsync(userModel, role.Name);
+                    ViewBag.Success = true;
                     // login the user automatically
                     return RedirectToAction("Login");
 

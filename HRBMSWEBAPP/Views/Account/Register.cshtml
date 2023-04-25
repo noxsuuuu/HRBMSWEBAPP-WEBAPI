@@ -85,12 +85,7 @@
                     <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
                     <p class="text-center small">Enter your personal details to create account</p>
                   </div>
-                        @if (ViewBag.RegisterSuccess == true)
-                        {
-                            <script type="text/javascript">
-                                alert("Registration Successful");
-                            </script>
-                        }
+                        
 
                         <form asp-controller="Account" asp-action="Register" method="post">
                             
@@ -99,13 +94,13 @@
                     <label asp-for="FirstName" class="form-label">First Name</label>
                                             
                       <input  class="form-control" asp-for="FirstName" required>
-                                            <span asp-validation-for="FirstName"></span>
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
                     </div>
                      <div class="col-12">
                     <label asp-for="LastName" class="form-label">Last Name</label>
                                             
                       <input  class="form-control" asp-for="LastName" required>
-                                            <span asp-validation-for="LastName"></span>
+                                <span asp-validation-for="LastName" class="text-danger"></span>
                     </div>
 
                     <div class="col-12">
@@ -118,21 +113,21 @@
                                 <label asp-for="PhoneNumber" class="form-label">Your Phone Number</label>
 
                                 <input  class="form-control" asp-for="PhoneNumber" required>
-                                <span asp-validation-for="PhoneNumber"></span>
+                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                             </div>
 
                     <div class="col-12">
                                 <label asp-for="Password" class="form-label">Password</label>
                                             
                       <input class="form-control" asp-for="Password" required>
-                                            <span asp-validation-for="Password"></span>
+                                <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
 
                     <div class="col-12">
                                 <label asp-for="ConfirmPassword" class="form-label">Confirm Password</label>
                                             
                       <input class="form-control" asp-for="ConfirmPassword" required>
-                                            <span asp-validation-for="ConfirmPassword"></span>
+                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                     </div>
 
                     <div class="col-12">
@@ -160,6 +155,16 @@
         </div>
 
       </section>
+
+<script>
+    // check if registration was successful
+    let isSuccess = '@ViewBag.Success';
+
+    if (isSuccess.toLowerCase() === 'true') {
+        // show success message in an alert box
+        alert('Registration successful!');
+    }
+</script>
 
   <!-- Vendor JS Files -->
   <script src="~/vendor/apexcharts/apexcharts.min.js"></script>

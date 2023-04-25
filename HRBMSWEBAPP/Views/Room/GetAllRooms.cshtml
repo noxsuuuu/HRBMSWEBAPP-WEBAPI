@@ -4,10 +4,18 @@
     ViewData["Title"] = "GetAllRooms";
 }
 
-<h1>GetAllRooms</h1>
+<div class="pagetitle">
+    <h1>Rooms</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">Home</a></li>
+            <li class="breadcrumb-item">Rooms</li>
+        </ol>
+    </nav>
+</div>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
 </p>
 @using (Html.BeginForm())
 {
