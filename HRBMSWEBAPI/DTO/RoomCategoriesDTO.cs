@@ -22,15 +22,14 @@ namespace HRBMSWEBAPI.DTO
         [Required]
         public int Price { get; set; }
 
-        public int NoOfRooms { get; set; }
 
         public RoomCategoriesDTO() { }
-        public RoomCategoriesDTO(string room_Name, string description, int price, int noOfRooms)
+        public RoomCategoriesDTO(string room_Name, string description, int price)
         {
             Room_Name = room_Name;
             Description = description;
             Price = price;
-            NoOfRooms = noOfRooms;
+
         }
     }
 }

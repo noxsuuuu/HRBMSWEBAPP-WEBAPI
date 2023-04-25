@@ -16,9 +16,13 @@ namespace HRBMSWEBAPI.Models
         //public int Id { get; set; }
 
         [DisplayName("First Name")]
+        
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "First name must only contain letters.")]
         public string FirstName { get; set; }
 
         [DisplayName("Last Name")]
+       
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Last name must only contain letters.")]
         public string LastName { get; set; }
 
         /*[NotMapped]

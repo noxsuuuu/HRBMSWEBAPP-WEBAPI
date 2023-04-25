@@ -63,7 +63,7 @@
 
 
 
-
+@*
 
 <section class="section" style="margin-top: 2em;">
       <div class="container">
@@ -107,7 +107,7 @@
         </div>
       </div>
     </section>
-
+*@
 
 
 <section class="section" style="margin-top: 2em;">
@@ -136,9 +136,11 @@
                                 @if (_signInManager.IsSignedIn(User))
                                 {
                                     <a asp-action="CreateRoomBooking" asp-controller="Booking" class="btn btn-primary" asp-route-roomId="@item.Id">Book Now!</a>
-                                }
+                                }else{
+
+                                
                                 <a asp-action="Login" asp-controller="Account" class="btn btn-primary">Book Now!</a>
-                               
+                                }
 
                 </p>
                             </div>
