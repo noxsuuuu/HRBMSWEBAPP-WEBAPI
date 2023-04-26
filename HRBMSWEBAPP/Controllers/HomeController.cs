@@ -28,7 +28,7 @@ namespace HRBMSWEBAPP.Controllers
             List<Room> availableRooms = new List<Room>();
             foreach (var item in room)
             {
-                if ( item.Status == true)
+                if ( item.Status == true )
                 {
                     availableRooms.Add(item);
                 }

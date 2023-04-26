@@ -79,12 +79,20 @@
                                 <input id="CheckIn" class="form-control" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
                   </div>
                 </div>
+
                 <div class="col-md-6 mb-3 mb-lg-0 col-lg-3">
                             <div class="form-group">
                   <label for="checkout_date" class="font-weight-bold text-black">Check Out</label>
                                 <input id="CheckOut" class="form-control" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
                   </div>
                 </div>
+
+                        <@*div class="form-group">
+                        <label asp-for="CheckIn" class="control-label"></label>
+                        <input asp-for="CheckIn" class="form-control" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
+                        <span asp-validation-for="CheckIn" class="text-danger"></span>
+                    </div>*@
+
                 <div class="col-md-6 mb-3 mb-md-0 col-lg-3">
                     
                       <label for="Category" class="font-weight-bold text-black">Category</label>
@@ -137,7 +145,11 @@
                                 {
                                     <a asp-action="CreateRoomBooking" asp-controller="Booking" class="btn btn-primary" asp-route-roomId="@item.Id">Book Now!</a>
                                 }
-                                <a asp-action="Login" asp-controller="Account" class="btn btn-primary">Book Now!</a>
+                                else
+                                {
+                                    <a asp-action="Login" asp-controller="Account" class="btn btn-primary">Book Now!</a>
+                                }
+                                
                                
 
                 </p>
