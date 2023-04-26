@@ -19,7 +19,7 @@
 </div>
 
 
-
+    
 
             <h1>Create Bookings</h1>
             <hr />
@@ -27,7 +27,7 @@
 
                 <div class="col-md-4">
 
-                    <form asp-controller="Booking" asp-action="CreateRoomBooking" method="post">
+                    <form asp-controller="Booking" asp-action="CreateRoomBooking" method="post" onsubmit="showAlert()">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                         <label class="control-label">Room ID</label>
@@ -58,7 +58,11 @@
 
                 </div>
             </div>
-   
+@*<script>
+    function showAlert() {
+        alert("Booking completed successfully!");
+    }
+</script>*@
 
 @section Scripts {
     @{

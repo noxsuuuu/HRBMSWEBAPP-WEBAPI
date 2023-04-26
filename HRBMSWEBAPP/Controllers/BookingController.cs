@@ -117,8 +117,7 @@ namespace HRBMSWEBAPP.Controllers
                 var userId = _UserService.GetUserId();
                 booking.UserId = userId;
                 booking.RoomId = roomId;
-                // Save the booking to the database
-                ViewBag.BookSuccess = true;
+                // Save the booking to the database 
                 _context.Booking.Add(booking);
                 _context.SaveChanges();
 
@@ -137,6 +136,7 @@ namespace HRBMSWEBAPP.Controllers
             }
 
             ViewData["Message"] = "Data is not valid to create the booking";
+            ViewData["RoomId"] = roomId;
             return View();
         }
 

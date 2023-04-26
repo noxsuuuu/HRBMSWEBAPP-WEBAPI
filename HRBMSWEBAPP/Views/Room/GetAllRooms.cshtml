@@ -15,7 +15,7 @@
 </div>
 
 <p>
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
+   @* <a asp-action="Create" class="btn btn-primary">Create New</a>*@
 </p>
 @using (Html.BeginForm())
 {
@@ -62,4 +62,8 @@
         </tr>
 }
     </tbody>
+  
 </table>
+<div>
+    <a asp-action="Index" asp-controller="Home">Back to Home</a>
+</div>

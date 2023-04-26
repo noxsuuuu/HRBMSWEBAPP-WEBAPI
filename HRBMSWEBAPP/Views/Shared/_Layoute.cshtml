@@ -37,37 +37,9 @@
         <div class="d-flex align-items-center justify-content-between">
             <a asp-area="" asp-controller="Home" asp-action="Index" class="logo d-flex align-items-center">
                 <img src="~/img/logo1.png" alt="">
-                <span class="d-none d-lg-block">HoBoSys</span>
+                <span class="d-none d-lg-block">Hotel Booking System</span>
             </a>
-            @*<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-            <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                    <a asp-area="" asp-controller="Users" asp-action="GetAllUsers">
-                        <i class="bi bi-circle"></i><span>User</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a asp-area="" asp-controller="Booking" asp-action="GetAllBookings">
-                        <i class="bi bi-circle"></i><span>Booking List</span>
-                    </a>
-                </li>
-                    <li class="nav-item">
-                    <a asp-area="" asp-controller="RoomCategory" asp-action="GetAllRoomCategories">
-                        <i class="bi bi-circle"></i><span>Room Categories</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a asp-area="" asp-controller="Room" asp-action="GetAllRooms">
-                        <i class="bi bi-circle"></i><span>Rooms List</span>
-                    </a>
-                </li>
-                    <li class="nav-item">
-                    <a asp-area="" asp-controller="Roles" asp-action="GetAllRoles">
-                        <i class="bi bi-circle"></i><span>Users Roles</span>
-                    </a>
-                </li>
-                </ul>
-                </div>*@ 
+          
             @if (_signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
             {
                 <div style="padding: 20px">
@@ -90,11 +62,11 @@
                         <span>Rooms List</span>
                     </a>
                 </div>
-                <div style="padding: 20px">
+               @* <div style="padding: 20px">
                     <a class="nav-item" asp-area="" asp-controller="Roles" asp-action="GetAllRoles">
                     <span>Users Roles</span>
                 </a>
-            </div>
+            </div>*@
             }
             @* <i class="bi bi-list toggle-sidebar-btn"></i>*@
 
@@ -108,10 +80,7 @@
                     <li class="nav-item" style="padding: 20px">
 
                         <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                            @*  <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle" />
-                        <label asp-for="Users" class="control-label">User Role</label>
-                        <select asp-for="Role" class="form-control" asp-items="@(new SelectList(ViewBag.listofrole, "Id", "Name"))"></select>
-                        <span asp-validation-for="Role" class="text-danger"></span>*@
+                           
                             <span class="d-none d-md-block ps-2"> Hello @(ViewBag.UserId)!</span><!--Edit Name of User-->
                         </a>
                     </li>
@@ -161,13 +130,13 @@
 
                 <ul class="sidebar-nav" id="sidebar-nav">
 
-                    <li class="nav-item">
+                   @* <li class="nav-item">
                         <a class="nav-link " asp-controller="Home" asp-action="Index">
                             <!-- Insert Home page -->
                             <i class="bi bi-grid"></i>
                             <span>Dashboard</span>
                         </a>
-                    </li>
+                    </li>*@
 
                     <li class="nav-item">
                         <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
@@ -190,11 +159,11 @@
                                     <i class="bi bi-circle"></i><span>Add Rooms</span>
                                 </a>
                             </li>
-                            <li>
+                           @* <li>
                                 <a asp-area="" asp-controller="Roles" asp-action="Create">
                                     <i class="bi bi-circle"></i><span>Add Roles</span>
                                 </a>
-                            </li>
+                            </li>*@
 
                         </ul>
                     </li>
