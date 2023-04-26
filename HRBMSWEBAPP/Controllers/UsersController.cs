@@ -29,22 +29,17 @@ namespace HRBMSWEBAPP.Controllers
 
         public async Task<IActionResult> GetAllUsers(string searchString)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); 
-            var userlists = _context.Users
-                .Where(p => (p.Id == userId))
-                .ToList();
+            var userlist = await _userManager.Users.ToListAsync();
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                userlists = userlists.Where(ap => ap.Full_Name.ToLower().Contains(searchString.Trim().ToLower()) || ap.Email.ToLower().Contains(searchString.Trim().ToLower())).ToList();
-                return View(userlists);
+                userlist = userlist.Where(ap => ap.Full_Name.ToLower().Contains(searchString.Trim().ToLower()) || ap.Email.ToLower().Contains(searchString.Trim().ToLower())).ToList();
             }
 
-            var userlist = await _userManager.Users.ToListAsync();
             return View(userlist);
         }
-       
-    public async Task<IActionResult> Details(string? id)
+
+        public async Task<IActionResult> Details(string? id)
         {
             ApplicationUser user = await this._userManager.FindByIdAsync(id);
 
