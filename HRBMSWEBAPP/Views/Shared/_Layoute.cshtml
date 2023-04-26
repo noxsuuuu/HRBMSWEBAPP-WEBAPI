@@ -112,7 +112,7 @@
                         <label asp-for="Users" class="control-label">User Role</label>
                         <select asp-for="Role" class="form-control" asp-items="@(new SelectList(ViewBag.listofrole, "Id", "Name"))"></select>
                         <span asp-validation-for="Role" class="text-danger"></span>*@
-                            <span class="d-none d-md-block dropdown-toggle ps-2">@(ViewBag.UserId)</span><!--Edit Name of User-->
+                            <span class="d-none d-md-block ps-2"> Hello @(ViewBag.UserId)!</span><!--Edit Name of User-->
                         </a>
                     </li>
                     <li class="nav-item" style="padding: 20px">
