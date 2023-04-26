@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HRBMSWEBAPI.Controllers
 {
-    [Authorize]
+    [Authorize("Admin")]
     [Route("api/v1/[controller]")]
     [ApiController]
     public class BookingController : ControllerBase
@@ -64,41 +64,6 @@ namespace HRBMSWEBAPI.Controllers
 
             await _repo.DeleteBooking(bookId);
             return Accepted();
-        }
-
-        [HttpPost]
-        public IActionResult AddBooking([FromBody] BookingDTO bookingDTO)
-        {
-
-            if (bookingDTO == null)
-                return BadRequest("No Data provided");
-
-            if (ModelState.IsValid)
-            {
-                var book = _mapper.Map<Booking>(bookingDTO);
-                var newBook = _repo.AddBooking(book);
-                return CreatedAtAction("GetById", new { bookId = newBook.Id }, newBook);
-            }
-
-            return BadRequest(ModelState);
-        }
-        
-        
-        
-        [HttpPut("{bookId}")]
-
-        public IActionResult UpdateBooking([FromBody] Booking booking, [FromRoute] int bookId)
-        {
-            if (booking == null)
-                return BadRequest();
-
-            if (ModelState.IsValid)
-            {
-                var updatedBooking = _repo.UpdateBooking(bookId, booking);
-                return AcceptedAtAction("GetById", new { bookId = updatedBooking.Id }, updatedBooking);
-            }
-
-            return BadRequest(); 
         }
     }
 }

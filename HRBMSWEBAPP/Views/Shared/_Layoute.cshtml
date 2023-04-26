@@ -36,10 +36,66 @@
     <header id="header" class="header fixed-top d-flex align-items-center">
         <div class="d-flex align-items-center justify-content-between">
             <a asp-area="" asp-controller="Home" asp-action="Index" class="logo d-flex align-items-center">
-                <img src="~/img/logo.png" alt="">
+                <img src="~/img/logo1.png" alt="">
                 <span class="d-none d-lg-block">HoBoSys</span>
             </a>
-
+            @*<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+            <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                    <a asp-area="" asp-controller="Users" asp-action="GetAllUsers">
+                        <i class="bi bi-circle"></i><span>User</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-area="" asp-controller="Booking" asp-action="GetAllBookings">
+                        <i class="bi bi-circle"></i><span>Booking List</span>
+                    </a>
+                </li>
+                    <li class="nav-item">
+                    <a asp-area="" asp-controller="RoomCategory" asp-action="GetAllRoomCategories">
+                        <i class="bi bi-circle"></i><span>Room Categories</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-area="" asp-controller="Room" asp-action="GetAllRooms">
+                        <i class="bi bi-circle"></i><span>Rooms List</span>
+                    </a>
+                </li>
+                    <li class="nav-item">
+                    <a asp-area="" asp-controller="Roles" asp-action="GetAllRoles">
+                        <i class="bi bi-circle"></i><span>Users Roles</span>
+                    </a>
+                </li>
+                </ul>
+                </div>*@ 
+            @if (_signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+            {
+                <div style="padding: 20px">
+                    <a class="nav-item" asp-area="" asp-controller="Users" asp-action="GetAllUsers">
+                        <span>User</span>
+                    </a>
+                </div>
+                <div style="padding: 20px">
+                    <a class="nav-item" asp-area="" asp-controller="Booking" asp-action="GetAllBookings">
+                        <span>Booking List</span>
+                    </a>
+                </div>
+                <div style="padding: 20px">
+                    <a class="nav-item" asp-area="" asp-controller="RoomCategory" asp-action="GetAllRoomCategories">
+                        <span>Room Categories</span>
+                    </a>
+                </div>
+                <div style="padding: 20px">
+                    <a class="nav-item" asp-area="" asp-controller="Room" asp-action="GetAllRooms">
+                        <span>Rooms List</span>
+                    </a>
+                </div>
+                <div style="padding: 20px">
+                    <a class="nav-item" asp-area="" asp-controller="Roles" asp-action="GetAllRoles">
+                    <span>Users Roles</span>
+                </a>
+            </div>
+            }
             @* <i class="bi bi-list toggle-sidebar-btn"></i>*@
 
         </div>
@@ -49,8 +105,7 @@
             <ul class="d-flex align-items-center">
                 @if (_signInManager.IsSignedIn(User))
                 {
-                    <li class="nav-item dropdown pe-3">
-
+                    <li class="nav-item" style="padding: 20px">
 
                         <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                             @*  <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle" />
@@ -59,22 +114,24 @@
                         <span asp-validation-for="Role" class="text-danger"></span>*@
                             <span class="d-none d-md-block dropdown-toggle ps-2">@(ViewBag.UserId)</span><!--Edit Name of User-->
                         </a>
-
-                        <a class="dropdown-item d-flex align-items-center" asp-controller="Account" asp-action="Logout">
-                            <i class="bi bi-box-arrow-right"></i>
+                    </li>
+                    <li class="nav-item" style="padding: 20px">
+                        <a  class="nav-link collapsed" asp-controller="Account" asp-action="Logout">
+                            <i class="bi bi-box-arrow-in-right"></i>
                             <span>Sign Out</span>
                         </a>
-
-                        <a class="dropdown-item d-flex align-items-center" asp-controller="Account" asp-action="ChangePassword">
+                    </li>
+                    <li class="nav-item" style="padding: 20px">
+                        <a  class="nav-link collapsed" asp-controller="Account" asp-action="ChangePassword">
                             <i class="bi bi-box-arrow-right"></i>
                             <span>Change Password</span>
                         </a>
-
+                    </li>
 
 
 
                         <!-- End Profile Dropdown Items -->
-                    </li>
+                   
                 }
                 else
                 {
@@ -141,46 +198,10 @@
 
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link collapsed" data-bs-target=" #tables-nav" data-bs-toggle="collapse" href="#">
-                            <i class="bi bi-bar-chart"></i><span>Tables</span><i class="bi bi-chevron-down ms-auto"></i>
-                        </a>
-                        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                            <li>
-                                <a asp-area="" asp-controller="Users" asp-action="GetAllUsers">
-                                    <i class="bi bi-circle"></i><span>User</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a asp-area="" asp-controller="Booking" asp-action="GetAllBookings">
-                                    <i class="bi bi-circle"></i><span>Booking List</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a asp-area="" asp-controller="RoomCategory" asp-action="GetAllRoomCategories">
-                                    <i class="bi bi-circle"></i><span>Room Categories</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a asp-area="" asp-controller="Room" asp-action="GetAllRooms">
-                                    <i class="bi bi-circle"></i><span>Rooms List</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a asp-area="" asp-controller="Roles" asp-action="GetAllRoles">
-                                    <i class="bi bi-circle"></i><span>Users Roles</span>
-                                </a>
-                            </li>
-
-                        </ul>
-                    </li>
-
                 </ul>
 
             </aside>
         }
-
-
 
             </header>
 

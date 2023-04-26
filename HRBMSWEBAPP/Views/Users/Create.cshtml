@@ -3,13 +3,15 @@
 @{
     ViewData["Title"] = "Create User";
 }
-<div class="card">
-    <div class="col-lg-6">
-
-<div class="card-body">
-<h1>Create User</h1>
-
-<h4>Enter User Credentials</h4>
+<div class="pagetitle">
+    <h1>User</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">Home</a></li>
+            <li class="breadcrumb-item">Create User</li>
+        </ol>
+    </nav>
+</div>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -57,12 +59,7 @@
         </form>
     </div>
             </div>
-        </div>
-</div>
-@*<div>
-    <a asp-action="GetAllUsers">Back to List</a>
-</div>*@
-</div>
+       
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

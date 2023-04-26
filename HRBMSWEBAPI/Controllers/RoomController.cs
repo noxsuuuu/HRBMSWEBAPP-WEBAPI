@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HRBMSWEBAPI.Controllers
 {
-    [Authorize]
+    [Authorize("Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class RoomController : ControllerBase
@@ -67,53 +67,5 @@ namespace HRBMSWEBAPI.Controllers
             return Accepted();
         }
 
-        [HttpPost]
-        public IActionResult AddBooking([FromBody] RoomDTO roomDTO)
-        {
-            /*
-                             if (bookingDTO == null)
-                             {
-                                 return BadRequest("No data provided");
-                             }
-
-                             if (ModelState.IsValid)
-                             {
-                                 var book = _mapper.Map<Booking>(bookingDTO);
-                                 var newBook = _repo.AddBooking(book);
-                                 return CreatedAtAction("GetById", new { bookId = newBook.Id }, newBook);
-                             }
-
-                             return BadRequest(ModelState);*/
-
-            if (roomDTO == null)
-                return BadRequest("No Data provided");
-
-            if (ModelState.IsValid)
-            {
-                var room = _mapper.Map<Room>(roomDTO);
-                var newRoom = _repo.AddRoom(room);
-                return CreatedAtAction("GetById", new { roomId = newRoom.Id }, newRoom);
-            }
-
-            return BadRequest(ModelState);
-        }
-
-
-
-        [HttpPut("{roomId}")]
-
-        public IActionResult UpdateBooking([FromBody] Room room, [FromRoute] int roomId)
-        {
-            if (room == null)
-                return BadRequest();
-
-            if (ModelState.IsValid)
-            {
-                var updatedRoom = _repo.UpdateRoom(roomId, room);
-                return AcceptedAtAction("GetById", new { roomId = updatedRoom.Id }, updatedRoom);
-            }
-
-            return BadRequest();
-        }
     }
 }
