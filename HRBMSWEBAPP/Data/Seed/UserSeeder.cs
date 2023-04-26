@@ -40,19 +40,6 @@ namespace HRBMSWEBAPP.Data.Seed
                      }
                 );
 
-            //modelBuilder
-            //    .Entity<RegisterViewModel>()
-            //    .HasData(
-            //         new RegisterViewModel
-            //         {
-            //             Id = 1,
-            //             First_Name = "admin",
-            //             Last_Name = "admin",
-            //             Email = "admin@gmail.com",
-            //             Phone = "09079260368",
-            //             RoleId = 1,
-            //             Address = "Rizal, PH"
-            //         },
         }
     }
 }

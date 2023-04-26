@@ -34,22 +34,10 @@ namespace HRBMSWEBAPP.Controllers
             _UserService = userService;
         }
 
-        //public IActionResult GetAllBookings()
-        //{
-        //    var booklist = _repo.GetAllBooking();
-        //    return View(booklist);
-
-        //}
 
         public async Task<IActionResult> GetAllBookings(string searchString)
         {
-            //var gadgets = from gadget in _repo.GetAllGadgets()
-            //              select gadget;
-            //if (!String.IsNullOrEmpty(searchString))
-            //{
-            //    gadgets = gadgets.Where(s => s.GadgetName.ToLower().Contains(searchString.Trim().ToLower()));
-            //}
-            //return View(gadgets.ToList());
+          
 
             var booklist = from books in _repo.GetAllBooking1()
                            select books;
@@ -63,12 +51,7 @@ namespace HRBMSWEBAPP.Controllers
             return View(booking);
         }
 
-        //public async Task<IActionResult> GetAllBookings()
-        //{
-
-        //    List<Booking> booking = await this._repo.GetAllBooking();
-        //    return View(booking);
-        //}
+       
         public async Task<IActionResult> Details(int? id)
         {
 
@@ -84,17 +67,7 @@ namespace HRBMSWEBAPP.Controllers
         }
 
 
-        //public IActionResult Details(int bookId)
-        //{
-        //    var book = _repo.GetBookingById(bookId);
-        //    return View(book);
-        //}
-
-        //public IActionResult Delete(int id)
-        //{
-        //    var booklist = _repo.DeleteBooking(id);
-        //    return RedirectToAction(controllerName: "Booking", actionName: "GetAllBookings");
-        //}
+   
         public async Task<IActionResult> Delete(int id)
         {
         
@@ -122,13 +95,7 @@ namespace HRBMSWEBAPP.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            //List<ApplicationUser> userlist = new List<ApplicationUser>();
-            //userlist = _userManager.Users.ToList();
-            //ViewBag.listofUser = userlist;
-
-            //List<Room> li = new List<Room>();
-            //li = _context.Room.ToList();
-            //ViewBag.listofroom = li;
+           
             return View();
         }
 
@@ -180,11 +147,7 @@ namespace HRBMSWEBAPP.Controllers
             if (ModelState.IsValid)
             {
                 var book = _repo.AddBooking(booking);
-                //var room = _Roomrepo.GetRoomById(booking.RoomId);
-
-                //// Update the room status to false
-                //var rooms = new Room { Status = room.Status.Equals(false) };
-                //_Roomrepo.UpdateRoom(rooms.Id, rooms);
+           
                 return RedirectToAction("GetAllBookings");
             }
             ViewData["Message"] = "Data is not valid to create the booking";

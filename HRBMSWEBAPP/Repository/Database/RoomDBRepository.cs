@@ -14,12 +14,7 @@ namespace HRBMSWEBAPP.Repository.Database
             _context = context;
         }
 
-        //public Room AddRoom(Room room)
-        //{
-        //    _context.Add(room);
-        //    _context.SaveChangesAsync();
-        //    return room;
-        //}
+       
         public async Task AddRoom(Room room)
         {
             await this._context.Room.AddAsync(room);
@@ -35,17 +30,7 @@ namespace HRBMSWEBAPP.Repository.Database
 
             return this._context.SaveChangesAsync();
         }
-        //public Room DeleteRoom(int room_id)
-        //{
-        //    var room = GetRoomById(room_id);
-        //    if (room != null)
-        //    {
-        //        _context.Room.Remove(room);
-        //        _context.SaveChanges();
-        //    }
-
-        //    return room;
-        //}
+     
 
         public Task UpdateRoom(int room_id, Room room)
         {
@@ -61,24 +46,7 @@ namespace HRBMSWEBAPP.Repository.Database
             return this._context.Room.Include(e => e.Category).AsNoTracking().ToList();
         }
 
-        //public List<Room> GetAllRoom()
-        //{
-        //    return _context.Room.AsNoTracking().ToList();
-        //}
-
-        //public Room GetRoomById(int room_id)
-        //{
-        //    var room = _context.Room
-        //           .Include(e => e.Category)
-        //           .FirstOrDefault(m => m.Id == room_id);
-
-        //    if (room == null)
-        //    {
-        //        return null;
-        //    }
-
-        //    return room;
-        //}
+       
         public Task<Room> GetRoomById(int room_id)
         {
             var room = this._context.Room
@@ -93,12 +61,5 @@ namespace HRBMSWEBAPP.Repository.Database
             return room;
         }
 
-        //public Room UpdateRoom(int room_id, Room room)
-        //{
-        //    _context.Update(room);
-        //     _context.SaveChanges();
-
-        //    return room;
-        //}
     }
 }

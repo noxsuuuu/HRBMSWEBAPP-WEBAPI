@@ -59,11 +59,7 @@ namespace HRBMSWEBAPP.Controllers
             await _repo.DeleteRoom(id);
             return RedirectToAction("GetAllRooms");
         }
-        //public IActionResult Delete(int id)
-        //{
-        //    var roomlist = _repo.DeleteRoom(id);
-        //    return RedirectToAction(controllerName: "Room", actionName: "GetAllRooms");
-        //}
+       
         [HttpGet]
         public IActionResult Create()
         {
@@ -94,9 +90,7 @@ namespace HRBMSWEBAPP.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-            //List<RoomCategories> li = new List<RoomCategories>();
-            //li = _context.Categories.ToList();
-            //ViewBag.listofcat = li;
+            
             ViewBag.Categories = _context.Categories.ToList();
             var old = await this._repo.GetRoomById(id);
             return View(old);
