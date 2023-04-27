@@ -20,14 +20,23 @@ namespace HRBMSWEBAPP.Controllers
             _userService = userService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string category)
         {
             var user = _userService.GetUserFirstName();
             ViewBag.UserId = user;
             List<Room> room = await this._repo.GetAllRoom();
-            return View(room);
+            List<Room> availableRooms = new List<Room>();
+            foreach (var item in room)
+            {
+                if ( item.Status == true )
+                {
+                    availableRooms.Add(item);
+                }
+            }
+            return View(availableRooms);
         }
-       
+
+
         public IActionResult Privacy()
         {
             return View();
@@ -39,11 +48,6 @@ namespace HRBMSWEBAPP.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-       /* public async Task<IActionResult> DashboardActionsAsync()
-        {
-            List<Room> room = await this._repo.GetAllRoom();
-            return View(room);
-
-        }*/
+      
     }
 }

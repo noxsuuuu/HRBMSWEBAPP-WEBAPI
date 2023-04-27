@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HRBMSWEBAPI.Controllers
 {
-    [Authorize]
+    [Authorize("Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class RoomCategoryController : ControllerBase
@@ -64,55 +64,6 @@ namespace HRBMSWEBAPI.Controllers
 
             await _repo.DeleteRoomCategories(bookId);
             return Accepted();
-        }
-
-        [HttpPost]
-        public IActionResult AddRoomCategories([FromBody] RoomCategoriesDTO categoryDTO)
-        {
-            /*
-                             if (bookingDTO == null)
-                             {
-                                 return BadRequest("No data provided");
-                             }
-
-                             if (ModelState.IsValid)
-                             {
-                                 var book = _mapper.Map<RoomCategories>(bookingDTO);
-                                 var newBook = _repo.AddRoomCategories(book);
-                                 return CreatedAtAction("GetById", new { bookId = newBook.Id }, newBook);
-                             }
-
-                             return BadRequest(ModelState);*/
-
-            if (categoryDTO == null)
-                return BadRequest("No Data provided");
-
-            if (ModelState.IsValid)
-            {
-                var category = _mapper.Map<RoomCategories>(categoryDTO);
-                var newcat = _repo.AddRoomCategories(category);
-                return CreatedAtAction("GetById", new { catId = newcat.Id }, newcat);
-            }
-
-            return BadRequest(ModelState);
-        }
-
-
-
-        [HttpPut("{catId}")]
-
-        public IActionResult UpdateRoomCategories([FromBody] RoomCategories category, [FromRoute] int catId)
-        {
-            if (category == null)
-                return BadRequest();
-
-            if (ModelState.IsValid)
-            {
-                var updatedRoomCategories = _repo.UpdateRoomCategories(catId, category);
-                return AcceptedAtAction("GetById", new { catId = updatedRoomCategories.Id }, updatedRoomCategories);
-            }
-
-            return BadRequest();
         }
     }
 }

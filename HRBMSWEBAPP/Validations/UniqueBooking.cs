@@ -1,26 +1,24 @@
 ﻿using HRBMSWEBAPP.Data;
 using HRBMSWEBAPP.Models;
-using HRBMSWEBAPP.ViewModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace HRBMSWEBAPP.Validations
 {
-      public class EmailExist : ValidationAttribute
-        {
+    public class UniqueBooking : ValidationAttribute
+    {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            
-            var user = (RegisterViewModel)validationContext.ObjectInstance;
             var dbContext = (HRBMSDBCONTEXT)validationContext.GetService(typeof(HRBMSDBCONTEXT));
-            var emailexist = dbContext.Users.FirstOrDefault(b => b.Email == user.Email);
-            if (emailexist != null)
+            var bookid = value;
+
+            var room = (Booking)validationContext.ObjectInstance;
+            var existingbook = dbContext.Booking.FirstOrDefault(b => room.Id == room.Id && b.CheckIn == room.CheckIn && b.CheckIn == room.CheckIn);
+            if (existingbook != null)
             {
-                return new ValidationResult("This email address is already in use.");
+                return new ValidationResult("The Room Already Booked!");
             }
 
             return ValidationResult.Success;
         }
-      
-
     }
 }

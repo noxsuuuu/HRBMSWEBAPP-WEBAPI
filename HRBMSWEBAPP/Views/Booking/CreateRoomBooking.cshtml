@@ -1,7 +1,11 @@
 ﻿@model Booking
+@inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> _userManager;
 
 @{
     ViewData["Title"] = "Create Bookings";
+    var user = await _userManager.GetUserAsync(User);
+    var firstName = user?.FirstName;
+    var lastName = user?.LastName;
 }
 
 <div class="pagetitle">
@@ -15,29 +19,24 @@
 </div>
 
 
+    
 
-<div class="card">
-    <div class="col-lg-6">
-
-        <div class="card-body">
             <h1>Create Bookings</h1>
-
             <hr />
-           <div class="row">
+            <div class="row">
 
                 <div class="col-md-4">
-                    <form asp-controller="Booking" asp-action="Create" method="post">
+
+                    <form asp-controller="Booking" asp-action="CreateRoomBooking" method="post" onsubmit="showAlert()">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                       
-                        <label asp-for="UserId" class="control-label">Guest Name</label>
-                        <input asp-for="UserId" class="form-control" asp-items="@(new SelectList(ViewBag.listofUser, "Id", "Full_Name"))"></input>
-                        <span asp-validation-for="UserId" class="text-danger"></span>
+                        <label class="control-label">Room ID</label>
+                        <input class="form-control" value="@ViewBag.RoomId" name="RoomId" readonly />
 
-                        <label asp-for="RoomId" class="control-label">Room Number</label>
-                        <select asp-for="RoomId" class="form-control" asp-items="@(new SelectList(ViewBag.listofroom, "Id", "Room_Number"))"></select>
-                        <span asp-validation-for="RoomId" class="text-danger"></span>
-                      
+                        <label class="control-label">Guest Name</label>
+                        <input class="form-control" value="@firstName @lastName " readonly />
+                        <span class="text-danger"></span>
+
                         <div class="form-group">
                             <label asp-for="CheckIn" class="control-label"></label>
                             <input asp-for="CheckIn" class="form-control" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
@@ -48,28 +47,26 @@
                             <input asp-for="CheckOut" class="form-control" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
                             <span asp-validation-for="CheckOut" class="text-danger"></span>
                         </div>
-                        <br>
-                      
-                        <div class="form-group">
 
-                            <input type="submit" value="Book Now" class="btn btn-primary" />
+                        
+                        <br>
+
+                        <div class="form-group">
+                            <input type="submit" value="Book Now!" class="btn btn-primary" />
                         </div>
                     </form>
+
                 </div>
             </div>
-        </div>
-    </div>
-
-
-
-    @*<div>
-
-    <a asp-action="GetAllBookings">Back to List</a>
-    </div>*@
-</div>
+@*<script>
+    function showAlert() {
+        alert("Booking completed successfully!");
+    }
+</script>*@
 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
 }

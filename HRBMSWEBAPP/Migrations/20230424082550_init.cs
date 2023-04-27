@@ -58,8 +58,7 @@ namespace HRBMSWEBAPP.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Room_Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false),
-                    NoOfRooms = table.Column<int>(type: "int", nullable: false)
+                    Price = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -201,8 +200,8 @@ namespace HRBMSWEBAPP.Migrations
                     CheckIn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CheckOut = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
-                    RoomId = table.Column<int>(type: "int", nullable: false)
+                    RoomId = table.Column<int>(type: "int", nullable: false),
+                    RoomCategoriesId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -211,17 +210,19 @@ namespace HRBMSWEBAPP.Migrations
                         name: "FK_Booking_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Booking_Categories_CategoryId",
-                        column: x => x.CategoryId,
+                        name: "FK_Booking_Categories_RoomCategoriesId",
+                        column: x => x.RoomCategoriesId,
                         principalTable: "Categories",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Booking_Room_RoomId",
                         column: x => x.RoomId,
                         principalTable: "Room",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -229,17 +230,17 @@ namespace HRBMSWEBAPP.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "b231850f-bb21-4ea0-b4d2-259b0869c377", "77137e00-dadf-4aa5-80b2-a37553118d68", "Admin", "ADMIN" },
-                    { "cc1283dc-d085-4f62-977d-1d360b528158", "deb872e4-2d01-4b24-a93a-26b2db8fb38a", "Guest", "GUEST" }
+                    { "512594de-f939-4836-aae6-149064bf7f6a", "27fb9f81-def0-4d61-b247-453fbd27ef80", "Admin", "ADMIN" },
+                    { "cd47534b-5eb4-4890-9fd9-d6d24f0ef786", "58866ad3-18c5-4cc3-af79-047b75809691", "Guest", "GUEST" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Categories",
-                columns: new[] { "Id", "Description", "NoOfRooms", "Price", "Room_Name" },
+                columns: new[] { "Id", "Description", "Price", "Room_Name" },
                 values: new object[,]
                 {
-                    { 1, "Spacious and luxurious accommodation option that offers guests an elevated level of comfort and sophistication. Typically located in upscale hotels and resorts, a Deluxe Room is designed to provide guests with an exceptional level of comfort and style.", 0, 10000, "Deluxe" },
-                    { 2, "Generally designed to accommodate one or two guests, with basic amenities such as a comfortable bed, a clean and well-appointed bathroom, and basic furnishings. Standard Rooms may also come equipped with a small work desk, a TV, and Wi-Fi access, providing guests with everything they need for a comfortable and productive stay.", 0, 5000, "Normal" }
+                    { 1, "Spacious and luxurious accommodation option that offers guests an elevated level of comfort and sophistication. Typically located in upscale hotels and resorts, a Deluxe Room is designed to provide guests with an exceptional level of comfort and style.", 10000, "Deluxe" },
+                    { 2, "Generally designed to accommodate one or two guests, with basic amenities such as a comfortable bed, a clean and well-appointed bathroom, and basic furnishings. Standard Rooms may also come equipped with a small work desk, a TV, and Wi-Fi access, providing guests with everything they need for a comfortable and productive stay.", 5000, "Normal" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -282,9 +283,9 @@ namespace HRBMSWEBAPP.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Booking_CategoryId",
+                name: "IX_Booking_RoomCategoriesId",
                 table: "Booking",
-                column: "CategoryId");
+                column: "RoomCategoriesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Booking_RoomId",

@@ -34,18 +34,6 @@ namespace HRBMSWEBAPP.Controllers
             _appConfig = appConfig;
         }
 
-        [HttpPost("signup")]
-
-
-        public async Task<IActionResult> Register(SignUpDTO userDTO)
-        {
-            var user = _mapper.Map<ApplicationUser>(userDTO);
-
-            var val = await _repo.SignUpUserAsync(user, userDTO.Password);
-            return Ok();
-        }
-
-
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDTO loginDTO)
         {

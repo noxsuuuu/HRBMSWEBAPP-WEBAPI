@@ -1,46 +1,69 @@
 ﻿@model IEnumerable<Room>
-@{
-    ViewData["Title"] = "Rooms";
-}
-<div class="card">
-    <div class="card-body">
-        <h1>Rooms</h1>
-        <a asp-action="Create" asp-controller="Room" class="btn btn-primary">Add New Room</a>
-        <table class="table table-hover">
-            <thead class="table-primary">
-                <tr>
-                    <br />
-                    <th>
-                        @Html.DisplayNameFor(model => model.Category.Room_Name)
-                    </th>
-              
-                    <th>
-                        @Html.DisplayNameFor(model => model.Status)
-                    </th>
 
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Category.Room_Name)
-                        </td>
-                 
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DisplayStatus)
-                        </td>
-                        <td>
-                            <a asp-action="Create" asp-controller="Booking" class="btn btn-primary">Book Now</a>
-                            <a asp-action="Update" asp-route-id="@item.Id">Edit</a> |
-                           @* <a asp-action="Details" asp-route-id="@item.Id">Details</a> |*@
-                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+@{
+    ViewData["Title"] = "GetAllRooms";
+}
+
+<div class="pagetitle">
+    <h1>Rooms</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">Home</a></li>
+            <li class="breadcrumb-item">Rooms</li>
+        </ol>
+    </nav>
+</div>
+
+<p>
+   @* <a asp-action="Create" class="btn btn-primary">Create New</a>*@
+</p>
+@using (Html.BeginForm())
+{
+    <div class="search-form row g-0">
+        <div class="form-group col-10 search-pad">
+            @Html.TextBox("SearchString", null, new { @class = "form-control", placeholder = "Enter Category Type" })
+        </div>
+        <div class="form-group col-2">
+            <input type="submit" value="Search" class="btn btn-custom btn-block" />
+        </div>
     </div>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category.Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+            <tr>
+                <td>
+                @Html.DisplayFor(modelItem => item.DisplayStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Room_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Price)
+            </td>
+            <td>
+                <a asp-action="Update" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+  
+</table>
+<div>
+    <a asp-action="Index" asp-controller="Home">Back to Home</a>
 </div>

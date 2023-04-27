@@ -24,9 +24,8 @@ namespace HRBMSWEBAPP.Data
             //var userName = _appConfig.GetConnectionString("UserName");
             //var password = _appConfig.GetConnectionString("Password");
             //string connectionString = $"Server={server};Database={db};User Id={userName};Password={password};MultipleActiveResultSets=true";
-            string connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=HRBMSDB; ";
-            optionsBuilder
-                .UseSqlServer(connectionString)
+            string connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=HRBMSDB;Integrated Security=True ";
+            optionsBuilder.UseSqlServer(connectionString)
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             /*optionsBuilder.UseSqlServer(connectionString)
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);*/

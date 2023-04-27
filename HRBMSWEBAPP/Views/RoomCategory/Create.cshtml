@@ -3,17 +3,15 @@
 @{
     ViewData["Title"] = "Create Category";
 }
-
-
-<div class="card">
-    <div class="col-lg-6">
-
-        <div class="card-body">
-
-
-<h1>Create Category</h1>
-
-
+<div class="pagetitle">
+    <h1>Room Category</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">Home</a></li>
+            <li class="breadcrumb-item">Create Category</li>
+        </ol>
+    </nav>
+</div>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -34,30 +32,21 @@
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
-            @*<div class="form-group">
-                <label asp-for="NoOfRooms" class="control-label"></label>
-                <input asp-for="NoOfRooms" class="form-control" />
-                <span asp-validation-for="NoOfRooms" class="text-danger"></span>
-            </div>*@
-            
-            @*<div class="form-group">
-                <label asp-for="RoleId" class="control-label"></label>
-                <select asp-for="RoleId" class ="form-control" asp-items="ViewBag.RoleId"></select>
-            </div>*@
+
+
+            <br />
             <div class="form-group">
-                <input type="submit" value="Register" class="btn btn-primary" />
+                <input type="submit" value="Add Category" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
-        </div>
-    </div>
-
+        
 @*<div>
     <a asp-action="GetAllRoomCategories">Back to List</a>
 </div>
 *@
-</div>
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

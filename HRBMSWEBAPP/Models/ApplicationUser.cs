@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using HRBMSWEBAPP.Models;
+using HRBMSWEBAPP.Validations;
 
 namespace HRBMSWEBAPP.Models
 {
@@ -12,10 +13,12 @@ namespace HRBMSWEBAPP.Models
 
         [DisplayName("First Name")]
         [Required]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "First name must only contain letters.")]
         public string FirstName { get; set; }
 
         [DisplayName("Last Name")]
         [Required]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Last name must only contain letters.")]
         public string LastName { get; set; }
 
         [NotMapped]
@@ -29,9 +32,10 @@ namespace HRBMSWEBAPP.Models
         [DisplayName("Email Address")]
         [EmailAddress]
         [Required]
-        // [EmailExist]
+        [EmailExistUser]
         public string? Email { get; set; }
 
+        [DisplayName("Phone Number")]
         [RegularExpression("^(09|\\+639)\\d{9}$", ErrorMessage = "Invalid phone number.")]
         [Required]
         public string PhoneNumber { get; set; }

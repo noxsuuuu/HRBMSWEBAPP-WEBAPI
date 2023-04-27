@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HRBMSWEBAPP.Migrations
 {
     [DbContext(typeof(HRBMSDBCONTEXT))]
-    [Migration("20230422045734_init")]
-    partial class init
+    [Migration("20230424083508_removecategory")]
+    partial class removecategory
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -107,9 +107,6 @@ namespace HRBMSWEBAPP.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("CheckIn")
                         .IsRequired()
                         .HasColumnType("datetime2");
@@ -117,6 +114,9 @@ namespace HRBMSWEBAPP.Migrations
                     b.Property<DateTime?>("CheckOut")
                         .IsRequired()
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("RoomCategoriesId")
+                        .HasColumnType("int");
 
                     b.Property<int>("RoomId")
                         .HasColumnType("int");
@@ -127,7 +127,7 @@ namespace HRBMSWEBAPP.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("RoomCategoriesId");
 
                     b.HasIndex("RoomId");
 
@@ -169,9 +169,6 @@ namespace HRBMSWEBAPP.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("NoOfRooms")
-                        .HasColumnType("int");
-
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
@@ -188,7 +185,6 @@ namespace HRBMSWEBAPP.Migrations
                         {
                             Id = 1,
                             Description = "Spacious and luxurious accommodation option that offers guests an elevated level of comfort and sophistication. Typically located in upscale hotels and resorts, a Deluxe Room is designed to provide guests with an exceptional level of comfort and style.",
-                            NoOfRooms = 0,
                             Price = 10000,
                             Room_Name = "Deluxe"
                         },
@@ -196,7 +192,6 @@ namespace HRBMSWEBAPP.Migrations
                         {
                             Id = 2,
                             Description = "Generally designed to accommodate one or two guests, with basic amenities such as a comfortable bed, a clean and well-appointed bathroom, and basic furnishings. Standard Rooms may also come equipped with a small work desk, a TV, and Wi-Fi access, providing guests with everything they need for a comfortable and productive stay.",
-                            NoOfRooms = 0,
                             Price = 5000,
                             Room_Name = "Normal"
                         });
@@ -231,15 +226,15 @@ namespace HRBMSWEBAPP.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b231850f-bb21-4ea0-b4d2-259b0869c377",
-                            ConcurrencyStamp = "77137e00-dadf-4aa5-80b2-a37553118d68",
+                            Id = "b54f0586-7909-4356-9383-950259b9bddc",
+                            ConcurrencyStamp = "1522e074-1103-4a7d-8b1e-d52d9d2f8856",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "cc1283dc-d085-4f62-977d-1d360b528158",
-                            ConcurrencyStamp = "deb872e4-2d01-4b24-a93a-26b2db8fb38a",
+                            Id = "e4513b5c-8196-439f-ae88-0b9562e4bf0e",
+                            ConcurrencyStamp = "158ef852-0148-4bb2-bceb-532421ab2fb5",
                             Name = "Guest",
                             NormalizedName = "GUEST"
                         });
@@ -353,11 +348,9 @@ namespace HRBMSWEBAPP.Migrations
 
             modelBuilder.Entity("HRBMSWEBAPP.Models.Booking", b =>
                 {
-                    b.HasOne("HRBMSWEBAPP.Models.RoomCategories", "Category")
+                    b.HasOne("HRBMSWEBAPP.Models.RoomCategories", null)
                         .WithMany("Booking")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RoomCategoriesId");
 
                     b.HasOne("HRBMSWEBAPP.Models.Room", "Room")
                         .WithMany("Bookings")
@@ -370,8 +363,6 @@ namespace HRBMSWEBAPP.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Category");
 
                     b.Navigation("Room");
 

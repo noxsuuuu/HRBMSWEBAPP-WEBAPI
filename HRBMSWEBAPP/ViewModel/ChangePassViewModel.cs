@@ -16,7 +16,7 @@ namespace HRBMSWEBAPP.ViewModel
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm New Password")]
-        [Compare("NewPassword", ErrorMessage = "Password and confirm password doesnt match")]
+        [Compare("NewPassword", ErrorMessage = "Password and confirm password do not match")]
         public string ConfirmNewPassword { get; set; }
     }
 }

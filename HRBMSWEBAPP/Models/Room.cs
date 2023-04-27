@@ -12,6 +12,7 @@ namespace HRBMSWEBAPP.Models
         public int Id { get; set; }
         [DisplayName("Room Status")]
         public bool Status { get; set; }
+        [ValidateNever]
         public ICollection<Booking> Bookings { get; set; }
         [ValidateNever]
         public RoomCategories Category { get; set; }
@@ -21,5 +22,19 @@ namespace HRBMSWEBAPP.Models
 
         [NotMapped]
         public string DisplayStatus => Status ? "Available" : "Booked";
+
+        public Room()
+        {
+
+        }
+
+        public Room(int id, bool status, int catId)
+        {
+            Id = id;
+            Status = status;
+            CategoryId = catId;
+        }
+
+
     }
 }

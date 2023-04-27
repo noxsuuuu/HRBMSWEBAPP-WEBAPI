@@ -1,62 +1,53 @@
 ﻿@model Room
 
-
 @{
-    ViewData["Title"] = "Create Room";
+    ViewData["Title"] = "Create";
 }
-<div class="card">
-    <div class="col-lg-6">
 
-        <div class="card-body">
-
-
-
-<h1>Add Room</h1>
-
-<h4>Enter User Credentials</h4>
+<div class="pagetitle">
+    <h1>Room</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">Home</a></li>
+            <li class="breadcrumb-item">Create Room</li>
+        </ol>
+    </nav>
+</div>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form  asp-controller="Room" asp-action="Create" method="post">
+        <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
+
+
             <div class="form-group">
-             
-             <label asp-for="CategoryId" class="control-label">Room Type</label>
-             <select asp-for="CategoryId" class="form-control" asp-items="@(new SelectList(ViewBag.listofcat, "Id", "Room_Name"))"></select>
-             <span asp-validation-for="CategoryId" class="text-danger"></span>                          
+                <label asp-for="CategoryId" class="control-label">Room Type</label>
+                <select asp-for="CategoryId" class="form-control" asp-items="@(new SelectList(ViewBag.Categories, "Id", "Room_Name"))"></select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Category.Room_Name" class="control-label">Room Type</label>
-                <input asp-for="Category.Room_Name" class="form-control" />
-                <span asp-validation-for="Category.Room_Name" class="text-danger"></span>
+                @*<label class="form-check-label">
+                    <input class="form-check-input" asp-for="Status" /> @Html.DisplayNameFor(model => model.Status)
+                </label>*@
+                <label asp-for="Status" class="control-label">Room Status</label>
+                <select asp-for="Status" class="form-control">
+                    <option value="true">Available</option>
+                    <option value="false">Booked</option>
+                </select>
             </div>
-            @*<div class="form-group">
-                <label asp-for="RoleId" class="control-label"></label>
-                <select asp-for="RoleId" class ="form-control" asp-items="ViewBag.RoleId"></select>
-            </div>*@
-          
-             <label asp-for="Status" class="control-label">Room Status</label>
-               <select asp-for="Status" class="form-control">
-                <option value="true">Available</option>
-                <option value="false">Booked</option>
-            </select>
-            <br/>
+            <br />
             <div class="form-group">
-                <input type="submit" value="Register" class="btn btn-primary" />
+                <input type="submit" value="Add Room" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
-        </div>
-    </div>
 
-@*<div>
-    <a asp-action="GetAllRooms">Back to List</a>
-</div>*@
-
+<div>
+    <a asp-action="Index">Back to List</a>
 </div>
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

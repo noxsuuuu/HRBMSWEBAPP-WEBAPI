@@ -49,31 +49,18 @@ namespace HRBMSWEBAPP.Controllers
                 var result = await _userManager.CreateAsync(userModel, userViewModel.Password);
                 if (result.Succeeded)
                 {
-                    // add roles to it and allow him to login
-                    //var roles = _roleManager.Roles.ToList();
-                    //var role = _roleManager.Roles.FirstOrDefault(r => r.Name == "Admin");
-                    /* if (role != null)
-                     {
-                         //var roleResult = await _userManager.AddToRolesAsync(userModel, roles.Select(s => s.Name).ToList());
-                         var roleResult = await _userManager.AddToRoleAsync(userModel, role.Name);
-                         if (!roleResult.Succeeded)
-                         {
-                             ModelState.AddModelError(String.Empty, "User Role cannot be assigned");
-                         }
-                     }
- */
+                    ViewBag.RegisterSuccess = true;
                     var role = await _roleManager.FindByNameAsync("Guest");
-
                     // Add the user to the role
                     await _userManager.AddToRoleAsync(userModel, role.Name);
+                    ViewBag.Success = true;
                     // login the user automatically
-                    //await _signInManager.SignInAsync(userModel, isPersistent: false);
                     return RedirectToAction("Login");
 
                 }
                 foreach (var error in result.Errors)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    ModelState.AddModelError("", error.Description);
                 }
             }
             return View(userViewModel);
@@ -87,18 +74,7 @@ namespace HRBMSWEBAPP.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginUserViewModel userViewModel)
         {
-           /* if (ModelState.IsValid)
-            {
-                // login activity -> cookie [Roles and Claims]
-                var result = await _signInManager.PasswordSignInAsync(userViewModel.UserName, userViewModel.Password, userViewModel.RememberMe, false);
-                //login cookie and transfter to the client 
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("GetAllBookings", "Booking");
-                }
-                ModelState.AddModelError(string.Empty, "invalid login credentials");
-            }
-            return View(userViewModel);*/
+       
 
             if (ModelState.IsValid)
             {
@@ -106,10 +82,12 @@ namespace HRBMSWEBAPP.Controllers
 
                 if (result.Succeeded)
                 {
+                    ViewBag.LoginSuccess = true;
                     return RedirectToAction("Index", "Home");
                 }
-                ModelState.AddModelError(string.Empty, "invalid login credentials");
+                ModelState.AddModelError(string.Empty, "Login Failed!");
             }
+
             return View(userViewModel);
 
 
@@ -139,7 +117,7 @@ namespace HRBMSWEBAPP.Controllers
                 if (result.Succeeded)
                 {
                     ViewBag.IsSuccess = true;
-                    //ModelState.Clear();
+                    ModelState.Clear();
                     return View();
                 }
                 foreach (var error in result.Errors)

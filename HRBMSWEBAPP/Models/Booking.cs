@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using HRBMSWEBAPP.Validations;
 
 namespace HRBMSWEBAPP.Models
 {
@@ -13,18 +14,23 @@ namespace HRBMSWEBAPP.Models
         public int Id { get; set; }
 
         [DisplayName("Check In")]
+        [UniqueBooking]
         [Required]
         public DateTime? CheckIn { get; set; }
+
         [DisplayName("Check Out")]
+        [UniqueBooking]
         [Required]
         public DateTime? CheckOut { get; set; }
         [ValidateNever]
         public ApplicationUser User { get; set; }
+
         [DisplayName("User ID")]
-        public string UserId { get; set; }
+        public string? UserId { get; set; }
         [ValidateNever]
         public Room Room { get; set; }
-        public RoomCategories Category { get; set; }
+        /*[ValidateNever]
+        public RoomCategories Category { get; set; }*/
         public int RoomId { get; set; }
 
 

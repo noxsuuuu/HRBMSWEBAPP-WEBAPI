@@ -56,5 +56,9 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
+/*app.MapControllerRoute(
+    name: "static",
+    pattern: "static",
+    defaults: new { controller = "StaticPage", action = "Index" });
+*/
 app.Run();

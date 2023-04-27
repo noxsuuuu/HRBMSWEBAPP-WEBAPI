@@ -38,19 +38,7 @@
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                          
-            <label asp-for="Role" class="control-label">User Role</label>
-            <select asp-for="Role" class="form-control" asp-items="@(new SelectList(ViewBag.listofrole, "Id", "Name"))"></select>
-            <span asp-validation-for="Role" class="text-danger"></span>
-                            
-                @*<label class="control-label">User Role</label>
-                <select asp-for="Role.Name" asp-items="@ViewBag.RoleList" class="form-control">  
-                <option value="">-- Select Role --</option>
-                </select>
-                <span asp-validation-for="Role.Name" class="text-danger"></span>*@
-            </div>
-
+           <br />
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

@@ -27,28 +27,61 @@
     </nav>
 </div>
 
-            @*<div class="col-lg-3">
 
-        @foreach(var item in Model)
-        {
 
-        <div class="card">
-        <img src="~/img/card.png" class="card-img-top" alt="...">
-        <div class="card-body">
-        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Room_Number)</h5>
-        <h6 class="card-title">@Html.DisplayFor(modelItem => item.Floor_Number)</h6>
-        <p class="card-text">@Html.DisplayFor(modelItem => item.Room_Name)</p>
-        <p class="card-text">@Html.DisplayFor(modelItem => item.Category.Description)</p>
-        <p class="card-text">@Html.DisplayFor(modelItem => item.Category.Price)</p>
-        <p class="card-text"><a asp-action="Create" asp-controller="Booking" class="btn btn-primary">Book Now!</a></p>
+@section scripts {
+    <script>
+        $(function () {
+            $('a[data-room-id]').click(function (e) {
+                e.preventDefault();
+                var roomId = $(this).data('room-id');
+                $("#roomId").val(roomId);
+                $("#booking-form").submit();
+            });
+        });
+    </script>
+}
+
+
+
+
+
+@*<section class="section" style="margin-top: 2em;">
+      <div class="container">
+       
+        <div class="row check-availabilty" id="next">
+          <div class="block-32" data-aos="fade-up" data-aos-offset="-200">
+
+            <form asp-action="Index" asp-controller="Home">
+              <div class="row">
+    
+
+              @*  <div class="col-md-6 mb-3 mb-md-0 col-lg-3">
+                    
+                      <label for="Category" class="font-weight-bold text-black">Category</label>
+                      <div class="field-icon-wrap">
+                        <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                        <select name="" id="Category" class="form-control">
+                          <option value="Deluxe">Deluxe</option>
+                          <option value="Normal">Normal</option>
+                        </select>
+                      </div>
+                </div>
+                <div class="col-md-6 col-lg-3 align-self-end">
+                  <button class="btn btn-primary btn-block text-white">Check Availabilty</button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+
         </div>
-        </div>
+      </div>
+    </section>
 
-        }
-        </div>*@
-     
+*@
 
-    <section class="section">
+<section class="section" style="margin-top: 2em;">
         <div class="row align-items-top">
             <div class="d-flex flex-row">
 
@@ -57,19 +90,26 @@
                     <div class="card mx-2" style="width: 20rem; border-radius: 10px;">
                         <img src="~/img/card.png" class="card-img-top" alt="...">
                         <div class="card-body">
-                           @* <h5 class="card-title bg-light p-2 mb-0" style="border-top-left-radius: 10px; border-top-right-radius: 10px;">
-                                <span class="label label-info">Room Number:</span>
-                                @Html.DisplayFor(modelItem => item.Room_Number)
-                            </h5>*@
+                         
                             <div class="card-body bg-white p-2" style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
-                               @* <h6 class="card-subtitle mb-2 text-muted">
-                                    <small class="label label-secondary">Floor Number:</small>
-                                    @Html.DisplayFor(modelItem => item.Floor_Number)
-                                </h6>*@
+                            
                                 <p class="card-text">@Html.DisplayFor(modelItem => item.Category.Room_Name)</p>
                                 <p class="card-text">@Html.DisplayFor(modelItem => item.Category.Description)</p>
                                 <p class="card-text">@Html.DisplayFor(modelItem => item.Category.Price)</p>
-                                <p class="card-text"><a asp-action="Create" asp-controller="Booking" class="btn btn-primary">Book Now!</a></p>
+                            <p class="card-text">
+
+                                @if (_signInManager.IsSignedIn(User))
+                                {
+                                    <a asp-action="CreateRoomBooking" asp-controller="Booking" class="btn btn-primary" asp-route-roomId="@item.Id">Book Now!</a>
+                                }
+                                else
+                                {
+                                    <a asp-action="Login" asp-controller="Account" class="btn btn-primary">Book Now!</a>
+                                }
+                                
+                               
+
+                </p>
                             </div>
                         </div>
                     </div>
@@ -81,30 +121,8 @@
         </div>
     </section>
 
-            @*<div class="col-lg-3">
 
-        @foreach(var item in Model)
-        {
-
-        <div class="card">
-        <img src="~/img/card.png" class="card-img-top" alt="...">
-        <div class="card-body">
-        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Room_Number)</h5>
-        <h6 class="card-title">@Html.DisplayFor(modelItem => item.Floor_Number)</h6>
-        <p class="card-text">@Html.DisplayFor(modelItem => item.Room_Name)</p>
-        <p class="card-text">@Html.DisplayFor(modelItem => item.Category.Description)</p>
-        <p class="card-text">@Html.DisplayFor(modelItem => item.Category.Price)</p>
-        <p class="card-text"><a asp-action="Create" asp-controller="Booking" class="btn btn-primary">Book Now!</a></p>
-        </div>
-        </div>
-
-        }
-        </div>*@
        
-
-
-
-
 
 <!-- Vendor JS Files -->
 <script src="~/vendor/apexcharts/apexcharts.min.js"></script>
