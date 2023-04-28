@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HRBMSWEBAPI.Controllers
 {
-    [Authorize("Admin")]
+    [Authorize]
     [Route("api/v1/[controller]")]
     [ApiController]
     public class BookingController : ControllerBase

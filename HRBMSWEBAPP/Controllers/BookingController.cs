@@ -118,8 +118,10 @@ namespace HRBMSWEBAPP.Controllers
                 booking.UserId = userId;
                 booking.RoomId = roomId;
                 // Save the booking to the database 
-                _context.Booking.Add(booking);
+                 _context.Booking.Add(booking);
                 _context.SaveChanges();
+         
+               
 
                 var room = _context.Room.FirstOrDefault(r => r.Id == roomId);
                 if (room != null)
@@ -127,12 +129,15 @@ namespace HRBMSWEBAPP.Controllers
                     room.Status = false;
                     _context.Room.Update(room);
                     _context.SaveChanges();
+                   
+                       
+                    
                 }
 
-                TempData["BookingMessage"] = "Booking successfully created.";
 
+             
                 // Redirect to a thank-you page or back to the room list page
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Success");
             }
 
             ViewData["Message"] = "Data is not valid to create the booking";
@@ -177,6 +182,10 @@ namespace HRBMSWEBAPP.Controllers
             
             await _repo.UpdateBooking(booking.Id,booking);
             return RedirectToAction("GetAllBookings");
+        }
+        public IActionResult Success()
+        {
+            return View();
         }
       
         

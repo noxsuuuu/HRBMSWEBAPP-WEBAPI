@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HRBMSWEBAPI.Controllers
 {
-    [Authorize("Admin")]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class RoomController : ControllerBase

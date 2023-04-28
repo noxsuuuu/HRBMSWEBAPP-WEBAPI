@@ -1,5 +1,6 @@
 ﻿@model Booking
 @inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> _userManager;
+@using Microsoft.AspNetCore.Mvc;
 
 @{
     ViewData["Title"] = "Create Bookings";
@@ -50,7 +51,7 @@
 
                         
                         <br>
-
+                        
                         <div class="form-group">
                             <input type="submit" value="Book Now!" class="btn btn-primary" />
                         </div>
@@ -63,7 +64,25 @@
         alert("Booking completed successfully!");
     }
 </script>*@
-
+@*@if (TempData["BookingMessage"] == null)
+{
+    <script>alert("@TempData["BookingMessage"]");</script>
+}
+else
+{
+    <script>alert("@TempData["BookingMessage"]");</script>
+}*@
+@*
+@if (!ViewData.ModelState.IsValid)
+{
+  
+}
+else
+{
+    <div class="alert alert-success">
+        <strong>Success!</strong> Booking completed successfully!
+    </div>
+}*@
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
