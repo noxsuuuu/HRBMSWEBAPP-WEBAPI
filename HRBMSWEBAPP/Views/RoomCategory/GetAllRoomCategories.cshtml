@@ -28,6 +28,11 @@
             <th>
                 @Html.DisplayNameFor(model => model.Price)
             </th>
+
+          @*  <th>
+                @Html.DisplayNameFor(model => model.NoOfRooms)
+            </th>*@
+
             <th></th>
         </tr>
     </thead>
@@ -43,6 +48,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
+
             <td>
                 <a asp-action="Update" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
