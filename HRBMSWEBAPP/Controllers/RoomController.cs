@@ -1,6 +1,7 @@
 ﻿using HRBMSWEBAPP.Data;
 using HRBMSWEBAPP.Models;
 using HRBMSWEBAPP.Repository;
+using HRBMSWEBAPP.Repository.Rest;
 using HRBMSWEBAPP.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,12 +12,14 @@ namespace HRBMSWEBAPP.Controllers
     public class RoomController : Controller
     {
         private readonly IRoomDBRepository _repo;
+        private readonly IRoomsRepository _roomsRest;
         HRBMSDBCONTEXT _context;
 
-        public RoomController(IRoomDBRepository repo , HRBMSDBCONTEXT context)
+        public RoomController(IRoomDBRepository repo , HRBMSDBCONTEXT context, IRoomsRepository roomsRest)
         {
             this._repo = repo;
             _context = context;
+            _roomsRest = roomsRest;
         }
 
      
@@ -29,12 +32,16 @@ namespace HRBMSWEBAPP.Controllers
                 roomlist = roomlist.Where(s => s.Category.Room_Name.ToLower().Contains(searchString.Trim().ToLower()));
                 return View(roomlist.ToList());
             }
-            List<Room> room = await this._repo.GetAllRoom();
-            return View(room);
-           // return this._context.Room.Include(e => e.Category.Room_Name).AsNoTracking().ToListAsync();
+            //sql
+            //List<Room> room = await this._repo.GetAllRoom();
+            //return View(room);
+
+            //stored procedure
+            var roomlistsp = _roomsRest.spGetAllRooms();
+            return View(roomlistsp);
         }
 
-     
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
