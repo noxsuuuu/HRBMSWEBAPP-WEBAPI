@@ -1,10 +1,15 @@
 ﻿
+
 using HRBMSWEBAPP.Models;
 using HRBMSWEBAPP.Repository;
+using HRBMSWEBAPP.Repository.Rest;
 using HRBMSWEBAPP.ViewModel;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace HRBMSWEBAPP.Controllers
 {
@@ -12,6 +17,7 @@ namespace HRBMSWEBAPP.Controllers
     {
         private UserManager<ApplicationUser> _userManager { get; }
         // login user details 
+        public IAccountRepository _repo { get; }
         private SignInManager<ApplicationUser> _signInManager { get; }
         public RoleManager<IdentityRole> _roleManager { get; }
         public IAccountDBRepository _accountRepository { get; }
@@ -75,23 +81,28 @@ namespace HRBMSWEBAPP.Controllers
         public async Task<IActionResult> Login(LoginUserViewModel userViewModel)
         {
        
-
+            //consume rest api
             if (ModelState.IsValid)
             {
+                // login activity -> cookie [Roles and Claims]
                 var result = await _signInManager.PasswordSignInAsync(userViewModel.UserName, userViewModel.Password, userViewModel.RememberMe, false);
 
-                if (result.Succeeded)
+                //var result = await _repo.SignInUserAsync(userViewModel);
+
+                //login cookie and transfter to the client 
+                if (result is not null)
                 {
-                    ViewBag.LoginSuccess = true;
+                    // add token to session 
+                    HttpContext.Session.SetString("JWToken", result.ToString());
                     return RedirectToAction("Index", "Home");
                 }
-                ModelState.AddModelError(string.Empty, "Login Failed!");
+                ModelState.AddModelError(string.Empty, "invalid login credentials");
             }
-
             return View(userViewModel);
 
 
         }
+   
 
 
         [HttpGet]

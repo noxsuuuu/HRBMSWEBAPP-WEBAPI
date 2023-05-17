@@ -15,8 +15,6 @@ public class RoomsRepository : IRoomsRepository
     public RoomsRepository(IConfiguration configs, HRBMSDBCONTEXT context)
     {
         _httpClient = new HttpClient();
-        // jsonplaceholder.typicode server
-        //_httpClient.BaseAddress = new Uri("https://jsonplaceholder.typicode.com");
         // Local server
         _httpClient.BaseAddress = new Uri("https://localhost:7098/api");
         _configs = configs;
@@ -47,21 +45,7 @@ public class RoomsRepository : IRoomsRepository
             Console.WriteLine("Delete Room Response: ", data);
         }
     }
-    //public async Task<List<Todo>> GetAllTodos(string token)
-    //{
-    //    _httpClient.DefaultRequestHeaders.Add("ApiKey", _configs.GetValue<string>("ApiKey"));
-    //    _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
-    //    var response = await _httpClient.GetAsync("/todos");
-
-    //    if (response.IsSuccessStatusCode)
-    //    {
-    //        var content = await response.Content.ReadAsStringAsync();
-    //        var todos = JsonConvert.DeserializeObject<List<Todo>>(content);
-    //        return todos ?? new();
-    //    }
-
-    //    return new();
-    //}
+  
 
     public async Task<List<Room>> GetAllRooms(string token)
     {
@@ -77,7 +61,7 @@ public class RoomsRepository : IRoomsRepository
         return new();
     }
 
-    //stored procedure
+    //stored procedure for getting all rooms
     public List<Room> spGetAllRooms()
     {
         return _context.Room.FromSqlRaw($"exec getallrooms").ToList();

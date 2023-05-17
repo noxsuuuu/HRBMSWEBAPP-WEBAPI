@@ -5,16 +5,24 @@ using HRBMSWEBAPP.Models;
 using Microsoft.AspNetCore.Identity;
 using HRBMSWEBAPP.Service;
 using HRBMSWEBAPP.Repository.DbRepository;
+using HRBMSWEBAPP.Repository.Rest;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddSession();
+
 builder.Services.AddDbContext<HRBMSDBCONTEXT>();
 builder.Services.AddScoped<HRBMSDBCONTEXT, HRBMSDBCONTEXT>();
 builder.Services.AddScoped<IBookingDBRepository, BookingDBRepository>();
+
+//restapi
+builder.Services.AddScoped<IRoomsRepository, RoomsRepository>();
+
 builder.Services.AddScoped<IRoomDBRepository, RoomDBRepository>();
+
 builder.Services.AddScoped<IRoomCatDBRepository, RoomCategoryDBRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAccountDBRepository, AccountDbRepository>();
@@ -48,6 +56,8 @@ app.UseStaticFiles();
 //app.Automigrate();
 
 app.UseRouting();
+
+app.UseSession();
 
 app.UseAuthentication();
 

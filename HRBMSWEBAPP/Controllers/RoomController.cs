@@ -54,16 +54,18 @@ namespace HRBMSWEBAPP.Controllers
         }
    
 
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int roomId)
         {
             // Check if the room exists
-            Room room = await _repo.GetRoomById(id);
+            //restapi
+            //var room = await _roomsRest.GetRoomById(roomId);
+            var room = await _repo.GetRoomById(roomId);
             if (room == null)
             {
                 return NotFound();
             } 
             // Delete the room
-            await _repo.DeleteRoom(id);
+            await _roomsRest.DeleteRoom(roomId);
             return RedirectToAction("GetAllRooms");
         }
        
@@ -79,7 +81,10 @@ namespace HRBMSWEBAPP.Controllers
         {
             if (ModelState.IsValid)
             {
-                _repo.AddRoom(newRoom);
+                //consuming rest api
+                //_roomsRest.CreateRoom(newRoom);
+
+                _repo.AddRoom(newRoom);         
                 return RedirectToAction("GetAllRooms");
             }
 
