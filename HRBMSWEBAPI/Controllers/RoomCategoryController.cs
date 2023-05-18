@@ -68,5 +68,40 @@ namespace HRBMSWEBAPI.Controllers
             await _repo.DeleteRoomCategories(catId);
             return Accepted();
         }
+
+        [HttpPost]
+        public IActionResult AddRoomCategories([FromBody] RoomCategoriesDTO categoryDTO)
+        {
+            if (categoryDTO == null)
+                return BadRequest("No Data provided");
+
+            if (ModelState.IsValid)
+            {
+                var category = _mapper.Map<RoomCategories>(categoryDTO);
+                var newcat = _repo.AddRoomCategories(category);
+                return CreatedAtAction("GetById", new { catId = newcat.Id }, newcat);
+            }
+
+            return BadRequest(ModelState);
+        }
+
+
+
+        [HttpPut("{catId}")]
+
+        public IActionResult UpdateRoomCategories([FromBody] RoomCategories category, [FromRoute] int catId)
+        {
+            if (category == null)
+                return BadRequest();
+
+            if (ModelState.IsValid)
+            {
+                var updatedRoomCategories = _repo.UpdateRoomCategories(catId, category);
+                return AcceptedAtAction("GetById", new { catId = updatedRoomCategories.Id }, updatedRoomCategories);
+            }
+
+            return BadRequest();
+        }
+
     }
 }

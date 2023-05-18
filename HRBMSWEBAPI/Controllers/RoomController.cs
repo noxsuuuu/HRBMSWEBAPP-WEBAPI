@@ -72,21 +72,39 @@ namespace HRBMSWEBAPI.Controllers
             return Accepted();
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> AddRoom(int CategoryId, bool Status)
-        //{
-
-        //   // var parameter = new[]
-        //   //{
-        //   // new SqlParameter("@CategoryId", CategoryId),
-        //   // new SqlParameter("@Status", Status)
-        //   // };
-        //    var result = await _context.Database
-        //   .ExecuteSqlRawAsync($"addroom {CategoryId}, {Status}");
-        //   // await _context.SaveChangesAsync();
-        //    return Ok(result);
+        [HttpPost]
+        public IActionResult AddRoom([FromBody] RoomDTO roomDTO)
+        {
             
-        //}
+
+            if (roomDTO == null)
+                return BadRequest("No Data provided");
+
+            if (ModelState.IsValid)
+            {
+                var room = _mapper.Map<Room>(roomDTO);
+                var newRoom = _repo.AddRoom(room);
+                return CreatedAtAction("GetById", new { roomId = newRoom.Id }, newRoom);
+            }
+
+            return BadRequest(ModelState);
+        }
+
+        [HttpPut("{roomId}")]
+
+        public IActionResult UpdateRoom([FromBody] Room room, [FromRoute] int roomId)
+        {
+            if (room == null)
+                return BadRequest();
+
+            if (ModelState.IsValid)
+            {
+                var updatedRoom = _repo.UpdateRoom(roomId, room);
+                return AcceptedAtAction("GetById", new { roomId = updatedRoom.Id }, updatedRoom);
+            }
+
+            return BadRequest();
+        }
 
     }
 }
