@@ -28,9 +28,9 @@ namespace HRBMSWEBAPI.Controllers
         public async Task<IActionResult> GetAll()
         {
             //stored procedure 
-            //return Ok(_repo.spGetAllCategories());
+            return Ok(_repo.spGetAllCategories());
 
-             return Ok(await _repo.GetAllRoomCategories());
+            // return Ok(await _repo.GetAllRoomCategories());
         }
 
         [HttpGet("{catId}")]

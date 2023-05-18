@@ -18,9 +18,6 @@ namespace HRBMSWEBAPI.Models
         public bool Status { get; set; }
 
 
-        /* [ValidateNever]
-         public RoomCategories Category { get; set; }
- */
 
         public Room() { }
 

@@ -22,17 +22,13 @@ namespace HRBMSWEBAPI.Models
         [DisplayFormat(DataFormatString = "₱{0:N}", ApplyFormatInEditMode = true, NullDisplayText = "")]
         [Required]
         public int Price { get; set; }
-
-        public int NoOfRooms { get; set; }
-
         public RoomCategories() { }
-        public RoomCategories(int id, string room_Name, string description, int price, int noOfRooms)
+        public RoomCategories(int id, string room_Name, string description, int price)
         {
             Id = id;
             Room_Name = room_Name;
             Description = description;
             Price = price;
-            NoOfRooms = noOfRooms;
         }
 
     }
