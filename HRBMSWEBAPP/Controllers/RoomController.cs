@@ -23,15 +23,15 @@ namespace HRBMSWEBAPP.Controllers
         private readonly IConfiguration _configs;
         private readonly HttpClient _httpClient;
 
-        public RoomController(IRoomDBRepository repo , HRBMSDBCONTEXT context, IRoomsRepository roomsRest, IConfiguration configs)
-                                
+        public RoomController(IRoomDBRepository repo, HRBMSDBCONTEXT context, IRoomsRepository roomsRest, IConfiguration configs)
+
         {
             _httpClient = new HttpClient();
             _httpClient.BaseAddress = new Uri("http://localhost:7098/api");
             this._repo = repo;
             _context = context;
             _configs = configs;
-            _roomsRest = roomsRest;    
+            _roomsRest = roomsRest;
         }
 
 
@@ -46,7 +46,7 @@ namespace HRBMSWEBAPP.Controllers
             }
 
             // use access token to call a protected web API
-            var token = HttpContext.Session.GetString("JWToken");  
+            var token = HttpContext.Session.GetString("JWToken");
             List<Room> room = await this._roomsRest.GetAllRooms(token);
             return View(room);
 
@@ -65,7 +65,7 @@ namespace HRBMSWEBAPP.Controllers
             Room room = await this._repo.GetRoomById((int)id);
             return View(room);
         }
-   
+
 
         public async Task<IActionResult> Delete(int id)
         {
@@ -77,12 +77,12 @@ namespace HRBMSWEBAPP.Controllers
             if (room == null)
             {
                 return NotFound();
-            } 
+            }
             // Delete the room
             await _roomsRest.DeleteRoom(id, token);
             return RedirectToAction("GetAllRooms");
         }
-       
+
         [HttpGet]
         public IActionResult Create()
         {
@@ -96,8 +96,10 @@ namespace HRBMSWEBAPP.Controllers
             if (ModelState.IsValid)
             {
                 //consuming rest api
-                var token = HttpContext.Session.GetString("JWToken");
-                _roomsRest.CreateRoom(newRoom, token);         
+                //var token = HttpContext.Session.GetString("JWToken");
+                //_roomsRest.CreateRoom(newRoom, token);
+
+                _repo.AddRoom(newRoom);
                 return RedirectToAction("GetAllRooms");
             }
 
@@ -108,17 +110,12 @@ namespace HRBMSWEBAPP.Controllers
             return View();
         }
 
-
-
-       
-
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-            
+
             ViewBag.Categories = _context.Categories.ToList();
-            var token = HttpContext.Session.GetString("JWToken");
-            var old = await this._roomsRest.GetRoomById(id);
+            var old = await this._repo.GetRoomById(id);
             return View(old);
 
         }

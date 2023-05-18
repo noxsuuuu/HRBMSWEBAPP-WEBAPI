@@ -19,9 +19,13 @@ namespace HRBMSWEBAPP.Controllers
         public async Task<IActionResult> GetAllRoomCategories()
         {
 
-            List<RoomCategories> catlist = await _repo.GetAllRoomCategories();
-            return View(catlist);
- 
+            //List<RoomCategories> catlist = await _repo.GetAllRoomCategories();
+            //return View(catlist);
+            var token = HttpContext.Session.GetString("JWToken");
+            List<RoomCategories> categories = await this._repo.GetAllRoomCategories(token);
+            return View(categories);
+
+
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -37,8 +41,14 @@ namespace HRBMSWEBAPP.Controllers
 
         public IActionResult Delete(int id)
         {
-            var catlist = _repo.DeleteRoomCategories(id);
-            return RedirectToAction(controllerName: "RoomCategory", actionName: "GetAllRoomCategories");
+            var token = HttpContext.Session.GetString("JWToken");
+            var cat =  _repo.GetRoomCategoriesById(id);
+            if (cat == null)
+            {
+                return NotFound();
+            }
+            var catlist = _repo.DeleteRoomCategories(id, token);
+            return RedirectToAction("GetAllRoomCategories");
         }
 
         [HttpGet]

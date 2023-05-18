@@ -55,17 +55,17 @@ namespace HRBMSWEBAPI.Controllers
         }
 
         [HttpDelete("{catId}")]
-        public async Task<IActionResult> DeleteAsync([FromRoute] int bookId)
+        public async Task<IActionResult> DeleteAsync([FromRoute] int catId)
         {
-            if (bookId == 0)
+            if (catId == 0)
                 return BadRequest();
 
-            var book = await _repo.GetRoomCategoriesById(bookId);
+            var cat = await _repo.GetRoomCategoriesById(catId);
 
-            if (book == null)
+            if (cat == null)
                 return NotFound("No Resource Found");
 
-            await _repo.DeleteRoomCategories(bookId);
+            await _repo.DeleteRoomCategories(catId);
             return Accepted();
         }
     }

@@ -13,6 +13,7 @@ namespace HRBMSWEBAPI.Repository
         // stored procedures
         List<Room> spGetAllRooms();
         Task spDeleteRoom(int roomId);
+       // Room spAddRoom(Room room);
 
     }
 }

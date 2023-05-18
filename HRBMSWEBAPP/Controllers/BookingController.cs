@@ -46,9 +46,12 @@ namespace HRBMSWEBAPP.Controllers
                 booklist = booklist.Where(s => s.User.Full_Name.ToLower().Contains(searchString.Trim().ToLower()));
                 return View(booklist.ToList());
             }
-
-            List <Booking> booking = await this._repo.GetAllBooking();
-            return View(booking);
+            // use access token to call a protected web API
+            var token = HttpContext.Session.GetString("JWToken");
+            List<Booking> book = await this._repo.GetAllBooking(token);
+            return View(book);
+            //List <Booking> booking = await this._repo.GetAllBooking();
+            //return View(booking);
         }
 
        
@@ -77,7 +80,7 @@ namespace HRBMSWEBAPP.Controllers
             {
                 return NotFound();
             }
-
+            var token = HttpContext.Session.GetString("JWToken");
             var room = await this._Roomrepo.GetRoomById(booking.RoomId);
             if (room != null)
             {
@@ -86,7 +89,7 @@ namespace HRBMSWEBAPP.Controllers
                 _context.SaveChanges();
             }
             // Delete the booking from the database
-            await this._repo.DeleteBooking(id);
+            await this._repo.DeleteBooking(id, token);
 
             // Redirect to the list of bookings
             return RedirectToAction("GetAllBookings");

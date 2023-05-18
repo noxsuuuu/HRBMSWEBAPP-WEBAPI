@@ -1,5 +1,6 @@
 ﻿using HRBMSWEBAPI.Data;
 using HRBMSWEBAPI.Models;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace HRBMSWEBAPI.Repository.Database
@@ -24,6 +25,8 @@ namespace HRBMSWEBAPI.Repository.Database
             _context.SaveChanges();
             return room;
         }
+
+        
         public Task DeleteRoom(int room_id)
         {
             var room = this._context.Room.FindAsync(room_id);
@@ -35,6 +38,7 @@ namespace HRBMSWEBAPI.Repository.Database
             return this._context.SaveChangesAsync();
         }
 
+        //stored procedure for deleteroom
         public Task spDeleteRoom(int roomId)
         {
             //return _context.Room.FromSqlRaw($"exec getallrooms{roomId}").ToList();

@@ -1,15 +1,22 @@
 ﻿using HRBMSWEBAPP.Data;
 using HRBMSWEBAPP.Models;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System.Net.Http;
 
 namespace HRBMSWEBAPP.Repository.Database
 {
     public class BookingDBRepository : IBookingDBRepository
     {
         HRBMSDBCONTEXT _context;
-
-        public BookingDBRepository(HRBMSDBCONTEXT context)
+        private readonly HttpClient _httpClient;
+        private readonly IConfiguration _configs;
+        public BookingDBRepository(HRBMSDBCONTEXT context, IConfiguration configs)
         {
+            _httpClient = new HttpClient();
+            // Local server
+            _httpClient.BaseAddress = new Uri("https://localhost:7098/api");
+            _configs = configs;
             _context = context;
         }
         
@@ -19,15 +26,26 @@ namespace HRBMSWEBAPP.Repository.Database
             return this._context.SaveChangesAsync();
         }
 
-        public Task DeleteBooking(int bookingId)
+        public async Task DeleteBooking(int BookingId, string token)
         {
-            var booking = this._context.Booking.FindAsync(bookingId);
-            if (booking.Result != null)
-            {
-                this._context.Booking.Remove(booking.Result);
-            }
+            _httpClient.DefaultRequestHeaders.Add("ApiKey", _configs.GetValue<string>("ApiKey"));
+            _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
 
-            return this._context.SaveChangesAsync();
+            //var newRoomAsString = JsonConvert.SerializeObject(newRoom);
+
+            var response = await _httpClient.DeleteAsync($"https://localhost:7098/api/v1/Booking/{BookingId}");
+            if (response.IsSuccessStatusCode)
+            {
+                var data = await response.Content.ReadAsByteArrayAsync();
+                Console.WriteLine("Delete Booking Response: ", data);
+            }
+            //var booking = this._context.Booking.FindAsync(BookingId);
+            //if (booking.Result != null)
+            //{
+            //    this._context.Booking.Remove(booking.Result);
+            //}
+
+            //return this._context.SaveChangesAsync();
         }
        
         
@@ -37,9 +55,20 @@ namespace HRBMSWEBAPP.Repository.Database
             this._context.Update(booking);
             return this._context.SaveChangesAsync();
         }
-        public Task<List<Booking>> GetAllBooking()
+        public async Task<List<Booking>> GetAllBooking(string token)
         {
-            return this._context.Booking.Include(c => c.Room).Include(c => c.User).AsNoTracking().ToListAsync();
+            _httpClient.DefaultRequestHeaders.Add("ApiKey", _configs.GetValue<string>("ApiKey"));
+            _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+            var response = await _httpClient.GetAsync("https://localhost:7098/api/v1/Booking");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                var book = JsonConvert.DeserializeObject<List<Booking>>(content);
+                return book ?? new List<Booking>();
+            }
+            return new List<Booking>();
+            // return this._context.Booking.Include(c => c.Room).Include(c => c.User).AsNoTracking().ToListAsync();
         }
         public List<Booking> GetAllBooking1()
         {

@@ -13,7 +13,6 @@ namespace HRBMSWEBAPP.Repository.Rest;
 public class RoomsRepository : IRoomsRepository
 {
     private readonly HttpClient _httpClient;
-    //private readonly HttpContext _httpcontext;
     private readonly IConfiguration _configs;
     HRBMSDBCONTEXT _context;
     public RoomsRepository(IConfiguration configs, HRBMSDBCONTEXT context)
@@ -63,7 +62,6 @@ public class RoomsRepository : IRoomsRepository
 
     public async Task<List<Room>> GetAllRooms(string token)
     {
-        //var token = JObject.Parse(responseContent)["token"].ToString();
         _httpClient.DefaultRequestHeaders.Add("ApiKey", _configs.GetValue<string>("ApiKey"));
         _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
         var response = await _httpClient.GetAsync("https://localhost:7098/api/Room");

@@ -12,8 +12,6 @@ namespace HRBMSWEBAPI.Controllers
     [ApiController]
     public class BookingController : ControllerBase
     {
-        
-
         IBookingRepository _repo;
         private readonly IMapper _mapper;
 

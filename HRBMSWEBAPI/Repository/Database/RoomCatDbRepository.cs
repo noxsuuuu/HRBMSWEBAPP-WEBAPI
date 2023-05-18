@@ -20,16 +20,13 @@ namespace HRBMSWEBAPI.Repository.Database
             return category;
         }
 
-        public Task DeleteRoomCategories(int category_id)
+        public Task DeleteRoomCategories(int catId)
         {
-            var category = this._context.Categories.FindAsync(category_id);
+            var category = this._context.Categories.FindAsync(catId);
             if (category.Result != null)
             {
                 this._context.Categories.Remove(category.Result);
             }
-
-
-
             return this._context.SaveChangesAsync();
 
         }

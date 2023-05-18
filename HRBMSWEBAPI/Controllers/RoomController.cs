@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
+using HRBMSWEBAPI.Data;
 using HRBMSWEBAPI.DTO;
 using HRBMSWEBAPI.Models;
 using HRBMSWEBAPI.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,12 +20,13 @@ namespace HRBMSWEBAPI.Controllers
         // GET: api/<RoomController>
         IRoomRepository _repo;
         private readonly IMapper _mapper;
+        HRBMSDBCONTEXT _context;
 
-
-        public RoomController(IRoomRepository repo, IMapper mapper)
+        public RoomController(IRoomRepository repo, IMapper mapper, HRBMSDBCONTEXT context)
         {
             _repo = repo;
             _mapper = mapper;
+            _context = context;
         }
 
         [HttpGet]
@@ -67,6 +71,22 @@ namespace HRBMSWEBAPI.Controllers
             await _repo.spDeleteRoom(roomId);
             return Accepted();
         }
+
+        //[HttpPost]
+        //public async Task<IActionResult> AddRoom(int CategoryId, bool Status)
+        //{
+
+        //   // var parameter = new[]
+        //   //{
+        //   // new SqlParameter("@CategoryId", CategoryId),
+        //   // new SqlParameter("@Status", Status)
+        //   // };
+        //    var result = await _context.Database
+        //   .ExecuteSqlRawAsync($"addroom {CategoryId}, {Status}");
+        //   // await _context.SaveChangesAsync();
+        //    return Ok(result);
+            
+        //}
 
     }
 }
