@@ -61,7 +61,7 @@ namespace HRBMSWEBAPI.Repository.Database
         }
         public Task<List<Room>> GetAllRoom()
         {
-            return this._context.Room.AsNoTracking().ToListAsync();
+            return this._context.Room.Include(e => e.Category).AsNoTracking().ToListAsync();
         }
 
 

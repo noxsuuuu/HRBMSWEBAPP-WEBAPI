@@ -33,7 +33,7 @@ namespace HRBMSWEBAPI.Controllers
         public async Task<IActionResult> GetAll()
         {
             //calling getallrooms stored procedure 
-            return Ok( _repo.spGetAllRooms());
+            return Ok( await _repo.GetAllRoom());
         }
 
         [HttpGet("{roomId}")]

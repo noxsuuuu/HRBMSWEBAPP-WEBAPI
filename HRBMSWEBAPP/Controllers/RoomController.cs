@@ -37,7 +37,7 @@ namespace HRBMSWEBAPP.Controllers
 
         public async Task<IActionResult> GetAllRooms(string searchString)
         {
-            var roomlist = from books in _roomsRest.spGetAllRooms()
+            var roomlist = from books in _repo.GetAllRoom1()
                            select books;
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -50,9 +50,8 @@ namespace HRBMSWEBAPP.Controllers
             List<Room> room = await this._roomsRest.GetAllRooms(token);
             return View(room);
 
-            //stored procedure
-            //var roomlistsp = _roomsRest.spGetAllRooms();
-            //return View(roomlistsp);
+            //List<Room> getallroom = await _repo.GetAllRoom();
+            //return View(getallroom);
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -96,10 +95,9 @@ namespace HRBMSWEBAPP.Controllers
             if (ModelState.IsValid)
             {
                 //consuming rest api
-                //var token = HttpContext.Session.GetString("JWToken");
-                //_roomsRest.CreateRoom(newRoom, token);
-
-                _repo.AddRoom(newRoom);
+                var token = HttpContext.Session.GetString("JWToken");
+                _roomsRest.CreateRoom(newRoom, token);
+                //_repo.AddRoom(newRoom);
                 return RedirectToAction("GetAllRooms");
             }
 
@@ -123,7 +121,8 @@ namespace HRBMSWEBAPP.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(Room newRoom)
         {
-            await _repo.UpdateRoom(newRoom.Id, newRoom);
+            var token = HttpContext.Session.GetString("JWToken");
+            await _roomsRest.UpdateRoom(newRoom.Id, newRoom, token);
             return RedirectToAction("GetAllRooms");
         }
 

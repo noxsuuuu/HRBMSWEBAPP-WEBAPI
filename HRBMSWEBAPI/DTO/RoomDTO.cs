@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using HRBMSWEBAPI.Models;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace HRBMSWEBAPI.DTO
 {
@@ -18,9 +20,9 @@ namespace HRBMSWEBAPI.DTO
         public bool Status { get; set; }
 
 
-        /* [ValidateNever]
-         public RoomCategories Category { get; set; }
- */
+         //[ValidateNever]
+         //public RoomCategories Category { get; set; }
+ 
 
         public RoomDTO() { }
 

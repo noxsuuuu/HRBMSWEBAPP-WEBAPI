@@ -13,6 +13,8 @@ namespace HRBMSWEBAPI.Models
         [DisplayName("Category ID")]
         public int CategoryId { get; set; }
 
+        [ValidateNever]
+        public RoomCategories Category { get; set; }
 
         [DisplayName("Room Status")]
         public bool Status { get; set; }
