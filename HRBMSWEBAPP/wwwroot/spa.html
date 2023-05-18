@@ -3,21 +3,62 @@
 <head>
     <meta charset="utf-8" />
     <title>Single Page Application</title>
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #f2f2f2;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+            .container label {
+                display: block;
+                margin-bottom: 10px;
+            }
+
+            .container input[type="text"],
+            .container input[type="password"] {
+                width: 100%;
+                padding: 10px;
+                font-size: 16px;
+                border-radius: 4px;
+                border: 1px solid #ccc;
+            }
+
+            .container button {
+                background-color: #4CAF50;
+                color: white;
+                padding: 10px 20px;
+                font-size: 16px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+    </style>
 </head>
 <body>
-    <center>Login Page</center>
+    <h1 style="text-align: center;">Login Page</h1>
     <div align="center">
         <form style="width: 500px;">
             <div class="container">
-                <label>User name:</label>
-                <input type="text" required />
-                <label>Password:</label>
-                <input type="password" required />
+                <label for="username">User name:</label>
+                <input type="text" id="username" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" required>
                 <button type="button" onclick="btnLogin()">Login</button>
             </div>
         </form>
-    </div>s
-    <!--List of todos-->
+    </div>
+   
     <div id="listrooms">
 
     </div>
@@ -27,19 +68,19 @@
         function btnLogin() {
             // rest api's and then start writing the functionality
 
-            // httpclient = js http client  -> ajax which can be used for http client 
+            // httpclient = js http client  -> ajax which can be used for http client
 
             var httpClient = new XMLHttpRequest();
             httpClient.onreadystatechange = function () {
                 console.log(this.readyState);
                 console.log(this.responseText);
-                if (this.readyState == 4 && this.status == 200 ) {
+                if (this.readyState == 4 && this.status == 200) {
                     document.getElementById("listrooms").innerHTML = this.responseText;
                     console.log(this.responseText);
                 }
                 else {
                     console.log("No Response");
-                }     
+                }
             }
             httpClient.open("POST", "https://localhost:7098/api/Account/login", true);
             httpClient.setRequestHeader("ApiKey", "RANDomValuetoDenoteAPIKeyWithNumbers131235");

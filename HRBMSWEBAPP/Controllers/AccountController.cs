@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Net;
 using System.Text;
 
 namespace HRBMSWEBAPP.Controllers
@@ -80,29 +82,54 @@ namespace HRBMSWEBAPP.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginUserViewModel userViewModel)
         {
-       
-            //consume rest api
+            
             if (ModelState.IsValid)
             {
-                // login activity -> cookie [Roles and Claims]
-                var result = await _signInManager.PasswordSignInAsync(userViewModel.UserName, userViewModel.Password, userViewModel.RememberMe, false);
-
-                //var result = await _repo.SignInUserAsync(userViewModel);
-
-                //login cookie and transfter to the client 
-                if (result is not null)
+                using (var httpClient = new HttpClient())
                 {
-                    // add token to session 
-                    HttpContext.Session.SetString("JWToken", result.ToString());
-                    return RedirectToAction("Index", "Home");
+                    StringContent stringContent = new StringContent(JsonConvert.SerializeObject(userViewModel), Encoding.UTF8, "application/json");
+                    using (var response = await httpClient.PostAsync("https://localhost:7098/api/Account/login", stringContent))
+                    {
+                        // Read the response content
+                        string responseContent = await response.Content.ReadAsStringAsync();
+                        //string token = responseContent;
+                        var token = JObject.Parse(responseContent)["token"].ToString();
+                        if (token == "Invalid Credentials")
+                        {
+                            ViewBag.Message = "Incorrect Username or Password";
+                            return View(userViewModel);
+                        }
+
+                      
+                        // Check the response status code
+                        if (response.StatusCode == HttpStatusCode.OK)
+                        {
+                            var result = await _signInManager.PasswordSignInAsync(userViewModel.UserName, userViewModel.Password, userViewModel.RememberMe, false);
+
+                            if (result.Succeeded)
+                            {
+                                ViewBag.LoginSuccess = true;
+                                // Store the token in the session
+                                HttpContext.Session.SetString("JWToken", token);
+                                return RedirectToAction("Index", "Home");
+                            }
+                        }
+                        else
+                        {
+                            // Handle the response based on the status code or content
+                            ViewBag.Message = "An error occurred. Status code: " + response.StatusCode;
+                            // You might choose to handle different error scenarios here
+                            return View(userViewModel);
+                        }
+                    }
                 }
-                ModelState.AddModelError(string.Empty, "invalid login credentials");
+
             }
             return View(userViewModel);
 
-
         }
-   
+
+
 
 
         [HttpGet]

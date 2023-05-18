@@ -40,6 +40,10 @@ namespace HRBMSWEBAPI.Repository.Database
 
 
         }
+        public List<RoomCategories> spGetAllCategories()
+        {
+            return _context.Categories.FromSqlRaw($"exec getallcategories").ToList();
+        }
 
         public Task<RoomCategories> GetRoomCategoriesById(int category_id)
         {

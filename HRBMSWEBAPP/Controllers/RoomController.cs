@@ -5,6 +5,12 @@ using HRBMSWEBAPP.Repository.Rest;
 using HRBMSWEBAPP.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.IdentityModel.Tokens.Jwt;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using TodoMinimalWebApp.Models;
 
 namespace HRBMSWEBAPP.Controllers
 {
@@ -14,33 +20,40 @@ namespace HRBMSWEBAPP.Controllers
         private readonly IRoomDBRepository _repo;
         private readonly IRoomsRepository _roomsRest;
         HRBMSDBCONTEXT _context;
+        private readonly IConfiguration _configs;
+        private readonly HttpClient _httpClient;
 
-        public RoomController(IRoomDBRepository repo , HRBMSDBCONTEXT context, IRoomsRepository roomsRest)
+        public RoomController(IRoomDBRepository repo , HRBMSDBCONTEXT context, IRoomsRepository roomsRest, IConfiguration configs)
+                                
         {
+            _httpClient = new HttpClient();
+            _httpClient.BaseAddress = new Uri("http://localhost:7098/api");
             this._repo = repo;
             _context = context;
-            _roomsRest = roomsRest;
+            _configs = configs;
+            _roomsRest = roomsRest;    
         }
 
-     
+
         public async Task<IActionResult> GetAllRooms(string searchString)
         {
-            var roomlist = from books in _repo.GetAllRoom1()
+            var roomlist = from books in _roomsRest.spGetAllRooms()
                            select books;
             if (!String.IsNullOrEmpty(searchString))
             {
                 roomlist = roomlist.Where(s => s.Category.Room_Name.ToLower().Contains(searchString.Trim().ToLower()));
                 return View(roomlist.ToList());
             }
-            //sql
-            //List<Room> room = await this._repo.GetAllRoom();
-            //return View(room);
+
+            // use access token to call a protected web API
+            var token = HttpContext.Session.GetString("JWToken");  
+            List<Room> room = await this._roomsRest.GetAllRooms(token);
+            return View(room);
 
             //stored procedure
-            var roomlistsp = _roomsRest.spGetAllRooms();
-            return View(roomlistsp);
+            //var roomlistsp = _roomsRest.spGetAllRooms();
+            //return View(roomlistsp);
         }
-
 
         public async Task<IActionResult> Details(int? id)
         {
@@ -54,18 +67,19 @@ namespace HRBMSWEBAPP.Controllers
         }
    
 
-        public async Task<IActionResult> Delete(int roomId)
+        public async Task<IActionResult> Delete(int id)
         {
             // Check if the room exists
             //restapi
             //var room = await _roomsRest.GetRoomById(roomId);
-            var room = await _repo.GetRoomById(roomId);
+            var token = HttpContext.Session.GetString("JWToken");
+            var room = await _repo.GetRoomById(id);
             if (room == null)
             {
                 return NotFound();
             } 
             // Delete the room
-            await _roomsRest.DeleteRoom(roomId);
+            await _roomsRest.DeleteRoom(id, token);
             return RedirectToAction("GetAllRooms");
         }
        
@@ -82,9 +96,8 @@ namespace HRBMSWEBAPP.Controllers
             if (ModelState.IsValid)
             {
                 //consuming rest api
-                //_roomsRest.CreateRoom(newRoom);
-
-                _repo.AddRoom(newRoom);         
+                var token = HttpContext.Session.GetString("JWToken");
+                _roomsRest.CreateRoom(newRoom, token);         
                 return RedirectToAction("GetAllRooms");
             }
 
@@ -104,7 +117,8 @@ namespace HRBMSWEBAPP.Controllers
         {
             
             ViewBag.Categories = _context.Categories.ToList();
-            var old = await this._repo.GetRoomById(id);
+            var token = HttpContext.Session.GetString("JWToken");
+            var old = await this._roomsRest.GetRoomById(id);
             return View(old);
 
         }

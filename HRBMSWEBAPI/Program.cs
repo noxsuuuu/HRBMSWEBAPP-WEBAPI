@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using TodoMinimalAPI.CustomMiddleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -94,6 +95,20 @@ builder.Services.AddSwaggerGen(opt =>
         }
     });
 });
+
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy(name: MyAllowSpecificOrigins, policy =>
+    {
+        //policy.AllowAnyOrigin()
+        policy.WithOrigins("http://localhost:5282", "mydomain.com")
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -103,6 +118,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(); // swagger editor to show the action urls for each operation
 }
 
+app.UseCors(MyAllowSpecificOrigins);
+
+//app.UseMiddleware<ApiKeyAuthMiddleware>();
 //app.UseHttpsRedirection();
 app.UseAuthentication();
 

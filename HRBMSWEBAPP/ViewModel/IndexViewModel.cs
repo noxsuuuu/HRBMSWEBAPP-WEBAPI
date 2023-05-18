@@ -4,5 +4,5 @@ namespace TodoMinimalWebApp.Models;
 
 public class IndexViewModel
 {
-    public List<Room> Rooms { get; set; } = new();
+    public List<Room> Rooms;
 }

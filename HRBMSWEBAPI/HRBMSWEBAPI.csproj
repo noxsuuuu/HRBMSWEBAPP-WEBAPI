@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>9e5a8d4c-c1f7-4de0-a293-77c8f6450b5b</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <PackageProjectUrl>http://localhost:7098/api</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>

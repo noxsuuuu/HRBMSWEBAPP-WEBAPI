@@ -4,6 +4,7 @@ using HRBMSWEBAPP.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HRBMSWEBAPP.Migrations
 {
     [DbContext(typeof(HRBMSDBCONTEXT))]
-    partial class HRBMSDBCONTEXTModelSnapshot : ModelSnapshot
+    [Migration("20230518070746_getallroomCat")]
+    partial class getallroomCat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -218,15 +220,15 @@ namespace HRBMSWEBAPP.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3fc97445-7846-47ee-b25b-6ddbd9e0c1ed",
-                            ConcurrencyStamp = "9224fe6c-489b-4854-8b26-d5bd653883af",
+                            Id = "2a60c5c4-9cd0-43da-a2ab-8f3ec4c8a46d",
+                            ConcurrencyStamp = "64b322c4-d66b-4b4c-a1ae-b6ddfe3ce23c",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "f6c3582b-99f8-46fe-8e66-370e74c84984",
-                            ConcurrencyStamp = "174b49c1-1e37-4326-83a7-f3f7a834ed00",
+                            Id = "9d41bf34-ddfd-4cfa-a3b3-b7f405175323",
+                            ConcurrencyStamp = "d311bacd-d0a4-4155-a72c-8f78f0ea49e9",
                             Name = "Guest",
                             NormalizedName = "GUEST"
                         });

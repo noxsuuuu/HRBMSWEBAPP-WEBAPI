@@ -9,7 +9,7 @@ public interface IRoomsRepository
     //stored procedure
     List<Room> spGetAllRooms();
     Task<Room?> GetRoomById(int roomId);
-    Task<Room?> CreateRoom(Room newRoom);
-    Task DeleteRoom(int roomId);
-    Task<Room?> UpdateRoom(int roomId, Room updatedRoom);
+    Task<Room?> CreateRoom(Room newRoom, string token);
+    Task DeleteRoom(int roomId, string token);
+    Task<Room?> UpdateRoom(int roomId, Room updatedRoom, string token);
 }

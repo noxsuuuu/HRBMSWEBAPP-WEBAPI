@@ -46,8 +46,11 @@ namespace HRBMSWEBAPI.Repository.Database
         {
             return this._context.Booking.ToListAsync();
         }
-
-        public Task DeleteBooking(int bookingId)
+        public List<Booking> spGetAllBooking()
+        {
+            return _context.Booking.FromSqlRaw($"exec getallbooking").ToList();
+        }
+    public Task DeleteBooking(int bookingId)
         {
             var booking = this._context.Booking.FindAsync(bookingId);
             if (booking.Result != null)

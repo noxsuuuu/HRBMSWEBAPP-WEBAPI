@@ -14,12 +14,10 @@ namespace HRBMSWEBAPI.Repository.Database
             _context = context;
         }
 
-        //public Room AddRoom(Room room)
-        //{
-        //    _context.Add(room);
-        //    _context.SaveChangesAsync();
-        //    return room;
-        //}
+        public List<Room> spGetAllRooms()
+        {
+            return _context.Room.FromSqlRaw($"exec getallrooms").ToList();
+        }
         public Room AddRoom(Room room)
         {
             _context.Add(room);
@@ -36,17 +34,7 @@ namespace HRBMSWEBAPI.Repository.Database
 
             return this._context.SaveChangesAsync();
         }
-        //public Room DeleteRoom(int room_id)
-        //{
-        //    var room = GetRoomById(room_id);
-        //    if (room != null)
-        //    {
-        //        _context.Room.Remove(room);
-        //        _context.SaveChanges();
-        //    }
 
-        //    return room;
-        //}
 
         public Room UpdateRoom(int room_id, Room room)
         {
@@ -60,24 +48,7 @@ namespace HRBMSWEBAPI.Repository.Database
             return this._context.Room.AsNoTracking().ToListAsync();
         }
 
-        //public List<Room> GetAllRoom()
-        //{
-        //    return _context.Room.AsNoTracking().ToList();
-        //}
 
-        //public Room GetRoomById(int room_id)
-        //{
-        //    var room = _context.Room
-        //           .Include(e => e.Category)
-        //           .FirstOrDefault(m => m.Id == room_id);
-
-        //    if (room == null)
-        //    {
-        //        return null;
-        //    }
-
-        //    return room;
-        //}
         public Task<Room> GetRoomById(int room_id)
         {
             var room = this._context.Room
