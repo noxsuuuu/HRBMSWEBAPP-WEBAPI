@@ -28,7 +28,7 @@ namespace HRBMSWEBAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            //stored procedure 
+            //calling getallrooms stored procedure 
             return Ok( _repo.spGetAllRooms());
         }
 
@@ -59,12 +59,12 @@ namespace HRBMSWEBAPI.Controllers
             if (roomId == 0)
                 return BadRequest();
 
-            var book = await _repo.GetRoomById(roomId);
+            var room = await _repo.GetRoomById(roomId);
 
-            if (book == null)
+            if (room == null)
                 return NotFound("No Resource Found");
 
-            await _repo.DeleteRoom(roomId);
+            await _repo.spDeleteRoom(roomId);
             return Accepted();
         }
 

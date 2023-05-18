@@ -35,6 +35,18 @@ namespace HRBMSWEBAPI.Repository.Database
             return this._context.SaveChangesAsync();
         }
 
+        public Task spDeleteRoom(int roomId)
+        {
+            //return _context.Room.FromSqlRaw($"exec getallrooms{roomId}").ToList();
+            var room = this._context.Room.FindAsync(roomId);
+            if (room.Result != null)
+            {
+                this._context.Database.ExecuteSqlRaw($"exec deleteroom {roomId}");
+            }
+
+            return this._context.SaveChangesAsync();
+        }
+
 
         public Room UpdateRoom(int room_id, Room room)
         {
