@@ -83,7 +83,7 @@ namespace HRBMSWEBAPI.Controllers
             if (ModelState.IsValid)
             {
                 var room = _mapper.Map<Room>(roomDTO);
-                var newRoom = _repo.spAddroom(room);
+                var newRoom = _repo.AddRoom(room);
                 return CreatedAtAction("GetById", new { roomId = newRoom.Id }, newRoom);
             }
 

@@ -6,7 +6,7 @@ namespace HRBMSWEBAPI.Repository
     {
         Task<List<Room>> GetAllRoom(); 
         Task<Room> GetRoomById(int room_id);
-        //Room AddRoom(Room room);
+        Room AddRoom(Room room);
         //Task DeleteRoom(int room_id);
         //Room UpdateRoom(int room_id, Room room);
 

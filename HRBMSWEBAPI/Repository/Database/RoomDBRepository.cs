@@ -19,18 +19,18 @@ namespace HRBMSWEBAPI.Repository.Database
         {
             return await _context.Room.FromSqlRaw("EXEC getallrooms").ToListAsync();
         }
-        //public Room AddRoom(Room room)
-        //{
-        //    _context.Add(room);
-        //    _context.SaveChanges();
-        //    return room;
-        //}
+        public Room AddRoom(Room room)
+        {
+            _context.Add(room);
+            _context.SaveChanges();
+            return room;
+        }
 
         public Room spAddroom(Room room)
         {
-           var CategoryId = new SqlParameter("@CategoryId", room.CategoryId);
+           //int CategoryId = new SqlParameter("@CategoryId", room.CategoryId);
            var Status = new SqlParameter("@Status", room.Status);
-           _context.Database.ExecuteSqlRaw("EXEC addroom @CategoryId, @Status", CategoryId, Status);
+           _context.Database.ExecuteSqlRaw($"EXEC addroom {room.CategoryId}, {room.Status}");
             return room;
         }
 
