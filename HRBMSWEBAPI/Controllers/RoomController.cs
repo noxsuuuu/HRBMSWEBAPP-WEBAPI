@@ -99,7 +99,7 @@ namespace HRBMSWEBAPI.Controllers
 
             if (ModelState.IsValid)
             {
-                var updatedRoom = _repo.UpdateRoom(roomId, room);
+                var updatedRoom = _repo.spUpdateRoom(roomId, room);
                 return AcceptedAtAction("GetById", new { roomId = updatedRoom.Id }, updatedRoom);
             }
 

@@ -68,20 +68,20 @@ namespace HRBMSWEBAPI.Repository.Database
             // var room = this._context.Room.FindAsync(roomId);
             if (room != null)
             {
-                _context.Database.ExecuteSqlRaw("EXEC updateroom @CategoryId, @Status", CategoryId, Status);
+                _context.Database.ExecuteSqlRaw($"EXEC updateroom @roomId = {roomId}, @Status = {room.Status}, @CategoryId = {room.CategoryId};");
             }
 
              _context.SaveChanges();
             return room;
         }
 
-        public Room UpdateRoom(int room_id, Room room)
-        {
-            _context.Update(room);
-            _context.SaveChanges();
+        //public Room UpdateRoom(int room_id, Room room)
+        //{
+        //    _context.Update(room);
+        //    _context.SaveChanges();
 
-            return room;
-        }
+        //    return room;
+        //}
         public Task<List<Room>> GetAllRoom()
         {
             return this._context.Room.Include(e => e.Category).AsNoTracking().ToListAsync();
