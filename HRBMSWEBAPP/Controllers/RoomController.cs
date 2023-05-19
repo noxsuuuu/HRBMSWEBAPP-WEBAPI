@@ -68,9 +68,6 @@ namespace HRBMSWEBAPP.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            // Check if the room exists
-            //restapi
-            //var room = await _roomsRest.GetRoomById(roomId);
             var token = HttpContext.Session.GetString("JWToken");
             var room = await _repo.GetRoomById(id);
             if (room == null)

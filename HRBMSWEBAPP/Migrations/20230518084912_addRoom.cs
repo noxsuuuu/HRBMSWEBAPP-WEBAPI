@@ -15,19 +15,13 @@ namespace HRBMSWEBAPP.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             var sp = @"CREATE OR ALTER PROCEDURE addroom
-            @Id INT,
-            @Status VARCHAR(255),
+            @Status bit,
             @CategoryId INT
             AS
             BEGIN
                INSERT INTO Room (Status, CategoryId)
                VALUES ( @Status, @CategoryId);
-            END;
-
-            ALTER TABLE Room
-            ADD CONSTRAINT FK_Room_Categories_CategoryId FOREIGN KEY (CategoryId)
-            REFERENCES Categories (Id);";
-            //ADD CONSTRAINT[FK_Room_Categories_CategoryId] FOREIGN KEY([CategoryId])
+            END";
             migrationBuilder.Sql(sp);
         }
 

@@ -95,13 +95,13 @@ public class RoomsRepository : IRoomsRepository
         return null;
     }
 
-    public async Task<Room?> UpdateRoom(int id, Room updatedRoom, string token)
+    public async Task<Room?> UpdateRoom(int roomId, Room updatedRoom, string token)
     {
         _httpClient.DefaultRequestHeaders.Add("ApiKey", _configs.GetValue<string>("ApiKey"));
         _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
         var newRoomAsString = JsonConvert.SerializeObject(updatedRoom);
         var responseBody = new StringContent(newRoomAsString, Encoding.UTF8, "application/json");
-        var response = await _httpClient.PutAsync($"/Room/{id}", responseBody);
+        var response = await _httpClient.PutAsync($"https://localhost:7098/api/Room/{roomId}", responseBody);
         if (response.IsSuccessStatusCode)
         {
             var content = await response.Content.ReadAsStringAsync();

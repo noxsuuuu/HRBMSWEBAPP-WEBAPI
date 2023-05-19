@@ -15,28 +15,36 @@ namespace HRBMSWEBAPI.Repository.Database
             _context = context;
         }
 
-        public List<Room> spGetAllRooms()
+        public async Task< List<Room>> spGetAllRooms()
         {
-            return _context.Room.FromSqlRaw($"exec getallrooms").ToList();
+            return await _context.Room.FromSqlRaw("EXEC getallrooms").ToListAsync();
         }
-        public Room AddRoom(Room room)
+        //public Room AddRoom(Room room)
+        //{
+        //    _context.Add(room);
+        //    _context.SaveChanges();
+        //    return room;
+        //}
+
+        public Room spAddroom(Room room)
         {
-            _context.Add(room);
-            _context.SaveChanges();
+           var CategoryId = new SqlParameter("@CategoryId", room.CategoryId);
+           var Status = new SqlParameter("@Status", room.Status);
+           _context.Database.ExecuteSqlRaw("EXEC addroom @CategoryId, @Status", CategoryId, Status);
             return room;
         }
 
-        
-        public Task DeleteRoom(int room_id)
-        {
-            var room = this._context.Room.FindAsync(room_id);
-            if (room.Result != null)
-            {
-                this._context.Room.Remove(room.Result);
-            }
 
-            return this._context.SaveChangesAsync();
-        }
+        //public Task DeleteRoom(int room_id)
+        //{
+        //    var room = this._context.Room.FindAsync(room_id);
+        //    if (room.Result != null)
+        //    {
+        //        this._context.Room.Remove(room.Result);
+        //    }
+
+        //    return this._context.SaveChangesAsync();
+        //}
 
         //stored procedure for deleteroom
         public Task spDeleteRoom(int roomId)
@@ -51,6 +59,21 @@ namespace HRBMSWEBAPI.Repository.Database
             return this._context.SaveChangesAsync();
         }
 
+
+        public Room spUpdateRoom(int roomId, Room room)
+        {
+            var CategoryId = new SqlParameter("@CategoryId", room.CategoryId);
+            var Status = new SqlParameter("@Status", room.Status);
+            
+            // var room = this._context.Room.FindAsync(roomId);
+            if (room != null)
+            {
+                _context.Database.ExecuteSqlRaw("EXEC updateroom @CategoryId, @Status", CategoryId, Status);
+            }
+
+             _context.SaveChanges();
+            return room;
+        }
 
         public Room UpdateRoom(int room_id, Room room)
         {
