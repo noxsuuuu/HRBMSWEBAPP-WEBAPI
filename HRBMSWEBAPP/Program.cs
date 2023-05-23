@@ -39,18 +39,6 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequireUppercase = true;
 });
 
-//var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-
-//builder.Services.AddCors(opt =>
-//{
-//    opt.AddPolicy(name: MyAllowSpecificOrigins, policy =>
-//    {
-//        //policy.AllowAnyOrigin()
-//        policy.WithOrigins("http://localhost:7098", "mydomain.com")
-//        .AllowAnyHeader()
-//        .AllowAnyMethod();
-//    });
-//});
 
 
 
@@ -63,7 +51,6 @@ if (!app.Environment.IsDevelopment())
 }
 app.UseStaticFiles();
 
-//app.UseCors(MyAllowSpecificOrigins);
 //app.Automigrate();
 
 app.UseRouting();

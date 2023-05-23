@@ -15,12 +15,12 @@ namespace HRBMSWEBAPP.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             var sp = @"CREATE OR ALTER PROCEDURE addroom
-            @Status bit,
             @CategoryId INT
+            @Status bit,
             AS
             BEGIN
-               INSERT INTO Room (Status, CategoryId)
-               VALUES ( @Status, @CategoryId);
+               INSERT INTO Room (CategoryId, Status)
+               VALUES (@CategoryId,  @Status);
             END";
             migrationBuilder.Sql(sp);
         }
