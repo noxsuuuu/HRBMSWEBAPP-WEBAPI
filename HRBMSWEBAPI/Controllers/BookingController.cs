@@ -26,7 +26,7 @@ namespace HRBMSWEBAPI.Controllers
         public async Task<IActionResult> GetAll()
         {
             //stored procedure 
-            return Ok(_repo.spGetAllBooking());
+            return Ok(_repo.GetAllBooking());
             //return Ok(await _repo.GetAllBooking());
         }
 

@@ -218,15 +218,15 @@ namespace HRBMSWEBAPP.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a2aea38a-d0b8-4cc1-8d8f-709d53eb572d",
-                            ConcurrencyStamp = "84e20d85-22b5-4eb7-a5f2-195b83b09bf2",
+                            Id = "8ae712c0-a732-472a-8621-2e3232d43a9c",
+                            ConcurrencyStamp = "60eba663-e401-4468-9df9-a5a05991f8d5",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "e354e2bd-7b64-45c2-9f40-33d77cf9745d",
-                            ConcurrencyStamp = "39b0eed9-e063-40a8-b749-08452e3f0b87",
+                            Id = "8fdd9f88-87ab-4ba0-bd44-bb75ae67f5db",
+                            ConcurrencyStamp = "e0a2f820-957f-4fb6-b254-93f755983c91",
                             Name = "Guest",
                             NormalizedName = "GUEST"
                         });
