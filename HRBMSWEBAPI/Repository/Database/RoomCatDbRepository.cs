@@ -33,13 +33,13 @@ namespace HRBMSWEBAPI.Repository.Database
 
         public Task<List<RoomCategories>> GetAllRoomCategories()
         {
-            return this._context.Categories.ToListAsync();
+            return this._context.Categories.AsNoTracking().ToListAsync();
 
 
         }
         public List<RoomCategories> spGetAllCategories()
         {
-            return _context.Categories.FromSqlRaw("getallcategories").ToList();
+            return _context.Categories.FromSqlRaw("EXEC getallcategories").ToList();
         }
 
         public Task<RoomCategories> GetRoomCategoriesById(int category_id)

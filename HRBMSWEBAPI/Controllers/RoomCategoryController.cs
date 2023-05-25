@@ -13,7 +13,7 @@ namespace HRBMSWEBAPI.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class RoomCategoryController : ControllerBase
-    {
+    { 
         IRoomCatRepository _repo;
         private readonly IMapper _mapper;
 
@@ -28,9 +28,9 @@ namespace HRBMSWEBAPI.Controllers
         public async Task<IActionResult> GetAll()
         {
             //stored procedure 
-            return Ok(_repo.GetAllRoomCategories());
+            //return Ok(_repo.spGetAllCategories());
 
-            // return Ok(await _repo.GetAllRoomCategories());
+            return Ok(await _repo.GetAllRoomCategories());
         }
 
         [HttpGet("{catId}")]

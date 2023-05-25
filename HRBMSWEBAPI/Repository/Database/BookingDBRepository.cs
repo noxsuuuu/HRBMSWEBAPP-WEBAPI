@@ -48,7 +48,7 @@ namespace HRBMSWEBAPI.Repository.Database
         }
         public List<Booking> spGetAllBooking()
         {
-            return _context.Booking.FromSqlRaw($"exec getallbooking").ToList();
+            return _context.Booking.FromSqlRaw("exec getallbooking").ToList();
         }
     public Task DeleteBooking(int bookingId)
         {

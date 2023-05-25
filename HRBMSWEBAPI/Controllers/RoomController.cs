@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HRBMSWEBAPI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class RoomController : ControllerBase
